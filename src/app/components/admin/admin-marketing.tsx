@@ -33,7 +33,7 @@ function fmtDate(iso: string) {
 }
 
 export function AdminMarketingPage() {
-  useSeo({ title: "Admin — Marketing", noIndex: true });
+  useSeo({ title: "Admin - Marketing", noIndex: true });
   const [tab, setTab] = useState<Tab>("overview");
 
   return (
@@ -109,7 +109,7 @@ function OverviewTab() {
         <Kpi label="Cartes cadeaux vendues" value={gcSold} hint={`${fmt(gcAmount)} Fcfa émis`} />
         <Kpi label="Solde cartes" value={`${fmt(gcRemaining)} F`} hint="à dépenser" />
         <Kpi label="Points fidélité (vous)" value={fmt(loyaltyPoints)} hint={`${fmt(totalPointsEarned)} gagnés · ${fmt(totalPointsRedeemed)} convertis`} tone="success" />
-        <Kpi label="Jour de marché" value={md ? "Aujourd'hui" : "—"} hint={md?.theme || "Aucun aujourd'hui"} />
+        <Kpi label="Jour de marché" value={md ? "Aujourd'hui" : "-"} hint={md?.theme || "Aucun aujourd'hui"} />
       </div>
 
       <AnalyticsSection
@@ -255,7 +255,7 @@ function AnalyticsSection({ promotions, flashDeals, contests, contestEntries, gi
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <ChartCard title="Roue — distribution des spins" subtitle="Probabilité théorique vs. réelle (%)">
+        <ChartCard title="Roue - distribution des spins" subtitle="Probabilité théorique vs. réelle (%)">
           <BarChart data={wheelData} margin={{ top: 10, right: 10, left: 0, bottom: 30 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis dataKey="name" angle={-30} textAnchor="end" height={60} style={{ fontSize: "10px" }} />
@@ -267,7 +267,7 @@ function AnalyticsSection({ promotions, flashDeals, contests, contestEntries, gi
           </BarChart>
         </ChartCard>
 
-        <ChartCard title="Concours — participations" subtitle="Répartition par concours actif">
+        <ChartCard title="Concours - participations" subtitle="Répartition par concours actif">
           {contestData.length === 0 ? (
             <div className="flex items-center justify-center h-full text-[var(--ipk-text-muted)]" style={{ fontSize: "12px" }}>Aucune participation.</div>
           ) : (
@@ -280,7 +280,7 @@ function AnalyticsSection({ promotions, flashDeals, contests, contestEntries, gi
           )}
         </ChartCard>
 
-        <ChartCard title="Cartes cadeaux — émis vs restant" subtitle="Sur les 6 derniers mois (Fcfa)">
+        <ChartCard title="Cartes cadeaux - émis vs restant" subtitle="Sur les 6 derniers mois (Fcfa)">
           {giftCardData.length === 0 ? (
             <div className="flex items-center justify-center h-full text-[var(--ipk-text-muted)]" style={{ fontSize: "12px" }}>Aucune carte émise.</div>
           ) : (
@@ -296,7 +296,7 @@ function AnalyticsSection({ promotions, flashDeals, contests, contestEntries, gi
           )}
         </ChartCard>
 
-        <ChartCard title="Fidélité — top 5 clients" subtitle="Soldes en points">
+        <ChartCard title="Fidélité - top 5 clients" subtitle="Soldes en points">
           {topLoyalty.length === 0 ? (
             <div className="flex items-center justify-center h-full text-[var(--ipk-text-muted)]" style={{ fontSize: "12px" }}>Aucun compte fidélité.</div>
           ) : (
@@ -370,7 +370,7 @@ function PromotionsTab() {
                 <tr key={p.id} className="border-t border-[var(--ipk-border)]">
                   <td className="px-3 py-2">
                     <div style={{ fontWeight: 600 }}>{p.title}</div>
-                    <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px" }}>{p.artisanName ? `Artisan : ${p.artisanName}` : p.category || "—"}</div>
+                    <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px" }}>{p.artisanName ? `Artisan : ${p.artisanName}` : p.category || "-"}</div>
                   </td>
                   <td className="px-3 py-2"><code className="px-1.5 py-0.5 rounded bg-[var(--ipk-surface)]">{p.code}</code></td>
                   <td className="px-3 py-2">{p.kind === "percent" ? `-${p.value}%` : `${fmt(p.value)} F`}{p.minCart ? <span className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px" }}> · min {fmt(p.minCart)} F</span> : null}</td>
@@ -997,8 +997,8 @@ function GiftCardsTab() {
                   <tr key={c.code} className="border-t border-[var(--ipk-border)]">
                     <td className="px-3 py-2"><code>{c.code}</code></td>
                     <td className="px-3 py-2">
-                      <div style={{ fontWeight: 600 }}>{c.recipientName || "—"}</div>
-                      <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px" }}>{c.recipientEmail || c.recipientAddress || "—"}</div>
+                      <div style={{ fontWeight: 600 }}>{c.recipientName || "-"}</div>
+                      <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px" }}>{c.recipientEmail || c.recipientAddress || "-"}</div>
                     </td>
                     <td className="px-3 py-2">{fmt(c.initialAmount)} F</td>
                     <td className="px-3 py-2"><strong>{fmt(c.remainingAmount)} F</strong></td>
@@ -1241,8 +1241,8 @@ function TicketsTab() {
                       <div style={{ fontWeight: 600 }}>{t.label}</div>
                       <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px" }}>Émis {fmtDate(t.earnedAt)} · {t.issuedBy === "admin" ? "admin" : "système"}</div>
                     </td>
-                    <td className="px-3 py-2">{t.assignedEmail || <span className="text-[var(--ipk-text-muted)]">—</span>}</td>
-                    <td className="px-3 py-2">{t.pct ? `-${t.pct}%` : t.amount ? `${fmt(t.amount)} F` : "—"}</td>
+                    <td className="px-3 py-2">{t.assignedEmail || <span className="text-[var(--ipk-text-muted)]">-</span>}</td>
+                    <td className="px-3 py-2">{t.pct ? `-${t.pct}%` : t.amount ? `${fmt(t.amount)} F` : "-"}</td>
                     <td className="px-3 py-2">{fmtDate(t.expiresAt)}</td>
                     <td className="px-3 py-2"><StatusPill status={label} tone={tone as "success" | "info" | "warn" | "danger"} /></td>
                     <td className="px-3 py-2">
@@ -1318,7 +1318,7 @@ function TicketIssuer({ template, onClose, onSave }: { template?: GiftTicket; on
     <div className="fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-3" onClick={onClose}>
       <div className="bg-white rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="sticky top-0 bg-white px-5 py-3 border-b border-[var(--ipk-border)] flex items-center justify-between">
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>Émettre un ticket{template ? ` — ${template.label}` : ""}</h3>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>Émettre un ticket{template ? ` - ${template.label}` : ""}</h3>
           <button onClick={onClose} className="p-1 rounded-lg hover:bg-[var(--ipk-surface)]"><X className="w-4 h-4" /></button>
         </div>
         <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-3" style={{ fontSize: "13px" }}>
@@ -1456,7 +1456,7 @@ function LoyaltyTab() {
                   <td className="px-3 py-2"><button onClick={() => setViewing(u.email)} className="hover:underline">{u.email}</button></td>
                   <td className="px-3 py-2"><strong>{fmt(u.points)}</strong> pts</td>
                   <td className="px-3 py-2 text-[var(--ipk-text-muted)]">{fmt(u.points * loyaltyConfig.toFcfaRatio)} F</td>
-                  <td className="px-3 py-2">{u.history[0] ? fmtDate(u.history[0].at) : "—"}</td>
+                  <td className="px-3 py-2">{u.history[0] ? fmtDate(u.history[0].at) : "-"}</td>
                   <td className="px-3 py-2">
                     <div className="flex items-center justify-end gap-1">
                       <button title="Créditer" onClick={() => setAdjusting({ email: u.email, mode: "credit" })} className="p-1.5 rounded-lg hover:bg-emerald-50 text-emerald-700"><Plus className="w-3.5 h-3.5" /></button>
@@ -1646,7 +1646,7 @@ function MarketDaysTab() {
                     {past && <StatusPill status="Passé" tone="neutral" />}
                     <span className="px-2 py-0.5 rounded-full bg-white border border-[var(--ipk-border)] text-[var(--ipk-text-muted)]" style={{ fontSize: "10px" }}>{d.style.theme} · {d.style.pattern}</span>
                   </div>
-                  <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "12px" }}>{d.theme} — {d.description}</div>
+                  <div className="text-[var(--ipk-text-muted)]" style={{ fontSize: "12px" }}>{d.theme} - {d.description}</div>
                   <div className="mt-1" style={{ fontSize: "12px", fontWeight: 600 }}>{d.highlight}</div>
                 </div>
                 <div className="flex items-center gap-1 flex-none">
@@ -1798,7 +1798,7 @@ function WheelTab() {
             <Plus className="w-3.5 h-3.5" /> Nouveau lot
           </button>
         </div>
-        <div className="text-[var(--ipk-text-muted)] mb-2" style={{ fontSize: "11px" }}>Poids total : <strong>{totalWeight}</strong> — la probabilité d'un lot = poids / total.</div>
+        <div className="text-[var(--ipk-text-muted)] mb-2" style={{ fontSize: "11px" }}>Poids total : <strong>{totalWeight}</strong> - la probabilité d'un lot = poids / total.</div>
         <div className="overflow-x-auto">
           <table className="w-full" style={{ fontSize: "13px" }}>
             <thead className="bg-[var(--ipk-surface)] text-left text-[var(--ipk-text-muted)]">
@@ -1825,7 +1825,7 @@ function WheelTab() {
                       </div>
                     </td>
                     <td className="px-3 py-2">{WHEEL_TYPE_LABEL[p.type]}</td>
-                    <td className="px-3 py-2">{p.value ?? "—"}</td>
+                    <td className="px-3 py-2">{p.value ?? "-"}</td>
                     <td className="px-3 py-2">{p.weight}</td>
                     <td className="px-3 py-2">
                       <div className="flex items-center gap-2">
@@ -2131,8 +2131,8 @@ function TransverseTab() {
                   <td className="px-3 py-2 whitespace-nowrap">{new Date(a.date).toLocaleString("fr-FR")}</td>
                   <td className="px-3 py-2"><code>{a.actor}</code></td>
                   <td className="px-3 py-2 font-mono">{a.action}</td>
-                  <td className="px-3 py-2"><code className="text-[var(--ipk-text-muted)]">{a.entityId || "—"}</code></td>
-                  <td className="px-3 py-2 truncate max-w-[300px]">{a.details || "—"}</td>
+                  <td className="px-3 py-2"><code className="text-[var(--ipk-text-muted)]">{a.entityId || "-"}</code></td>
+                  <td className="px-3 py-2 truncate max-w-[300px]">{a.details || "-"}</td>
                 </tr>
               ))}
               {marketingActions.length === 0 && <tr><td colSpan={5}><EmptyRow message="Aucune action marketing journalisée." /></td></tr>}

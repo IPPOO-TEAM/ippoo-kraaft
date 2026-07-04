@@ -11,7 +11,7 @@ interface SeoOptions {
 
 const SITE_NAME = "IPPOO KRAAFT";
 const DEFAULT_DESCRIPTION =
-  "IPPOO KRAAFT — Plateforme dédiée à l'artisanat africain ancestral : oeuvres certifiées, traçabilité QR, formations et groupements d'artisans.";
+  "IPPOO KRAAFT - Plateforme dédiée à l'artisanat africain ancestral : oeuvres certifiées, traçabilité QR, formations et groupements d'artisans.";
 
 function setMeta(attr: "name" | "property", key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -37,7 +37,7 @@ const JSONLD_ID = "ipk-jsonld";
 
 export function useSeo({ title, description, ogImage, keywords, noIndex, jsonLd }: SeoOptions) {
   useEffect(() => {
-    const fullTitle = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
+    const fullTitle = title === SITE_NAME ? title : `${title} - ${SITE_NAME}`;
     const desc = description ?? DEFAULT_DESCRIPTION;
     const previousTitle = document.title;
 

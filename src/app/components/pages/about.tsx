@@ -32,14 +32,14 @@ import {
 
 // ============= ABOUT PAGE =============
 export function AboutPage() {
-  useSeo({ title: "À propos", description: "Notre mission : valoriser l'artisanat africain ancestral et offrir une rémunération juste aux artisans." });
+  useSeo({ title: "À propos", description: "Notre mission : valoriser et préserver l'artisanat africain ancestral et ses savoir-faire." });
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8 pb-20 lg:pb-8">
       <h1 className="text-center mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
         À propos d'IPPOO KRAAFT
       </h1>
       <p className="text-center text-[var(--ipk-text)] mb-6 sm:mb-8 max-w-xl mx-auto" style={{ fontSize: "15px" }}>
-        Art & Handmade — Valoriser l'artisanat africain authentique
+        Art & Handmade - Valoriser l'artisanat africain authentique
       </p>
 
       <div className="rounded-2xl overflow-hidden aspect-[16/9] sm:aspect-[21/9] mb-6 sm:mb-8">
@@ -72,7 +72,7 @@ export function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               { title: "Authenticité", desc: "Chaque pièce est vérifiée et certifiée selon nos normes internes." },
-              { title: "Commerce équitable", desc: "Rémunération juste et transparente pour chaque artisan." },
+              { title: "Éco-responsabilité", desc: "Matériaux naturels locaux et techniques ancestrales à faible impact." },
               { title: "Traçabilité", desc: "De l'atelier à votre porte, chaque étape est documentée." },
               { title: "Transmission", desc: "Formations et soutien pour préserver les savoir-faire." },
             ].map((v, i) => (
@@ -100,11 +100,11 @@ export function AboutPage() {
           <div className="space-y-3">
             <div className="p-4 border border-[#0057FF]/20 bg-[#0057FF]/5 rounded-xl">
               <h4 style={{ fontSize: "14px", fontWeight: 600, color: "var(--ipk-ink)" }}>N001KHAM/51-26-02/OCTEGO-A</h4>
-              <p style={{ fontSize: "13px", color: "var(--ipk-text)", marginTop: "4px" }}>Ordre de Conception, des Techniques d'Évaluation, Garanties d'Origine Ancestrale — encadre la conception, l'évaluation et la validation de chaque oeuvre.</p>
+              <p style={{ fontSize: "13px", color: "var(--ipk-text)", marginTop: "4px" }}>Ordre de Conception, des Techniques d'Évaluation, Garanties d'Origine Ancestrale - encadre la conception, l'évaluation et la validation de chaque oeuvre.</p>
             </div>
             <div className="p-4 border border-[#0B6B3A]/20 bg-[#0B6B3A]/5 rounded-xl">
               <h4 style={{ fontSize: "14px", fontWeight: 600, color: "var(--ipk-ink)" }}>N001PAAG/51-26-02/OPT</h4>
-              <p style={{ fontSize: "13px", color: "var(--ipk-text)", marginTop: "4px" }}>Produit du Terroir garanti d'Origine Ancestrale — certifie le lien entre l'oeuvre, le terroir et les ressources locales.</p>
+              <p style={{ fontSize: "13px", color: "var(--ipk-text)", marginTop: "4px" }}>Produit du Terroir garanti d'Origine Ancestrale - certifie le lien entre l'oeuvre, le terroir et les ressources locales.</p>
             </div>
           </div>
         </section>

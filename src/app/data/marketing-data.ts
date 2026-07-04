@@ -34,19 +34,19 @@ export interface Promotion {
   /** Panier minimum requis (Fcfa) */
   minCart?: number;
   style: CouponStyle;
-  /** Compat ancien champ — getter dérivé */
+  /** Compat ancien champ - getter dérivé */
   pct?: number;
   /** Désactivée par l'admin (visible mais non utilisable) */
   disabled?: boolean;
 }
 
-/** Liste de seed initiale — l'admin peut éditer/ajouter via le hook marketing. */
+/** Liste de seed initiale - l'admin peut éditer/ajouter via le hook marketing. */
 export const promotions: Promotion[] = [
   { id: "promo-1", title: "Marché Grand Lancement", description: "-20% sur toutes les pièces de la collection Éwé.", kind: "percent", value: 20, pct: 20, code: "GRAND20", validUntil: "2026-06-15", category: "Collection", segment: "all", style: { theme: "emerald", pattern: "kente" } },
   { id: "promo-2", title: "Bienvenue chez IPK", description: "5 000 Fcfa offerts sur votre premier panier dès 25 000 Fcfa.", kind: "fixed", value: 5000, code: "BIENVENUE5K", validUntil: "2026-12-31", category: "Nouveau client", segment: "new", minCart: 25000, style: { theme: "ochre", pattern: "adinkra" } },
   { id: "promo-3", title: "Fête des Mères", description: "-25% sur les bijoux artisanaux pour la fête des mères.", kind: "percent", value: 25, pct: 25, code: "MAMAN25", validUntil: "2026-05-25", category: "Bijoux", segment: "all", style: { theme: "fuchsia", pattern: "diamonds" } },
-  { id: "promo-4", title: "Atelier Kossi — édition limitée", description: "-15% sur les sculptures de l'atelier de l'artisan Kossi.", kind: "percent", value: 15, pct: 15, code: "KOSSI15", validUntil: "2026-07-31", category: "Artisan", artisanSlug: "kossi-adoglo", artisanName: "Kossi Adoglo", segment: "all", style: { theme: "bronze", pattern: "weave" } },
-  { id: "promo-5", title: "Fidélité Or — 10 000 Fcfa", description: "Cadeau pour nos clients dès 3 commandes : 10 000 Fcfa offerts.", kind: "fixed", value: 10000, code: "FIDELE10K", validUntil: "2026-12-31", category: "Fidélité", segment: "loyalty", style: { theme: "terracotta", pattern: "bogolan" } },
+  { id: "promo-4", title: "Atelier Kossi - édition limitée", description: "-15% sur les sculptures de l'atelier de l'artisan Kossi.", kind: "percent", value: 15, pct: 15, code: "KOSSI15", validUntil: "2026-07-31", category: "Artisan", artisanSlug: "kossi-adoglo", artisanName: "Kossi Adoglo", segment: "all", style: { theme: "bronze", pattern: "weave" } },
+  { id: "promo-5", title: "Fidélité Or - 10 000 Fcfa", description: "Cadeau pour nos clients dès 3 commandes : 10 000 Fcfa offerts.", kind: "fixed", value: 10000, code: "FIDELE10K", validUntil: "2026-12-31", category: "Fidélité", segment: "loyalty", style: { theme: "terracotta", pattern: "bogolan" } },
 ];
 
 export interface FlashDeal {
@@ -107,7 +107,7 @@ export const CONTEST_RANKING_LABEL: Record<ContestRanking, string> = {
 export const contests: Contest[] = [
   {
     id: "contest-1",
-    title: "Grand jeu IPK — Une œuvre offerte",
+    title: "Grand jeu IPK - Une œuvre offerte",
     prize: "Statuette Akouaba certifiée (valeur 75 000 Fcfa)",
     description: "Tentez de remporter une pièce signée par nos artisans. Tirage au sort parmi tous les participants.",
     endsAt: "2026-06-30",
@@ -145,7 +145,7 @@ export const contests: Contest[] = [
   },
   {
     id: "contest-4",
-    title: "Design IPK 2026 — Motif textile",
+    title: "Design IPK 2026 - Motif textile",
     prize: "Édition limitée à votre nom + 50 000 Fcfa",
     description: "Proposez un motif inspiré du patrimoine ouest-africain. Le motif gagnant sera tissé en édition limitée.",
     endsAt: "2026-07-31",

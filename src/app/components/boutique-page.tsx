@@ -45,7 +45,7 @@ function scoreProduct(p: any, toks: string[]): number {
 
 export function BoutiquePage() {
   useSeo({
-    title: "Boutique — Artisanat africain certifié",
+    title: "Boutique - Artisanat africain certifié",
     description: "Parcourez notre boutique : sculptures, textiles, poteries, vannerie, bijoux. Chaque oeuvre est tracée et certifiée IPPOO KRAAFT.",
   });
   const navigate = useNavigate();

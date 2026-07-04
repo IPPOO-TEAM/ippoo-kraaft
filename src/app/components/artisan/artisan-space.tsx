@@ -93,7 +93,7 @@ export function ArtisanLayout() {
   );
 }
 
-// =============== F2 — Profil boutique ===============
+// =============== F2 - Profil boutique ===============
 export function ArtisanShopPage() {
   const { user } = useUser();
   const { myShop, upsertShop } = useArtisanStore();
@@ -200,7 +200,7 @@ export function ArtisanShopPage() {
   );
 }
 
-// =============== F5 — Tableau de bord ===============
+// =============== F5 - Tableau de bord ===============
 export function ArtisanDashboardPage() {
   const { user } = useUser();
   const { stats, myShop, seedDemoOrder, myProducts } = useArtisanStore();
@@ -210,7 +210,7 @@ export function ArtisanDashboardPage() {
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-xl font-medium">Bonjour {user!.fullName.split(" ")[0]}</h1>
-          <p className="text-sm text-muted-foreground">{myShop ? `${myShop.name} — ${myShop.specialty || "boutique"}` : "Configurez votre boutique pour démarrer."}</p>
+          <p className="text-sm text-muted-foreground">{myShop ? `${myShop.name} - ${myShop.specialty || "boutique"}` : "Configurez votre boutique pour démarrer."}</p>
           {myShop?.niches && myShop.niches.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-2">
               {myShop.niches.map(s => (
@@ -280,7 +280,7 @@ function Row({ label, value }: { label: string; value: string | number }) {
   return <div className="flex justify-between gap-3"><span className="text-muted-foreground">{label}</span><span className="font-medium">{value}</span></div>;
 }
 
-// =============== F3 — CRUD produits ===============
+// =============== F3 - CRUD produits ===============
 export function ArtisanProductsPage() {
   const { myProducts, removeProduct, setProductStatus } = useArtisanStore();
   const navigate = useNavigate();
@@ -457,7 +457,7 @@ export function ArtisanProductEditorPage() {
   );
 }
 
-// =============== F4 — Commandes ===============
+// =============== F4 - Commandes ===============
 const STATUS_LABEL: Record<OrderStatus, string> = {
   pending: "Nouvelle", confirmed: "Confirmée", preparing: "En préparation", shipped: "Expédiée",
   delivered: "Livrée", cancelled: "Annulée", refunded: "Remboursée",
@@ -499,7 +499,7 @@ export function ArtisanOrdersPage() {
                   <div>
                     <div className="font-mono text-xs">{o.id}</div>
                     <div className="text-sm font-medium">{o.productName} × {o.qty}</div>
-                    <div className="text-xs text-muted-foreground">{o.customerName} — {o.customerEmail}</div>
+                    <div className="text-xs text-muted-foreground">{o.customerName} - {o.customerEmail}</div>
                   </div>
                   <div className="text-right">
                     <div className="text-sm font-medium">{formatPrice(o.total)}</div>
@@ -526,7 +526,7 @@ export function ArtisanOrdersPage() {
   );
 }
 
-// =============== F6 — Messages ===============
+// =============== F6 - Messages ===============
 const MESSAGES_KEY = "ipk:artisan:messages:v1";
 interface Thread { id: string; userId: string; customer: string; subject: string; messages: { from: "customer" | "artisan"; body: string; at: string }[]; unread: boolean }
 function loadThreads(): Thread[] { try { return JSON.parse(localStorage.getItem(MESSAGES_KEY) || "[]"); } catch { return []; } }
@@ -611,7 +611,7 @@ export function ArtisanMessagesPage() {
   );
 }
 
-// =============== F7 — Notifications ===============
+// =============== F7 - Notifications ===============
 export function ArtisanNotificationsPage() {
   const { myNotifications, markNotificationRead, markAllNotificationsRead, clearNotifications } = useArtisanStore();
   const navigate = useNavigate();

@@ -229,3 +229,124 @@
   0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(252,211,77,0.95), inset 0 -1px 1px rgba(0,0,0,0.25); }
   50%      { opacity: 0.45; box-shadow: 0 0 3px rgba(252,211,77,0.4), inset 0 -1px 1px rgba(0,0,0,0.25); }
 }
+
+/* =====================================================================
+   Ambiances de page — fonds doux et transparents, assortis aux images
+   de chaque section. Chaque ambiance définit aussi deux couleurs de
+   titre (--ipk-title-1 / --ipk-title-2) utilisées par .ipk-titles.
+   ===================================================================== */
+.ipk-amb {
+  --ipk-title-1: var(--ipk-green-dark);
+  --ipk-title-2: var(--ipk-blue);
+  /* Teintes douces translucides appliquées aux bandes de sections */
+  --ipk-amb-1: rgba(13,138,62,0.07);   /* bandes "surface" */
+  --ipk-amb-2: rgba(245,158,11,0.05);  /* bandes "blanches" */
+  --ipk-amb-wash: rgba(13,138,62,0.05);
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(1200px 520px at 88% -6%, var(--ipk-amb-wash), transparent 60%),
+    radial-gradient(1000px 500px at -5% 4%, var(--ipk-amb-2), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Vert/ambre terreux — accueil, boutique, artisans (objets, bois, terre) */
+.ipk-amb--green {
+  --ipk-title-1: #0B6B3A; --ipk-title-2: #B45309;
+  --ipk-amb-1: rgba(13,138,62,0.08);
+  --ipk-amb-2: rgba(245,158,11,0.06);
+  --ipk-amb-wash: rgba(13,138,62,0.06);
+}
+
+/* Bleu/vert — institutionnel : à propos, contact, faq, statistiques */
+.ipk-amb--blue {
+  --ipk-title-1: #0046CC; --ipk-title-2: #0D8A3E;
+  --ipk-amb-1: rgba(0,87,255,0.07);
+  --ipk-amb-2: rgba(13,138,62,0.05);
+  --ipk-amb-wash: rgba(0,87,255,0.06);
+}
+
+/* Ambre/rose — promotions, flash, roue, concours, marketing, cadeaux */
+.ipk-amb--amber {
+  --ipk-title-1: #B45309; --ipk-title-2: #BE185D;
+  --ipk-amb-1: rgba(245,158,11,0.10);
+  --ipk-amb-2: rgba(236,72,153,0.05);
+  --ipk-amb-wash: rgba(245,158,11,0.08);
+}
+
+/* Violet/bleu — formations, galeries (couleur, création, savoir) */
+.ipk-amb--purple {
+  --ipk-title-1: #6D28D9; --ipk-title-2: #0057FF;
+  --ipk-amb-1: rgba(139,92,246,0.08);
+  --ipk-amb-2: rgba(0,87,255,0.05);
+  --ipk-amb-wash: rgba(139,92,246,0.07);
+}
+
+/* Rose/violet — blog, événements (vie, récits, rassemblements) */
+.ipk-amb--rose {
+  --ipk-title-1: #BE185D; --ipk-title-2: #7C3AED;
+  --ipk-amb-1: rgba(236,72,153,0.08);
+  --ipk-amb-2: rgba(124,58,237,0.05);
+  --ipk-amb-wash: rgba(236,72,153,0.07);
+}
+
+/* Sarcelle/vert — groupements, achats groupés (communauté, collectif) */
+.ipk-amb--teal {
+  --ipk-title-1: #0F766E; --ipk-title-2: #0D8A3E;
+  --ipk-amb-1: rgba(20,184,166,0.09);
+  --ipk-amb-2: rgba(13,138,62,0.05);
+  --ipk-amb-wash: rgba(20,184,166,0.07);
+}
+
+/* Neutre doux — compte, panier, connexion, légal, etc. */
+.ipk-amb--neutral {
+  --ipk-title-1: #0B6B3A; --ipk-title-2: #0046CC;
+  --ipk-amb-1: rgba(13,138,62,0.06);
+  --ipk-amb-2: rgba(0,87,255,0.04);
+  --ipk-amb-wash: rgba(13,138,62,0.04);
+}
+
+/* Fond renforcé pour les nouvelles sections éditoriales : une teinte douce et
+   translucide couvre toute la page (jamais de blanc pur), assortie à l'ambiance
+   de la route. Les couleurs sont héritées via --ipk-amb-1/2/wash. */
+.ipk-amb-strong {
+  background-color: var(--ipk-amb-1) !important;
+  background-image:
+    radial-gradient(1100px 560px at 92% -4%, var(--ipk-amb-wash), transparent 55%),
+    radial-gradient(950px 560px at -6% 6%, var(--ipk-amb-2), transparent 52%),
+    linear-gradient(180deg, var(--ipk-amb-1), rgba(255, 255, 255, 0) 55%) !important;
+  background-attachment: fixed !important;
+}
+/* Les bandes de sections opaques (bg-white / bg-surface) deviennent des
+   teintes douces de l'ambiance, pour révéler des couleurs assorties aux
+   images. Les cartes (div/a) gardent leur fond blanc et restent lisibles.
+   Les sections sombres (bg ink) ne sont pas ciblées. */
+.ipk-amb section[class*="ipk-surface"] {
+  background-color: var(--ipk-amb-1) !important;
+}
+.ipk-amb section[class*="bg-white"] {
+  background-color: var(--ipk-amb-2) !important;
+}
+
+/* La variation de couleurs des titres noirs est gérée en JavaScript
+   (voir le Layout) afin d'attribuer une couleur différente à chaque titre. */
+
+/* ===== Texte noir sur fonds orange =====
+   Consigne : tout écrit posé sur un fond orange (amber) s'affiche en NOIR.
+   On cible les fonds orange pleins (token --ipk-amber, #F59E0B, échelles
+   amber/orange 400→900) et on force le texte (et ses descendants) en noir. */
+[class*="bg-[var(--ipk-amber)]"],
+[class*="bg-[#F59E0B]"],
+[class*="bg-[#f59e0b]"],
+[class*="bg-amber-4"], [class*="bg-amber-5"], [class*="bg-amber-6"],
+[class*="bg-amber-7"], [class*="bg-amber-8"], [class*="bg-amber-9"],
+[class*="bg-orange-4"], [class*="bg-orange-5"], [class*="bg-orange-6"],
+[class*="bg-orange-7"], [class*="bg-orange-8"], [class*="bg-orange-9"],
+[class*="bg-[var(--ipk-amber)]"] *,
+[class*="bg-[#F59E0B]"] *,
+[class*="bg-[#f59e0b]"] *,
+[class*="bg-amber-4"] *, [class*="bg-amber-5"] *, [class*="bg-amber-6"] *,
+[class*="bg-amber-7"] *, [class*="bg-amber-8"] *, [class*="bg-amber-9"] *,
+[class*="bg-orange-4"] *, [class*="bg-orange-5"] *, [class*="bg-orange-6"] *,
+[class*="bg-orange-7"] *, [class*="bg-orange-8"] *, [class*="bg-orange-9"] * {
+  color: #000 !important;
+}

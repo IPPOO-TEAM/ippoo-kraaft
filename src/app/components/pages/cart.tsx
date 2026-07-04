@@ -194,7 +194,7 @@ export function CartPage() {
         toast.success("Paiement confirmé !");
         navigate(`/commande/${result.ref}`);
       } else {
-        toast.error(`Paiement échoué — ${result.failureReason || "Veuillez réessayer"}`);
+        toast.error(`Paiement échoué - ${result.failureReason || "Veuillez réessayer"}`);
         navigate(`/commande/${result.ref}`);
       }
     } catch (err) {
@@ -345,7 +345,7 @@ export function CartPage() {
       {crossSell.length > 0 && (
         <ProductRecommendations
           title="Complétez votre intérieur"
-          subtitle="Cross-sell par domaine d'artisanat — sélection complémentaire à votre panier"
+          subtitle="Cross-sell par domaine d'artisanat - sélection complémentaire à votre panier"
           products={crossSell}
           icon={<Sparkles className="w-3.5 h-3.5" />}
           accent="amber"

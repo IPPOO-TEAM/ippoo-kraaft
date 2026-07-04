@@ -3,11 +3,12 @@ import { Link } from "react-router";
 import { ArrowRight, Star, Shield, Award, Users, ChevronRight, Quote, Calendar, MapPin, Hammer, Scissors, Coffee, ShoppingBasket, Gem, Wrench, Briefcase, Music, TrendingDown, Clock, Tag, Flame, Trophy, Gift, Ticket, RotateCw } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { IMAGES, groupements, testimonials, events, statsData, formatPrice, groupBuyingOffers } from "../data/mock-data";
+import { IMAGES, groupements, testimonials, events, statsData, formatPrice, groupBuyingOffers, blogArticles } from "../data/mock-data";
 import { useProducts, useArtisans } from "../hooks/use-products";
 import { useCategories } from "../hooks/use-categories";
 import { CRAFT_TAXONOMY, effectiveNiches } from "../data/craft-taxonomy";
 import { LazyImage } from "./lazy-image";
+import { AdCarousel, homeAdSlides } from "./ad-carousel";
 import { useSeo } from "../hooks/use-seo";
 import { MarketDayBanner } from "./market-day-banner";
 import { useCms } from "../hooks/use-cms";
@@ -127,6 +128,11 @@ export function HomePage() {
         </div>
       </section>
       )}
+
+      {/* Carrousel publicitaire & partenaires */}
+      <section className="max-w-7xl mx-auto px-4 pt-6 sm:pt-8">
+        <AdCarousel slides={homeAdSlides} />
+      </section>
 
       {/* Promos & cadeaux */}
       {cms.sections.promos && (
@@ -439,6 +445,41 @@ export function HomePage() {
         </div>
       </section>
       )}
+
+      {/* Dernières actualités */}
+      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+        <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
+          <div>
+            <span className="inline-flex items-center gap-2 text-[var(--ipk-blue)]" style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse inline-block" /> Actualités
+            </span>
+            <h2 className="mt-1" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
+              Le journal d'IPPOO KRAAFT
+            </h2>
+          </div>
+          <Link to="/blog" className="text-[var(--ipk-blue)] flex items-center gap-1 shrink-0" style={{ fontSize: "14px", fontWeight: 500 }}>
+            Tout le blog <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[...blogArticles].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 3).map((art) => (
+            <Link key={art.id} to={`/blog/${art.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-shadow group">
+              <div className="aspect-[16/10] overflow-hidden">
+                <LazyImage src={art.image} alt={art.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="p-4">
+                <Badge className="bg-[#0057FF]/10 text-[var(--ipk-blue)] border-0 mb-2" style={{ fontSize: "10px" }}>{art.category}</Badge>
+                <h3 className="line-clamp-2" style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)", lineHeight: 1.35 }}>{art.title}</h3>
+                <div className="flex items-center gap-2 mt-2 text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>
+                  <Calendar className="w-3 h-3" /> {art.date}
+                  <span>·</span>
+                  <Clock className="w-3 h-3" /> {art.readTime}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* Testimonials */}
       {cms.sections.testimonials && (

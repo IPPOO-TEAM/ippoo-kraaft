@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
-import { Eye, Edit3, Save, X, Trash2, Download } from "lucide-react";
+import { Eye, Edit3, Save, X, Trash2, Download, Star } from "lucide-react";
 import {
   artisans, groupements, formations, formatPrice,
   type Artisan, type Groupement, type Formation
@@ -19,7 +19,7 @@ import { exportCSV } from "../../utils/export-utils";
 
 // ===== ARTISANS =====
 export function AdminArtisansPage() {
-  useSeo({ title: "Admin — Artisans", noIndex: true });
+  useSeo({ title: "Admin - Artisans", noIndex: true });
   const { session } = useAdmin();
   const confirm = useConfirm();
   const [pending, setPending] = useLocalState<{ name: string; email: string; craft: string; date: string }[]>("ipk:admin:artisanCandidates:v1", [
@@ -33,7 +33,7 @@ export function AdminArtisansPage() {
 
   return (
     <div>
-      <PageHeader title="Artisans" subtitle={`${artisans.length - removed.length} artisans actifs — ${pending.length} candidatures en attente`} />
+      <PageHeader title="Artisans" subtitle={`${artisans.length - removed.length} artisans actifs - ${pending.length} candidatures en attente`} />
 
       {pending.length > 0 && (
         <DataCard className="mb-4 border-amber-200 bg-amber-50/40">
@@ -74,7 +74,7 @@ export function AdminArtisansPage() {
                 </div>
               </div>
               <div className="flex items-center justify-between mt-3 pt-3 border-t border-[var(--ipk-border)]">
-                <span className="text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>{a.productsCount} oeuvres • ★ {a.rating}</span>
+                <span className="inline-flex items-center gap-1 text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>{a.productsCount} oeuvres • <Star className="w-3 h-3 text-[var(--ipk-amber)]" /> {a.rating}</span>
                 <div className="flex gap-1">
                   <Link to={`/groupements/${groupements.find(g => g.id === a.groupementId)?.slug}`} target="_blank" rel="noreferrer" aria-label="Voir groupement" className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-[var(--ipk-border)] text-[var(--ipk-text)]"><Eye className="w-3.5 h-3.5" /></Link>
                   <Button onClick={async () => { if (await confirm({ title: "Désactiver l'artisan", message: `${a.name} ne sera plus visible. Vous pourrez le restaurer.`, tone: "danger", confirmLabel: "Désactiver" })) { setRemoved(r => [...r, a.id]); logAudit({ actor: session?.username || "system", action: "archive", entity: "artisan", entityId: a.id, details: a.name }); toast.success("Artisan désactivé"); } }} variant="outline" className="rounded-lg h-8 w-8 p-0 text-red-600" aria-label="Désactiver"><Trash2 className="w-3.5 h-3.5" /></Button>
@@ -101,7 +101,7 @@ export function AdminArtisansPage() {
 interface GroupementOverride { conformity?: number; artisanCount?: number; }
 
 export function AdminGroupementsPage() {
-  useSeo({ title: "Admin — Groupements", noIndex: true });
+  useSeo({ title: "Admin - Groupements", noIndex: true });
   const { session } = useAdmin();
   const [overrides, setOverrides] = useLocalState<Record<string, GroupementOverride>>("ipk:admin:groupementOverrides:v1", {});
   const [editing, setEditing] = useState<string | null>(null);
@@ -195,7 +195,7 @@ interface FormationOverride { price?: number; nextDate?: string; published?: boo
 interface AdminEnrolment { formationId: string; name: string; email: string; date: string; }
 
 export function AdminFormationsPage() {
-  useSeo({ title: "Admin — Formations", noIndex: true });
+  useSeo({ title: "Admin - Formations", noIndex: true });
   const { session } = useAdmin();
   const crud = useEntityCrud<typeof formations[number], FormationOverride>({
     overridesKey: "ipk:admin:formationOverrides:v1",
@@ -233,7 +233,7 @@ export function AdminFormationsPage() {
 
   return (
     <div>
-      <PageHeader title="Formations" subtitle={`${formations.length} formations — ${enrolments.length} inscriptions`} action={
+      <PageHeader title="Formations" subtitle={`${formations.length} formations - ${enrolments.length} inscriptions`} action={
         <div className="flex gap-2">
           <Button onClick={exportData} variant="outline" className="rounded-xl h-10"><Download className="w-4 h-4 mr-1" /> CSV</Button>
           <AddButton onClick={() => toast.info("Création formation en démo")} label="Nouvelle formation" />
@@ -320,7 +320,7 @@ export function AdminFormationsPage() {
                   <li key={i} className="p-2 bg-[var(--ipk-surface)] rounded-lg">
                     <div className="font-medium text-[var(--ipk-ink)] truncate" style={{ fontSize: "13px" }}>{e.name}</div>
                     <div className="text-[var(--ipk-text)] truncate" style={{ fontSize: "11px" }}>{e.email}</div>
-                    <div className="text-[var(--ipk-text)] truncate mt-1" style={{ fontSize: "11px" }}>→ {f?.title || "—"}</div>
+                    <div className="text-[var(--ipk-text)] truncate mt-1" style={{ fontSize: "11px" }}>→ {f?.title || "-"}</div>
                   </li>
                 );
               })}

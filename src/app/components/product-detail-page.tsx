@@ -37,7 +37,7 @@ export function ProductDetailPage() {
       "@context": "https://schema.org",
       "@type": "Product",
       name: product.name,
-      description: `${product.name} — ${product.origin.region}, ${product.origin.country}. Oeuvre artisanale certifiée IPPOO KRAAFT.`,
+      description: `${product.name} - ${product.origin.region}, ${product.origin.country}. Oeuvre artisanale certifiée IPPOO KRAAFT.`,
       image: product.images,
       sku: product.id,
       brand: { "@type": "Brand", name: "IPPOO KRAAFT" },
@@ -59,7 +59,7 @@ export function ProductDetailPage() {
   const seoOverride = (product as any)?.seo as { title?: string; description?: string; ogImage?: string; keywords?: string } | undefined;
   useSeo({
     title: seoOverride?.title || (product ? product.name : "Produit introuvable"),
-    description: seoOverride?.description || (product ? `${product.name} — ${product.origin.region}, ${product.origin.country}. ${formatPrice(product.price)}. Oeuvre certifiée IPPOO KRAAFT.` : undefined),
+    description: seoOverride?.description || (product ? `${product.name} - ${product.origin.region}, ${product.origin.country}. ${formatPrice(product.price)}. Oeuvre certifiée IPPOO KRAAFT.` : undefined),
     ogImage: seoOverride?.ogImage || product?.images?.[0],
     keywords: seoOverride?.keywords,
     noIndex: !product,
@@ -228,11 +228,11 @@ export function ProductDetailPage() {
               open={quoteOpen}
               onOpenChange={setQuoteOpen}
               type="quote"
-              title={`Devis — ${product.name}`}
+              title={`Devis - ${product.name}`}
               description={`Recevez une offre personnalisée (volumes, délais, conditions) pour ${product.name}.`}
               refId={product.id}
               refLabel={product.name}
-              successToast="Devis demandé — notre équipe revient vers vous sous 48h."
+              successToast="Devis demandé - notre équipe revient vers vous sous 48h."
             />
           )}
 

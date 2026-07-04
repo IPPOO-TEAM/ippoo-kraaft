@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { logAudit } from "./use-admin-audit";
 import { enqueueSync } from "./use-sync-queue";
 
-// Système de paiement IPPOO KRAAFT — architecture production-ready.
+// Système de paiement IPPOO KRAAFT - architecture production-ready.
 // Machine d'état : created → processing → succeeded | failed | refunded
 // Persistance localStorage, idempotence par orderRef, gateway pluggable.
 

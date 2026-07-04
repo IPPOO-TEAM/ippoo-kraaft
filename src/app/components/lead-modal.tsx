@@ -40,7 +40,7 @@ export function LeadModal({ open, onOpenChange, type, title, description, refId,
     e.preventDefault();
     if (!name.trim() || !email.trim()) { toast.error("Nom et email requis"); return; }
     addLead({ type, ref: refId, refLabel, name: name.trim(), email: email.trim(), phone: phone.trim() || undefined, message: message.trim() || undefined });
-    toast.success(successToast || "Demande enregistrée — nous revenons vers vous sous 48h.");
+    toast.success(successToast || "Demande enregistrée - nous revenons vers vous sous 48h.");
     onOpenChange(false);
     setMessage("");
   };

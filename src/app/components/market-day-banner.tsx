@@ -31,7 +31,7 @@ export function MarketDayBanner() {
           </span>
           <Calendar className="w-4 h-4 shrink-0 hidden sm:inline" />
           <span className="text-sm flex-1 min-w-0 truncate">
-            <strong className="font-medium">Jour de marché — {md.theme}</strong>
+            <strong className="font-medium">Jour de marché - {md.theme}</strong>
             <span className="opacity-90"> · {md.highlight}</span>
           </span>
           <span className="inline-flex items-center gap-1 text-xs hover:underline">

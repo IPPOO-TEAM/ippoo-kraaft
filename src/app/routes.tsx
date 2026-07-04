@@ -1,5 +1,4 @@
-import { useLayoutEffect } from "react";
-import { createBrowserRouter, Navigate, Outlet, useLocation } from "react-router";
+import { createBrowserRouter, Navigate, Outlet, ScrollRestoration } from "react-router";
 import { Layout } from "./components/layout";
 import { HomePage } from "./components/home-page";
 import { RouteErrorBoundary } from "./components/route-error-boundary";
@@ -15,16 +14,16 @@ function RouteHydrateFallback() {
   );
 }
 
-// Racine commune à toutes les routes : remonte toujours en haut de page à chaque
-// changement d'URL (landing, application, admin, espace artisan).
+// Racine commune à toutes les routes. <ScrollRestoration> remonte en haut lors
+// d'une nouvelle navigation (PUSH) et RESTAURE la position précédente lors d'un
+// retour/avance navigateur (POP).
 function RootLayout() {
-  const { pathname } = useLocation();
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    if (document.body) document.body.scrollTop = 0;
-  }, [pathname]);
-  return <Outlet />;
+  return (
+    <>
+      <ScrollRestoration />
+      <Outlet />
+    </>
+  );
 }
 
 // Preload critical artisan components to avoid dynamic import issues
@@ -136,6 +135,22 @@ export const router = createBrowserRouter([
       { path: "artisan/:slug", lazy: lazyNamed(() => import("./components/artisan-public-page"), "ArtisanPublicPage") },
       { path: "niche/:slug", lazy: lazyNamed(() => import("./components/niche-page"), "NichePage") },
       { path: "niche/:slug/*", lazy: lazyNamed(() => import("./components/niche-page"), "NichePage") },
+      { path: "repertoire", lazy: lazyNamed(() => import("./components/repertoire-page"), "RepertoirePage") },
+      { path: "metiers", lazy: lazyNamed(() => import("./components/metiers-page"), "MetiersPage") },
+      { path: "metiers/:slug", lazy: lazyNamed(() => import("./components/metiers-page"), "MetierDetailPage") },
+      { path: "salons", lazy: lazyNamed(() => import("./components/kraaft-events-page"), "SalonsPage") },
+      { path: "salons/:slug", lazy: lazyNamed(() => import("./components/kraaft-events-page"), "SalonDetailPage") },
+      { path: "arts-culture", lazy: lazyNamed(() => import("./components/arts-culture-page"), "ArtsCulturePage") },
+      { path: "arts-culture/:slug", lazy: lazyNamed(() => import("./components/arts-culture-page"), "ArtDetailPage") },
+      { path: "medias", lazy: lazyNamed(() => import("./components/culture-media-page"), "MediasPage") },
+      { path: "medias/:slug", lazy: lazyNamed(() => import("./components/culture-media-page"), "MediaRubriquePage") },
+      { path: "patrimoines", lazy: lazyNamed(() => import("./components/patrimoine-page"), "PatrimoinePage") },
+      { path: "patrimoines/:slug", lazy: lazyNamed(() => import("./components/patrimoine-page"), "PatrimoineSectionPage") },
+      { path: "marketplace", lazy: lazyNamed(() => import("./components/marketplace-page"), "MarketplacePage") },
+      { path: "marketplace/:slug", lazy: lazyNamed(() => import("./components/marketplace-page"), "MarketplaceSectionPage") },
+      { path: "dialogues", lazy: lazyNamed(() => import("./components/heritage-dialogues-page"), "DialoguesPage") },
+      { path: "dialogues/:slug", lazy: lazyNamed(() => import("./components/heritage-dialogues-page"), "DialogueDetailPage") },
+      { path: "academie", lazy: lazyNamed(() => import("./components/academie-page"), "AcademiePage") },
       { path: "galeries", lazy: lazyNamed(() => import("./components/galleries-page"), "GalleriesPage") },
       { path: "galeries/:slug", lazy: lazyNamed(() => import("./components/galleries-page"), "GalleryDetailPage") },
       { path: "groupements", lazy: lazyNamed(() => import("./components/groupements-page"), "GroupementsPage") },

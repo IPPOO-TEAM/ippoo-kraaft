@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
-// Sync queue: persistant, à plat — chaque entrée représente une opération à
+// Sync queue: persistant, à plat - chaque entrée représente une opération à
 // rejouer sur un futur backend. Pour l'instant, "flush" simule un POST.
 
 const QUEUE_KEY = "ipk:admin:syncQueue:v1";
@@ -92,7 +92,7 @@ function saveQueue(q: SyncEntry[]) {
   try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch {}
 }
 
-// Standalone enqueue — utilisable hors composant React (services, hooks bas-niveau).
+// Standalone enqueue - utilisable hors composant React (services, hooks bas-niveau).
 // Le SyncProvider observe `ipk:sync:enqueue` et fusionne dans son state, garantissant
 // la persistance et le déclenchement du flush au prochain cycle online.
 export function enqueueSync(entry: Omit<SyncEntry, "id" | "createdAt" | "attempts" | "status">) {
@@ -222,7 +222,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
 
     flushingRef.current = false;
     if (success > 0) toast.success(`${success} opération(s) synchronisée(s)${failed > 0 ? `, ${failed} échec(s)` : ""}${conflicts > 0 ? `, ${conflicts} conflit(s)` : ""}`);
-    else if (conflicts > 0) toast.error(`${conflicts} conflit(s) — révision manuelle requise`);
+    else if (conflicts > 0) toast.error(`${conflicts} conflit(s) - révision manuelle requise`);
     else if (failed > 0) toast.error(`${failed} opération(s) en échec`);
   }, [isOnline, recordFailure]);
 
@@ -245,7 +245,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       const op: SyncOp = detail.action === "delete" || detail.action === "archive" ? "delete"
         : detail.action === "status_change" ? "status_change"
         : detail.action === "create" ? "create" : "update";
-      enqueue({ op, entity: detail.entity as SyncEntity, entityId: detail.entityId || "—", payload: detail.details });
+      enqueue({ op, entity: detail.entity as SyncEntity, entityId: detail.entityId || "-", payload: detail.details });
     };
     window.addEventListener("ipk:audit", onAudit);
     return () => window.removeEventListener("ipk:audit", onAudit);

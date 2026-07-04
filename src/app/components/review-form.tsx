@@ -73,7 +73,7 @@ export function ReviewForm({ productId }: Props) {
     setReviews(updated);
     setRating(0); setComment("");
     if (user?.email) adjustUserPoints(user.email, REVIEW_BONUS_POINTS, `Avis vérifié sur produit ${productId}`);
-    toast.success(`Merci ! +${REVIEW_BONUS_POINTS} pts fidélité — votre avis sera publié après modération.`);
+    toast.success(`Merci ! +${REVIEW_BONUS_POINTS} pts fidélité - votre avis sera publié après modération.`);
   };
 
   return (
@@ -111,7 +111,7 @@ export function ReviewForm({ productId }: Props) {
       ) : (
       <form onSubmit={submit} className="bg-white border border-[var(--ipk-border)] rounded-2xl p-4 sm:p-5 mb-4">
         <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-emerald-50 text-emerald-700" style={{ fontSize: "11px", fontWeight: 600 }}>
-          <ShieldCheck className="w-3.5 h-3.5" /> Achat vérifié — vous pouvez noter ce produit
+          <ShieldCheck className="w-3.5 h-3.5" /> Achat vérifié - vous pouvez noter ce produit
         </div>
         <label className="block mb-2" style={{ fontSize: "13px", fontWeight: 600, color: "var(--ipk-ink)" }}>Votre note</label>
         <div className="flex gap-1 mb-3" onMouseLeave={() => setHover(0)}>

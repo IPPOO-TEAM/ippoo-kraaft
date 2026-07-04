@@ -23,7 +23,7 @@ export interface AuthState {
 
 /**
  * Façade unifiée au-dessus de useUser + useAdmin.
- * Ne réécrit pas les providers — agrège leurs états et expose un rôle calculé.
+ * Ne réécrit pas les providers - agrège leurs états et expose un rôle calculé.
  *
  * Règles de précédence :
  *   1. Si une session admin valide existe → role = "admin"

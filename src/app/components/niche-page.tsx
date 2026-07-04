@@ -18,7 +18,7 @@ export function NichePage() {
   const products = useProducts();
 
   useSeo({
-    title: `${flat ? flat.label : slug} — Niche artisanale`,
+    title: `${flat ? flat.label : slug} - Niche artisanale`,
     description: flat ? `Œuvres et produits de la niche ${flat.label} (${flat.domainLabel}).` : "Niche artisanale",
   });
 

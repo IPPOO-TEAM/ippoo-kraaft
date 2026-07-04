@@ -16,6 +16,9 @@ import { Button } from "../ui/button";
 import { useConfirm } from "../../hooks/use-confirm";
 import { toast } from "sonner";
 
+// Image de repli unique pour un produit créé sans visuel (définie une seule fois).
+const DEFAULT_PRODUCT_IMAGE = "https://images.unsplash.com/photo-1528498033373-3c6c08e93d79?w=800";
+
 export interface Variant {
   id: string;
   label: string;
@@ -81,7 +84,7 @@ export function stockTone(stock: number, threshold: number): "danger" | "warn" |
 }
 
 export function AdminProductsPage() {
-  useSeo({ title: "Admin — Produits", noIndex: true });
+  useSeo({ title: "Admin - Produits", noIndex: true });
   const { session } = useAdmin();
   const actor = session?.username || "system";
   const [overrides, setOverrides] = useLocalState<Record<string, Override>>("ipk:admin:productOverrides:v1", {});
@@ -142,7 +145,7 @@ export function AdminProductsPage() {
     });
     if (newCreated.length > 0) setCreated(prev => [...newCreated, ...prev]);
     if (updatedCount > 0) setOverrides(newOverrides);
-    logAudit({ actor, action: "import", entity: "product", details: `Import CSV — ${createdCount} créé(s), ${updatedCount} mis à jour` });
+    logAudit({ actor, action: "import", entity: "product", details: `Import CSV - ${createdCount} créé(s), ${updatedCount} mis à jour` });
     toast.success(`Import : ${createdCount} créé(s) · ${updatedCount} mis à jour`);
     setImportOpen(false);
   };
@@ -236,7 +239,7 @@ export function AdminProductsPage() {
     if (!ok) return;
     const report = cascadeProductDelete(p.id);
     setRemoved(prev => [...prev, p.id]);
-    logAudit({ actor, action: "archive", entity: "product", entityId: p.id, details: `« ${p.name} » — ${report.reviewsDeleted} avis purgés, ${report.ordersAffected} commande(s) orphelines` });
+    logAudit({ actor, action: "archive", entity: "product", entityId: p.id, details: `« ${p.name} » - ${report.reviewsDeleted} avis purgés, ${report.ordersAffected} commande(s) orphelines` });
     toast.success("Produit archivé", { description: report.reviewsDeleted > 0 ? `${report.reviewsDeleted} avis liés supprimés.` : undefined });
   };
 
@@ -320,7 +323,7 @@ export function AdminProductsPage() {
     <div>
       <PageHeader
         title="Produits"
-        subtitle={`${merged.length} produits — ${removed.length} archivés`}
+        subtitle={`${merged.length} produits - ${removed.length} archivés`}
         action={
           <div className="flex gap-2 flex-wrap">
             <Button onClick={handleExportAll} variant="outline" className="rounded-xl h-10"><Download className="w-4 h-4 mr-1" /> Export CSV</Button>
@@ -460,7 +463,7 @@ export function AdminProductsPage() {
             onClose={() => setEditorModal(null)}
             onSave={(patch) => {
               setOverrides(prev => ({ ...prev, [p.id]: { ...prev[p.id], ...patch } }));
-              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » — édition complète (${Object.keys(patch).length} champs)` });
+              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » - édition complète (${Object.keys(patch).length} champs)` });
               toast.success("Produit enregistré");
               setEditorModal(null);
             }}
@@ -480,7 +483,7 @@ export function AdminProductsPage() {
             onClose={() => setNichesModal(null)}
             onSave={(niches) => {
               setOverrides(prev => ({ ...prev, [p.id]: { ...prev[p.id], niches: niches.length > 0 ? niches : undefined } }));
-              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » — ${niches.length} niche(s) : ${niches.join(", ") || "—"}` });
+              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » - ${niches.length} niche(s) : ${niches.join(", ") || "-"}` });
               toast.success("Niches enregistrées");
               setNichesModal(null);
             }}
@@ -519,7 +522,7 @@ export function AdminProductsPage() {
             onClose={() => setTagsModal(null)}
             onSave={(badges, tags) => {
               setOverrides(prev => ({ ...prev, [p.id]: { ...prev[p.id], badges, tags } }));
-              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » — badges: ${badges.join(", ") || "—"} | tags: ${tags.join(", ") || "—"}` });
+              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » - badges: ${badges.join(", ") || "-"} | tags: ${tags.join(", ") || "-"}` });
               toast.success("Tags & badges enregistrés");
               setTagsModal(null);
             }}
@@ -537,7 +540,7 @@ export function AdminProductsPage() {
             onClose={() => setMediaModal(null)}
             onSave={(images) => {
               setOverrides(prev => ({ ...prev, [p.id]: { ...prev[p.id], images } }));
-              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » — ${images.length} image(s), principale réordonnée` });
+              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » - ${images.length} image(s), principale réordonnée` });
               toast.success("Galerie mise à jour");
               setMediaModal(null);
             }}
@@ -557,7 +560,7 @@ export function AdminProductsPage() {
             onClose={() => setVariantsModal(null)}
             onSave={(variants, threshold) => {
               setOverrides(prev => ({ ...prev, [p.id]: { ...prev[p.id], variants: variants.length > 0 ? variants : undefined, lowStockThreshold: threshold === DEFAULT_LOW_STOCK ? undefined : threshold } }));
-              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » — ${variants.length} variante(s), seuil bas ${threshold}` });
+              logAudit({ actor, action: "update", entity: "product", entityId: p.id, details: `« ${p.name} » - ${variants.length} variante(s), seuil bas ${threshold}` });
               toast.success("Variantes enregistrées");
               setVariantsModal(null);
             }}
@@ -588,7 +591,7 @@ export function AdminProductsPage() {
           onClose={() => setCreating(false)}
           onCreate={(p) => {
             setCreated(prev => [p, ...prev]);
-            logAudit({ actor, action: "create", entity: "product", entityId: p.id, details: `« ${p.name} » — ${formatPrice(p.price)}, stock ${p.stock}` });
+            logAudit({ actor, action: "create", entity: "product", entityId: p.id, details: `« ${p.name} » - ${formatPrice(p.price)}, stock ${p.stock}` });
             toast.success("Produit créé", { description: p.name });
             setCreating(false);
           }}
@@ -666,7 +669,7 @@ function BulkEditModal({ count, categories, onClose, onApply }: {
         <div className="sticky top-0 bg-white border-b border-[var(--ipk-border)] px-5 py-4 flex items-center justify-between">
           <div>
             <h2 style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)" }}>Édition en lot</h2>
-            <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>{count} produit(s) sélectionné(s) — cochez les actions à appliquer</p>
+            <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>{count} produit(s) sélectionné(s) - cochez les actions à appliquer</p>
           </div>
           <Button onClick={onClose} variant="outline" className="rounded-lg h-8 w-8 p-0" aria-label="Fermer"><X className="w-4 h-4" /></Button>
         </div>
@@ -802,7 +805,7 @@ function CreateProductModal({ onClose, onCreate }: { onClose: () => void; onCrea
       stock,
       isUnique: stock === 1,
       isExclusive: false,
-      images: imageUrl.trim() ? [imageUrl.trim()] : ["https://images.unsplash.com/photo-1528498033373-3c6c08e93d79?w=800"],
+      images: imageUrl.trim() ? [imageUrl.trim()] : [DEFAULT_PRODUCT_IMAGE],
       rating: 0,
       reviewCount: 0,
       badges: ["Nouveau"],
@@ -950,7 +953,7 @@ function ImportCSVModal({ existingIds, existingSlugs, onClose, onConfirm }: {
             price: Number.isFinite(price) ? price : 0, currency: "Fcfa",
             stock: Number.isFinite(stock) ? stock : 0,
             isUnique: stock === 1, isExclusive: false,
-            images: splitPipes(r.images).length > 0 ? splitPipes(r.images) : ["https://images.unsplash.com/photo-1528498033373-3c6c08e93d79?w=800"],
+            images: splitPipes(r.images).length > 0 ? splitPipes(r.images) : [DEFAULT_PRODUCT_IMAGE],
             rating: 0, reviewCount: 0,
             badges: splitPipes(r.badges).length > 0 ? splitPipes(r.badges) : ["Nouveau"],
             delivery: { zones: r.country || "Togo", delay: "5-10 jours", cost: "Sur devis" },
@@ -1009,9 +1012,9 @@ function ImportCSVModal({ existingIds, existingSlugs, onClose, onConfirm }: {
                     {parsed.map((r, i) => (
                       <tr key={i} className="border-t border-[var(--ipk-border)]">
                         <td className="px-2 py-1">{r.errors.length > 0 ? <span className="text-red-600">×</span> : r.match ? <span className="text-[var(--ipk-blue)]">↻</span> : <span className="text-[var(--ipk-green-dark)]">+</span>}</td>
-                        <td className="px-2 py-1 truncate max-w-[180px]">{r.raw.name || "—"}</td>
-                        <td className="px-2 py-1 text-right">{r.raw.price || "—"}</td>
-                        <td className="px-2 py-1 text-right">{r.raw.stock || "—"}</td>
+                        <td className="px-2 py-1 truncate max-w-[180px]">{r.raw.name || "-"}</td>
+                        <td className="px-2 py-1 text-right">{r.raw.price || "-"}</td>
+                        <td className="px-2 py-1 text-right">{r.raw.stock || "-"}</td>
                         <td className="px-2 py-1 text-red-600 truncate" style={{ fontSize: "11px" }}>{r.errors.join(", ")}</td>
                       </tr>
                     ))}
@@ -1131,7 +1134,7 @@ function FullProductEditor({ product, onClose, onSave }: {
   const seoTitleFallback = name.trim() || product.name;
   const seoDescFallback = (story || "").slice(0, 160);
   const seoImageFallback = product.images?.[0] || "";
-  const titleLen = (seoTitle || `${seoTitleFallback} — IPPOO KRAAFT`).length;
+  const titleLen = (seoTitle || `${seoTitleFallback} - IPPOO KRAAFT`).length;
   const descLen = (seoDescription || seoDescFallback).length;
 
   return (
@@ -1288,7 +1291,7 @@ function FullProductEditor({ product, onClose, onSave }: {
             <>
               <p className="text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>Ces champs surchargent le titre, la description et l'image partagée sur Google et les réseaux sociaux. Laisser vide pour utiliser les valeurs par défaut.</p>
               <Field label="Meta title">
-                <input value={seoTitle} onChange={e => setSeoTitle(e.target.value)} maxLength={70} placeholder={`${seoTitleFallback} — IPPOO KRAAFT`} className="w-full border border-[var(--ipk-border)] rounded-lg px-3 py-2" />
+                <input value={seoTitle} onChange={e => setSeoTitle(e.target.value)} maxLength={70} placeholder={`${seoTitleFallback} - IPPOO KRAAFT`} className="w-full border border-[var(--ipk-border)] rounded-lg px-3 py-2" />
                 <div className="mt-1 flex justify-between text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>
                   <span>Idéal : 50–60 caractères</span>
                   <span className={titleLen > 60 ? "text-amber-600" : ""}>{titleLen}/70</span>
@@ -1317,7 +1320,7 @@ function FullProductEditor({ product, onClose, onSave }: {
               </Field>
               <div className="rounded-xl border border-[var(--ipk-border)] bg-[var(--ipk-surface)] p-3">
                 <div className="text-[var(--ipk-text)] mb-1" style={{ fontSize: "10px", fontWeight: 600, textTransform: "uppercase" }}>Aperçu Google</div>
-                <div className="text-[#1a0dab] truncate" style={{ fontSize: "16px" }}>{seoTitle || `${seoTitleFallback} — IPPOO KRAAFT`}</div>
+                <div className="text-[#1a0dab] truncate" style={{ fontSize: "16px" }}>{seoTitle || `${seoTitleFallback} - IPPOO KRAAFT`}</div>
                 <div className="text-[#006621] truncate" style={{ fontSize: "12px" }}>ippoo-kraaft.com › boutique › {slug || slugify(name)}</div>
                 <div className="text-[#545454] line-clamp-2" style={{ fontSize: "13px" }}>{seoDescription || seoDescFallback || "Décrit l'oeuvre, sa provenance, sa technique…"}</div>
               </div>

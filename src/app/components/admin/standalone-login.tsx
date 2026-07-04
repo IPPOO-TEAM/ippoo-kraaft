@@ -121,7 +121,7 @@ function LoginForm() {
         </div>
 
         <p className="mt-4 text-center text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>
-          Session sécurisée — expiration automatique après 30 minutes d'inactivité
+          Session sécurisée - expiration automatique après 30 minutes d'inactivité
         </p>
       </form>
     </div>

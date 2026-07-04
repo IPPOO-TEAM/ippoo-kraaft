@@ -16,8 +16,8 @@ export function ArtisanPublicPage() {
   const artisan = artisans.find(a => a.slug === slug);
 
   useSeo({
-    title: artisan ? `${artisan.name} — Vitrine artisan` : "Artisan introuvable",
-    description: artisan ? `${artisan.specialty} — ${artisan.region}, ${artisan.country}. ${artisan.bio}` : "",
+    title: artisan ? `${artisan.name} - Vitrine artisan` : "Artisan introuvable",
+    description: artisan ? `${artisan.specialty} - ${artisan.region}, ${artisan.country}. ${artisan.bio}` : "",
   });
 
   const myProducts = useMemo(() => artisan ? products.filter(p => p.artisanId === artisan.id) : [], [products, artisan]);

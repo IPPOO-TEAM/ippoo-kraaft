@@ -19,7 +19,7 @@ import { useCurrencyConfig, DEFAULT_CURRENCIES, type CurrencyCode } from "../../
 interface Message { id: string; type: string; name: string; email: string; subject: string; message: string; date: string; read?: boolean; }
 
 export function AdminMessagesPage() {
-  useSeo({ title: "Admin — Messages", noIndex: true });
+  useSeo({ title: "Admin - Messages", noIndex: true });
   const [messages, setMessages] = useLocalState<Message[]>("ipk:admin:messages:v1", []);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "unread" | "read">("all");
@@ -42,7 +42,7 @@ export function AdminMessagesPage() {
 
   return (
     <div>
-      <PageHeader title="Messages" subtitle={`${messages.length} messages — ${counts.unread} non lu${counts.unread > 1 ? "s" : ""}`} />
+      <PageHeader title="Messages" subtitle={`${messages.length} messages - ${counts.unread} non lu${counts.unread > 1 ? "s" : ""}`} />
 
       <DataCard className="mb-4">
         <div className="flex flex-wrap gap-2 items-center justify-between">
@@ -85,7 +85,7 @@ export function AdminMessagesPage() {
               <div className="flex items-start justify-between gap-2 mb-3 pb-3 border-b border-[var(--ipk-border)]">
                 <div className="min-w-0">
                   <h3 className="text-[var(--ipk-ink)] truncate" style={{ fontSize: "16px", fontWeight: 600 }}>{current.subject}</h3>
-                  <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>De <span className="font-medium">{current.name}</span> &lt;{current.email}&gt; — {new Date(current.date).toLocaleString("fr-FR")}</p>
+                  <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>De <span className="font-medium">{current.name}</span> &lt;{current.email}&gt; - {new Date(current.date).toLocaleString("fr-FR")}</p>
                 </div>
                 <div className="flex gap-1">
                   <Button onClick={() => toggleRead(current.id)} variant="outline" className="rounded-lg h-8 px-3" style={{ fontSize: "11px" }}>{current.read ? "Marquer non lu" : "Marquer lu"}</Button>
@@ -118,7 +118,7 @@ const ENTITY_LABELS: Record<string, string> = {
 };
 
 export function AdminAuditPage() {
-  useSeo({ title: "Admin — Journal d'audit", noIndex: true });
+  useSeo({ title: "Admin - Journal d'audit", noIndex: true });
   const { entries, clear } = useAuditLog();
   const { session } = useAdmin();
   const [search, setSearch] = useState("");
@@ -223,7 +223,7 @@ export function AdminAuditPage() {
             </ul>
             {pageCount > 1 && (
               <div className="flex items-center justify-between gap-2 pt-3 mt-3 border-t border-[var(--ipk-border)]">
-                <span className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>Page {safePage} / {pageCount} — {filtered.length} entrées</span>
+                <span className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>Page {safePage} / {pageCount} - {filtered.length} entrées</span>
                 <div className="flex gap-1">
                   <Button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={safePage === 1} variant="outline" className="rounded-lg h-8 px-3" style={{ fontSize: "12px" }}>Précédent</Button>
                   <Button onClick={() => setPage(p => Math.min(pageCount, p + 1))} disabled={safePage === pageCount} variant="outline" className="rounded-lg h-8 px-3" style={{ fontSize: "12px" }}>Suivant</Button>
@@ -257,7 +257,7 @@ const DEFAULT_PROMOS: PromoCode[] = [
 ];
 
 export function AdminSettingsPage() {
-  useSeo({ title: "Admin — Paramètres", noIndex: true });
+  useSeo({ title: "Admin - Paramètres", noIndex: true });
   const { session } = useAdmin();
   const [settings, setSettings] = useLocalState<ShopSettings>("ipk:admin:settings:v1", DEFAULT_SETTINGS);
   const [promos, setPromos] = useLocalState<PromoCode[]>("ipk:admin:promos:v1", DEFAULT_PROMOS);
@@ -322,7 +322,7 @@ export function AdminSettingsPage() {
               try {
                 const text = await f.text();
                 const { restored } = importAdminBackup(text);
-                logAudit({ actor: session?.username || "system", action: "restore", entity: "settings", details: `Backup importée — ${restored} clés restaurées` });
+                logAudit({ actor: session?.username || "system", action: "restore", entity: "settings", details: `Backup importée - ${restored} clés restaurées` });
                 toast.success(`${restored} clés restaurées`, { description: "Rechargez la page pour appliquer." });
               } catch (err) {
                 toast.error("Import échoué", { description: (err as Error).message });
@@ -428,7 +428,7 @@ function AuditHeatmap({ entries, onPickDate }: { entries: { date: string }[]; on
   return (
     <DataCard className="mb-4">
       <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
-        <h3 className="text-[var(--ipk-ink)]" style={{ fontSize: "15px", fontWeight: 600 }}>Activité — 12 dernières semaines</h3>
+        <h3 className="text-[var(--ipk-ink)]" style={{ fontSize: "15px", fontWeight: 600 }}>Activité - 12 dernières semaines</h3>
         <div className="flex items-center gap-1 text-[var(--ipk-text)]" style={{ fontSize: "10px" }}>
           <span>moins</span>
           <span className="w-3 h-3 rounded-sm bg-[var(--ipk-surface)] border border-[var(--ipk-border)]" />
@@ -448,7 +448,7 @@ function AuditHeatmap({ entries, onPickDate }: { entries: { date: string }[]; on
                   onClick={() => !c.isFuture && c.count > 0 && onPickDate(c.iso)}
                   disabled={c.isFuture || c.count === 0}
                   className={`w-3.5 h-3.5 rounded-sm ${tone(c.count, c.isFuture)} ${!c.isFuture && c.count > 0 ? "hover:ring-2 hover:ring-[var(--ipk-ink)] cursor-pointer" : "cursor-default"} transition`}
-                  title={c.isFuture ? "" : `${new Date(c.iso).toLocaleDateString("fr-FR")} — ${c.count} événement${c.count > 1 ? "s" : ""}`}
+                  title={c.isFuture ? "" : `${new Date(c.iso).toLocaleDateString("fr-FR")} - ${c.count} événement${c.count > 1 ? "s" : ""}`}
                   aria-label={`${c.iso}: ${c.count} événements`}
                 />
               ))}
@@ -498,7 +498,7 @@ function OfflineCachePanel() {
       }
       const reg = await navigator.serviceWorker?.getRegistration();
       if (reg?.waiting) reg.waiting.postMessage("skipWaiting");
-      toast.success("Cache vidé — rechargement…");
+      toast.success("Cache vidé - rechargement…");
       setTimeout(() => window.location.reload(), 600);
     } catch (err) {
       toast.error("Échec", { description: (err as Error).message });
@@ -548,7 +548,7 @@ function PaymentGatewayPanel() {
   const save = () => {
     setGatewayConfig({ url: url.trim(), publicKey: publicKey.trim() });
     logAudit({ actor: "system", action: "payment_gateway_config", entity: "settings", details: url ? `Gateway: ${url}` : "Gateway désactivée (mock)" });
-    toast.success(url ? "Gateway de paiement configurée" : "Gateway désactivée — mode mock actif");
+    toast.success(url ? "Gateway de paiement configurée" : "Gateway désactivée - mode mock actif");
   };
 
   const test = async () => {
@@ -689,7 +689,7 @@ function SyncQueuePanel() {
         <StatusPill status={!isOnline ? "Hors-ligne" : conflictCount > 0 ? `${conflictCount} conflit(s)` : pendingCount > 0 ? `${pendingCount} en attente` : failedCount > 0 ? `${failedCount} échec(s)` : "À jour"} tone={tone} />
       </div>
       <p className="text-[var(--ipk-text)] mb-3" style={{ fontSize: "12px" }}>
-        Les modifications faites hors-ligne sont mises en file et rejouées automatiquement à la reconnexion. {endpoint ? <>Envoi vers <span className="font-mono">{endpoint}</span> via POST JSON.</> : <>Aucun endpoint configuré — l'envoi est simulé (90% de réussite, 200–700 ms).</>}
+        Les modifications faites hors-ligne sont mises en file et rejouées automatiquement à la reconnexion. {endpoint ? <>Envoi vers <span className="font-mono">{endpoint}</span> via POST JSON.</> : <>Aucun endpoint configuré - l'envoi est simulé (90% de réussite, 200–700 ms).</>}
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-2 mb-3">
         <input

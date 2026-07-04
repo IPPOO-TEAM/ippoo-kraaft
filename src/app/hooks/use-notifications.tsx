@@ -93,7 +93,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
     const onReward = (e: Event) => {
       const d = (e as CustomEvent<{ title: string; description?: string; highlight?: string; url?: string }>).detail;
       if (!d) return;
-      const body = [d.highlight, d.description].filter(Boolean).join(" — ");
+      const body = [d.highlight, d.description].filter(Boolean).join(" - ");
       if (!shouldStoreInApp("reward")) return;
       add({ title: d.title, body, url: d.url, source: "system", category: "reward", tone: "reward" });
     };

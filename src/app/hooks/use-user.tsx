@@ -113,7 +113,7 @@ async function hashPassword(password: string): Promise<string> {
   const hex = await pbkdf2(password, hexToBytes(saltHex), PBKDF2_ITERATIONS);
   return `pbkdf2$${PBKDF2_ITERATIONS}$${saltHex}$${hex}`;
 }
-/** Compare en temps constant — protège contre les attaques de timing simples. */
+/** Compare en temps constant - protège contre les attaques de timing simples. */
 function constantTimeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
   let r = 0; for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
@@ -221,7 +221,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signupWithGoogle = useCallback(async () => {
-    // Mock OAuth — generates a partial profile
+    // Mock OAuth - generates a partial profile
     const mockEmail = `user.google${Math.floor(Math.random() * 1000)}@gmail.com`;
     const mockName = "Utilisateur Google";
     const users = loadUsers();

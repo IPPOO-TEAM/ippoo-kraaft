@@ -26,7 +26,7 @@ const ENTITY_LABELS: Record<string, string> = {
 };
 
 export function AdminDashboardPage() {
-  useSeo({ title: "Admin — Tableau de bord", noIndex: true });
+  useSeo({ title: "Admin - Tableau de bord", noIndex: true });
   const { entries } = useAuditLog();
 
   const { dailyActivity, entityBreakdown, totalActions } = useMemo(() => {
@@ -145,7 +145,7 @@ export function AdminDashboardPage() {
             <div className="flex items-center gap-2">
               <AlertTriangle className={`w-4 h-4 ${outOfStock > 0 ? "text-red-700" : "text-amber-700"}`} />
               <span className={outOfStock > 0 ? "text-red-800" : "text-amber-800"} style={{ fontSize: "13px", fontWeight: 600 }}>
-                Alerte stock — {outOfStock > 0 ? `${outOfStock} rupture${outOfStock > 1 ? "s" : ""}` : ""}{outOfStock > 0 && lowStock > 0 ? " · " : ""}{lowStock > 0 ? `${lowStock} bas` : ""}
+                Alerte stock - {outOfStock > 0 ? `${outOfStock} rupture${outOfStock > 1 ? "s" : ""}` : ""}{outOfStock > 0 && lowStock > 0 ? " · " : ""}{lowStock > 0 ? `${lowStock} bas` : ""}
               </span>
             </div>
             <Link to="/admin/produits" className={`inline-flex items-center gap-1 ${outOfStock > 0 ? "text-red-700" : "text-amber-700"}`} style={{ fontSize: "12px", fontWeight: 600 }}>
@@ -249,7 +249,7 @@ export function AdminDashboardPage() {
         <div className="bg-white rounded-2xl border border-[var(--ipk-border)] p-5">
           <h2 className="mb-4" style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)" }}>Top entités modifiées</h2>
           {entityBreakdown.length === 0 ? (
-            <div className="text-[var(--ipk-text)] py-8 text-center" style={{ fontSize: "13px" }}>—</div>
+            <div className="text-[var(--ipk-text)] py-8 text-center" style={{ fontSize: "13px" }}>-</div>
           ) : (
             <ul className="space-y-2">
               {entityBreakdown.map((e, i) => {

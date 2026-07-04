@@ -4,7 +4,7 @@ import {
   Search, ShoppingCart, Menu, X, Home, Store, Image, Users,
   GraduationCap, Heart, User, ChevronRight, Phone, BookOpen,
   Calendar, Shield, Handshake, MapPin, ArrowRight,
-  Tag, Flame, Trophy, Gift, Ticket, RotateCw, Sparkles,
+  Tag, Flame, Trophy, Gift, Ticket, RotateCw, Sparkles, Hammer, Network, Radio, Globe2, Landmark, ChevronDown,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
@@ -19,19 +19,107 @@ import { NewsletterForm } from "./newsletter-form";
 import { NotificationBell } from "./notification-bell";
 import { CurrencySwitcher } from "./currency-switcher";
 import { LoyaltyHeaderBadge } from "./loyalty-badge";
-import logoImg from "../../imports/logo_IPPOO_Kraft.png";
+import logoImg from "../../imports/kraaft_fav.jpg";
+import headerBgImg from "../../imports/Sintesi_Joy_PARADISE_60_119_Quick_sample_48h__Italy___1_.jpg";
+import { BackgroundMusicPlayer } from "./background-music-player";
+
+// Associe chaque section à une ambiance de fond (couleurs douces assorties
+// aux images de la page) - voir .ipk-amb--* dans theme.css.
+function ambianceFor(pathname: string): string {
+  const seg = pathname.replace(/^\/+/, "").split("/")[0] || "accueil";
+  const map: Record<string, string> = {
+    "": "green", accueil: "green", boutique: "green", artisan: "green",
+    niche: "green", "devenir-artisan": "green", favoris: "green", metiers: "green",
+    repertoire: "blue",
+    "a-propos": "blue", contact: "blue", faq: "blue", statistiques: "blue",
+    promotions: "amber", flash: "amber", concours: "amber", roue: "amber",
+    "carte-cadeau": "amber", "tickets-cadeaux": "amber", "jour-de-marche": "amber",
+    formations: "purple", galeries: "purple", "arts-culture": "purple", academie: "purple",
+    blog: "rose", evenements: "rose", salons: "rose", medias: "rose",
+    patrimoines: "teal", marketplace: "amber",
+    dialogues: "blue",
+    groupements: "teal", "achats-groupes": "teal",
+  };
+  return map[seg] || "neutral";
+}
+
+// Nouvelles sections éditoriales : fond teinté doux renforcé (jamais blanc).
+const SOFT_BG_SEGMENTS = new Set([
+  "metiers", "repertoire", "arts-culture", "academie", "medias",
+  "patrimoines", "marketplace", "dialogues", "salons",
+]);
+function isSoftBgRoute(pathname: string): boolean {
+  const seg = pathname.replace(/^\/+/, "").split("/")[0];
+  return SOFT_BG_SEGMENTS.has(seg);
+}
 
 const navLinks = [
   { to: "/boutique", label: "Boutique", icon: Store },
+  { to: "/metiers", label: "Métiers", icon: Hammer },
+  { to: "/repertoire", label: "Répertoire", icon: Network },
+  { to: "/arts-culture", label: "Arts & culture", icon: Sparkles },
   { to: "/galeries", label: "Galeries", icon: Image },
   { to: "/promotions", label: "Promos", icon: Tag },
   { to: "/groupements", label: "Groupements", icon: Users },
   { to: "/formations", label: "Formations", icon: GraduationCap },
+  { to: "/academie", label: "Académie KRAAFT", icon: GraduationCap },
   { to: "/blog", label: "Art & Cultures", icon: BookOpen },
+  { to: "/medias", label: "Médias & Podcasts", icon: Radio },
+  { to: "/patrimoines", label: "Patrimoines", icon: Landmark },
+  { to: "/marketplace", label: "Place de Marché", icon: ShoppingCart },
+  { to: "/dialogues", label: "Dialogues & Innovation", icon: Globe2 },
   { to: "/achats-groupes", label: "Achats Groupés", icon: Users },
   { to: "/evenements", label: "Événements", icon: Calendar },
+  { to: "/salons", label: "Salons & rencontres", icon: Calendar },
   { to: "/devenir-artisan", label: "Devenir artisan", icon: Handshake },
   { to: "/contact", label: "Contact", icon: Phone },
+];
+
+// Menu desktop structuré : liens directs + groupes déroulants pour exposer
+// toutes les sections sans surcharger la barre.
+const navGroups: { label: string; items: { to: string; label: string; icon: typeof Store }[] }[] = [
+  {
+    label: "Explorer",
+    items: [
+      { to: "/metiers", label: "Métiers & savoir-faire", icon: Hammer },
+      { to: "/arts-culture", label: "Arts & culture", icon: Sparkles },
+      { to: "/galeries", label: "Galeries photo", icon: Image },
+      { to: "/patrimoines", label: "Centre Patrimoines", icon: Landmark },
+      { to: "/dialogues", label: "Dialogues & Innovation", icon: Globe2 },
+    ],
+  },
+  {
+    label: "Communauté",
+    items: [
+      { to: "/repertoire", label: "Répertoire des artisans", icon: Network },
+      { to: "/groupements", label: "Groupements", icon: Users },
+      { to: "/academie", label: "Académie KRAAFT", icon: GraduationCap },
+      { to: "/formations", label: "Formations", icon: GraduationCap },
+      { to: "/devenir-artisan", label: "Devenir artisan", icon: Handshake },
+    ],
+  },
+  {
+    label: "Médias",
+    items: [
+      { to: "/blog", label: "Blog & Actualités", icon: BookOpen },
+      { to: "/medias", label: "Médias & Podcasts Griots", icon: Radio },
+    ],
+  },
+  {
+    label: "Marché",
+    items: [
+      { to: "/marketplace", label: "Place de Marché", icon: ShoppingCart },
+      { to: "/achats-groupes", label: "Achats Groupés", icon: Users },
+      { to: "/promotions", label: "Promotions & cadeaux", icon: Tag },
+    ],
+  },
+  {
+    label: "Agenda",
+    items: [
+      { to: "/evenements", label: "Événements", icon: Calendar },
+      { to: "/salons", label: "Salons & rencontres", icon: Calendar },
+    ],
+  },
 ];
 
 const marketingLinks = [
@@ -61,13 +149,45 @@ export function Layout() {
     if (firstRouteRef.current) { firstRouteRef.current = false; return; }
     setMobileMenuOpen(false);
     setSearchOpen(false);
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    // Le défilement (haut sur nouvelle nav, restauration au retour) est géré par
+    // <ScrollRestoration> dans RootLayout - ne pas forcer le scroll ici.
     const id = window.setTimeout(() => {
       mainRef.current?.focus({ preventScroll: true });
       const title = document.title || location.pathname;
       if (announcerRef.current) announcerRef.current.textContent = `Page chargée : ${title}`;
     }, 60);
     return () => window.clearTimeout(id);
+  }, [location.pathname]);
+
+  // Colore les titres NOIRS (h1/h2/h3) avec des couleurs variées en rotation -
+  // chaque titre reçoit une couleur différente du précédent. Les titres déjà
+  // colorés (héros blancs, accents verts/bleus, etc.) ne sont pas touchés.
+  useEffect(() => {
+    const root = mainRef.current;
+    if (!root) return;
+    const palette = ["#0B6B3A", "#0046CC", "#B45309", "#6D28D9", "#BE185D", "#0F766E", "#C2410C", "#1D4ED8"];
+    let idx = 0;
+    const colorize = () => {
+      root.querySelectorAll<HTMLElement>("h1, h2, h3").forEach((h) => {
+        if (h.dataset.ipkColored) return;
+        const m = getComputedStyle(h).color.match(/\d+/g);
+        if (!m) return;
+        const [r, g, b] = m.map(Number);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        const grayish = Math.max(r, g, b) - Math.min(r, g, b) < 28;
+        // Cible uniquement les titres "noirs/gris foncés", pas les titres colorés
+        if (brightness < 90 && grayish) {
+          h.style.setProperty("color", palette[idx % palette.length], "important");
+          h.dataset.ipkColored = "1";
+          idx += 1;
+        }
+      });
+    };
+    colorize();
+    // Re-colore quand le contenu lazy/asynchrone est monté
+    const obs = new MutationObserver(() => colorize());
+    obs.observe(root, { childList: true, subtree: true });
+    return () => obs.disconnect();
   }, [location.pathname]);
 
   React.useEffect(() => {
@@ -110,33 +230,105 @@ export function Layout() {
       <PromoStrip />
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-[var(--ipk-border)]">
+      <header
+        className="sticky top-0 z-40"
+        style={{
+          backgroundColor: "#C8F74A",
+          borderBottom: "none",
+          isolation: "isolate",
+          "--ipk-surface": "rgba(0,0,0,0.10)",
+          "--ipk-text": "#111418",
+          "--ipk-border": "rgba(0,0,0,0.12)",
+        } as React.CSSProperties}
+      >
+        {/* Image de fond du header - motif tropical en filigrane 4% d'opacité */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${headerBgImg})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center center",
+            opacity: 0.04,
+            pointerEvents: "none",
+            zIndex: 0,
+            mixBlendMode: "multiply",
+          }}
+        />
+        {/* Espace vide + bande blanche pleine largeur en haut */}
+        <div style={{ height: 5 }} />
+        <div style={{ height: 6, backgroundColor: "#ffffff" }} />
         <div className="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between gap-2">
-          {/* Logo */}
-          <Link to="/accueil" className="flex items-center gap-2 shrink-0">
-            <img src={logoImg} alt="IPPOO KRAAFT" className="h-8 sm:h-10 w-auto" />
+          {/* Logo agrandi */}
+          <Link to="/accueil" className="flex items-center shrink-0 min-w-0">
+            <img
+              src={logoImg}
+              alt="IPPOO KRAAFT"
+              className="h-9 sm:h-11 w-auto max-w-[170px] sm:max-w-[260px] object-contain"
+            />
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Navigation principale">
-            {navLinks.slice(0, 6).map((link) => {
-              const active = location.pathname.startsWith(link.to);
+          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Navigation principale">
+            <Link
+              to="/boutique"
+              aria-current={location.pathname.startsWith("/boutique") ? "page" : undefined}
+              className={`px-3 py-2 rounded-lg transition-colors ${
+                location.pathname.startsWith("/boutique")
+                  ? "bg-[#0B6B3A]/10 text-[var(--ipk-green-dark)]"
+                  : "text-[var(--ipk-text)] hover:bg-[var(--ipk-surface)]"
+              }`}
+              style={{ fontSize: "14px", fontWeight: 500 }}
+            >
+              Boutique
+            </Link>
+
+            {navGroups.map((group) => {
+              const groupActive = group.items.some((it) => location.pathname.startsWith(it.to));
               return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  aria-current={active ? "page" : undefined}
-                  className={`px-3 py-2 rounded-lg transition-colors ${
-                    active
-                      ? "bg-[#0B6B3A]/10 text-[var(--ipk-green-dark)]"
-                      : "text-[var(--ipk-text)] hover:bg-[var(--ipk-surface)]"
-                  }`}
-                  style={{ fontSize: "14px", fontWeight: 500 }}
-                >
-                  {link.label}
-                </Link>
+                <DropdownMenu key={group.label}>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className={`inline-flex items-center gap-1 px-3 py-2 rounded-lg transition-colors ${
+                        groupActive
+                          ? "bg-[#0B6B3A]/10 text-[var(--ipk-green-dark)]"
+                          : "text-[var(--ipk-text)] hover:bg-[var(--ipk-surface)]"
+                      }`}
+                      style={{ fontSize: "14px", fontWeight: 500 }}
+                    >
+                      {group.label}
+                      <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-60">
+                    {group.items.map((it) => {
+                      const Icon = it.icon;
+                      return (
+                        <DropdownMenuItem key={it.to} onClick={() => navigate(it.to)}>
+                          <Icon className="w-4 h-4 mr-2 text-[var(--ipk-green-dark)]" />
+                          {it.label}
+                        </DropdownMenuItem>
+                      );
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               );
             })}
+
+            <Link
+              to="/contact"
+              aria-current={location.pathname.startsWith("/contact") ? "page" : undefined}
+              className={`px-3 py-2 rounded-lg transition-colors ${
+                location.pathname.startsWith("/contact")
+                  ? "bg-[#0B6B3A]/10 text-[var(--ipk-green-dark)]"
+                  : "text-[var(--ipk-text)] hover:bg-[var(--ipk-surface)]"
+              }`}
+              style={{ fontSize: "14px", fontWeight: 500 }}
+            >
+              Contact
+            </Link>
           </nav>
 
           {/* Actions */}
@@ -213,13 +405,12 @@ export function Layout() {
                 </button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[280px] sm:w-[300px] p-0">
-                <SheetHeader className="p-4 border-b border-[var(--ipk-border)]">
-                  <SheetTitle className="flex items-center gap-2">
-                    <img src={logoImg} alt="IPPOO KRAAFT" className="h-8 w-auto" />
-                    <span style={{ color: "var(--ipk-ink)" }}>IPPOO KRAAFT</span>
+                <SheetHeader className="p-4 border-b border-[var(--ipk-border)] bg-white">
+                  <SheetTitle className="flex items-center">
+                    <img src={logoImg} alt="IPPOO KRAAFT" className="h-8 w-auto max-w-[200px] object-contain" />
                   </SheetTitle>
                 </SheetHeader>
-                <nav className="flex flex-col py-2">
+                <nav className="flex flex-col py-2 flex-1 min-h-0 overflow-y-auto overscroll-contain">
                   {navLinks.map((link) => {
                     const Icon = link.icon;
                     return (
@@ -324,28 +515,46 @@ export function Layout() {
             </form>
           </div>
         )}
+        {/* Bande blanche pleine largeur + espace vide en bas */}
+        <div style={{ height: 6, backgroundColor: "#ffffff" }} />
+        <div style={{ height: 5 }} />
       </header>
 
       {/* Main content */}
-      <main id="main-content" ref={mainRef} tabIndex={-1} className="flex-1 focus:outline-none">
+      <main
+        id="main-content"
+        ref={mainRef}
+        tabIndex={-1}
+        className={`flex-1 focus:outline-none ipk-amb ipk-amb--${ambianceFor(location.pathname)} ipk-titles${isSoftBgRoute(location.pathname) ? " ipk-amb-strong" : ""}`}
+      >
         <Outlet />
       </main>
 
       {/* Route change live region (a11y) */}
       <div ref={announcerRef} role="status" aria-live="polite" aria-atomic="true" className="sr-only" />
 
+      {/* Lecteur de musique de fond - musique africaine douce en arrière-plan */}
+      <BackgroundMusicPlayer />
+
 
       {/* Footer */}
       <footer className="bg-[var(--ipk-ink)] text-white mt-auto">
+        {/* Bande blanche opaque pleine largeur avec le logo centré */}
+        <div className="w-full bg-white" style={{ backgroundColor: "#ffffff" }}>
+          <div className="max-w-7xl mx-auto px-4 py-5 flex justify-center">
+            <img
+              src={logoImg}
+              alt="IPPOO KRAAFT"
+              className="h-10 sm:h-12 w-auto max-w-[280px] object-contain"
+            />
+          </div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8">
             <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-3 mb-3">
-                <img src={logoImg} alt="IPPOO KRAAFT" className="h-8 sm:h-10 w-auto" />
-                <div>
-                  <div style={{ fontSize: "15px", fontWeight: 700 }}>IPPOO KRAAFT</div>
-                  <div style={{ fontSize: "10px", opacity: 0.7 }}>ART & HANDMADE</div>
-                </div>
+              <div className="mb-3">
+                <div style={{ fontSize: "15px", fontWeight: 700 }}>IPPOO KRAAFT</div>
+                <div style={{ fontSize: "10px", opacity: 0.7 }}>ART & HANDMADE</div>
               </div>
               <p style={{ fontSize: "14px", opacity: 0.7, lineHeight: 1.6 }}>
                 Valorisation de l'artisanat africain authentique. Chaque pièce raconte une histoire, chaque achat soutient un artisan.
@@ -358,8 +567,15 @@ export function Layout() {
             <div>
               <h4 className="mb-4" style={{ fontSize: "14px", fontWeight: 600, color: "var(--ipk-green-dark)" }}>Boutique</h4>
               <div className="flex flex-col gap-2">
-                {["Sculptures", "Textiles", "Poterie", "Vannerie", "Bijoux", "Nouveautés"].map(item => (
-                  <Link key={item} to="/boutique" className="opacity-70 hover:opacity-100 transition-opacity" style={{ fontSize: "14px" }}>{item}</Link>
+                {[
+                  { label: "Sculptures", to: "/boutique?cat=Sculpture" },
+                  { label: "Textiles", to: "/boutique?cat=Textile" },
+                  { label: "Poterie", to: "/boutique?cat=Poterie" },
+                  { label: "Vannerie", to: "/boutique?cat=Vannerie" },
+                  { label: "Bijoux", to: "/boutique?cat=Bijoux" },
+                  { label: "Nouveautés", to: "/boutique?sort=newest" },
+                ].map(item => (
+                  <Link key={item.label} to={item.to} className="opacity-70 hover:opacity-100 transition-opacity" style={{ fontSize: "14px" }}>{item.label}</Link>
                 ))}
               </div>
             </div>
@@ -368,9 +584,18 @@ export function Layout() {
               <div className="flex flex-col gap-2">
                 {[
                   { label: "À propos", to: "/a-propos" },
+                  { label: "Métiers & savoir-faire", to: "/metiers" },
+                  { label: "Répertoire des artisans", to: "/repertoire" },
+                  { label: "Arts & culture", to: "/arts-culture" },
+                  { label: "Médias & Podcasts Griots", to: "/medias" },
+                  { label: "Centre Patrimoines", to: "/patrimoines" },
+                  { label: "Place de Marché KRAAFT", to: "/marketplace" },
+                  { label: "Dialogues & Innovation", to: "/dialogues" },
                   { label: "Groupements", to: "/groupements" },
                   { label: "Formations", to: "/formations" },
+                  { label: "Académie KRAAFT", to: "/academie" },
                   { label: "Événements", to: "/evenements" },
+                  { label: "Salons & rencontres", to: "/salons" },
                   { label: "Blog", to: "/blog" },
                 ].map(item => (
                   <Link key={item.to} to={item.to} className="opacity-70 hover:opacity-100 transition-opacity" style={{ fontSize: "14px" }}>{item.label}</Link>
@@ -450,8 +675,8 @@ export function Layout() {
                 aria-label={item.label}
                 className="flex flex-col items-center py-1 px-2 min-w-0"
               >
-                <Icon aria-hidden="true" className={`w-5 h-5 ${isActive ? "text-[var(--ipk-green-dark)]" : "text-[var(--ipk-text)]"}`} />
-                <span className="truncate w-full text-center" style={{ fontSize: "9px", fontWeight: isActive ? 600 : 400, color: isActive ? "var(--ipk-green-dark)" : "var(--ipk-text)" }}>{item.label}</span>
+                <Icon aria-hidden="true" className="w-5 h-5" style={{ color: "var(--ipk-green-dark)" }} />
+                <span className="truncate w-full text-center" style={{ fontSize: "9px", fontWeight: isActive ? 600 : 400, color: isActive ? "var(--ipk-green-darker)" : "var(--ipk-green-dark)" }}>{item.label}</span>
               </Link>
             );
           })}

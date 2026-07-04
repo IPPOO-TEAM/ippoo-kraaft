@@ -15,7 +15,7 @@ const ICON_OPTIONS = [
 ];
 
 export function AdminCategoriesPage() {
-  useSeo({ title: "Admin — Catégories", noIndex: true });
+  useSeo({ title: "Admin - Catégories", noIndex: true });
   const { session } = useAdmin();
   const actor = session?.username || "system";
   const confirm = useConfirm();
@@ -72,7 +72,7 @@ export function AdminCategoriesPage() {
     <div>
       <PageHeader
         title="Catégories"
-        subtitle={`${categories.length} catégories — ${visibleCount} visibles publiquement`}
+        subtitle={`${categories.length} catégories - ${visibleCount} visibles publiquement`}
         action={
           <div className="flex gap-2">
             <Button onClick={handleReset} variant="outline" className="rounded-xl h-10"><RotateCcw className="w-4 h-4 mr-1" /> Réinitialiser</Button>

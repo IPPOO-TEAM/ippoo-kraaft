@@ -93,7 +93,7 @@ function PromoBadge({ kind, value }: { kind: "percent" | "fixed"; value: number 
 }
 
 export function PromotionsPage() {
-  useSeo({ title: "Promotions — IPPOO KRAAFT", description: "Profitez des promotions du moment sur l'artisanat togolais." });
+  useSeo({ title: "Promotions - IPPOO KRAAFT", description: "Profitez des promotions du moment sur l'artisanat togolais." });
   const [filter, setFilter] = useState<"all" | "new" | "loyalty" | "artisan">("all");
   const { promotions: livePromotions } = useMarketing();
   const filtered = livePromotions.filter(p => {
@@ -182,7 +182,7 @@ function loadNotified(): Record<string, string[]> {
 function saveNotified(m: Record<string, string[]>) { try { localStorage.setItem(FLASH_NOTIFIED_KEY, JSON.stringify(m)); } catch {} }
 
 export function FlashPage() {
-  useSeo({ title: "Ventes flash — IPPOO KRAAFT", description: "Pièces d'exception à prix éclair, stocks limités." });
+  useSeo({ title: "Ventes flash - IPPOO KRAAFT", description: "Pièces d'exception à prix éclair, stocks limités." });
   const { flashDeals: liveFlash } = useMarketing();
   const flashDeals = liveFlash.filter(d => !d.disabled);
   const [subs, setSubs] = useState<string[]>(() => loadFlashSubs());
@@ -196,7 +196,7 @@ export function FlashPage() {
       const msg = `Nouvelle vente flash : « ${d.productName} » à ${new Intl.NumberFormat("fr-FR").format(d.flashPrice)} F !`;
       toast(msg, { icon: "⚡" });
       if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-        try { new Notification("IPPOO KRAAFT — Vente flash", { body: msg }); } catch {}
+        try { new Notification("IPPOO KRAAFT - Vente flash", { body: msg }); } catch {}
       }
     };
     window.addEventListener("ipk:flash:broadcast", onBroadcast);
@@ -210,11 +210,11 @@ export function FlashPage() {
     const p = await Notification.requestPermission();
     setNotifPerm(p);
     if (p === "granted") toast.success("Notifications navigateur activées");
-    else toast.info("Notifications refusées — vous serez alerté en page");
+    else toast.info("Notifications refusées - vous serez alerté en page");
   };
   const pushNative = (title: string) => {
     if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-      try { new Notification("IPPOO KRAAFT — Vente flash", { body: title, icon: "/favicon.ico" }); } catch {}
+      try { new Notification("IPPOO KRAAFT - Vente flash", { body: title, icon: "/favicon.ico" }); } catch {}
     }
   };
 
@@ -349,7 +349,7 @@ function RankIcon({ rank }: { rank: number }) {
 }
 
 export function ConcoursPage() {
-  useSeo({ title: "Concours — IPPOO KRAAFT", description: "Participez à nos concours et tentez de gagner des œuvres uniques." });
+  useSeo({ title: "Concours - IPPOO KRAAFT", description: "Participez à nos concours et tentez de gagner des œuvres uniques." });
   const { enterContest, contestEntries, voteForEntry, hasVoted, rankingFor, badgesFor, contests: liveContests } = useMarketing();
   const contests = liveContests.filter(c => !c.disabled);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -382,7 +382,7 @@ export function ConcoursPage() {
       phone: phone.trim() || undefined,
       submission: submission.trim() || undefined,
     });
-    toast.success("Participation enregistrée — badge « Premier pas » obtenu !");
+    toast.success("Participation enregistrée - badge « Premier pas » obtenu !");
     setActiveId(null); setName(""); setEmail(""); setPhone(""); setSubmission("");
   };
 
@@ -427,7 +427,7 @@ export function ConcoursPage() {
         </div>
         <div className="flex flex-wrap gap-1.5">
           {myBadges.length === 0 ? (
-            <span className="text-xs text-[var(--ipk-text)]">Aucun badge — participez ou votez pour en gagner !</span>
+            <span className="text-xs text-[var(--ipk-text)]">Aucun badge - participez ou votez pour en gagner !</span>
           ) : myBadges.map(b => (
             <span key={b.id} className="inline-flex items-center gap-1 text-[11px] px-2 py-1 rounded-full bg-[var(--ipk-green-dark)]/10 text-[var(--ipk-green-dark)]">
               <Star className="w-3 h-3" /> {b.label}
@@ -486,7 +486,7 @@ export function ConcoursPage() {
       {active && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-4" onClick={() => setActiveId(null)}>
           <div className="bg-white rounded-2xl w-full max-w-md p-6 space-y-3" onClick={e => e.stopPropagation()}>
-            <h3 className="font-medium" style={{ fontSize: "18px" }}>Participer — {active.title}</h3>
+            <h3 className="font-medium" style={{ fontSize: "18px" }}>Participer - {active.title}</h3>
             <div className="text-xs text-[var(--ipk-text)]">{CONTEST_KIND_LABEL[active.kind]} · {CONTEST_RANKING_LABEL[active.ranking]}</div>
             <input value={name} onChange={e => setName(e.target.value)} placeholder="Nom complet" className="w-full px-3 py-2 border border-[var(--ipk-border)] rounded-xl text-sm" />
             <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Email" className="w-full px-3 py-2 border border-[var(--ipk-border)] rounded-xl text-sm" />
@@ -566,7 +566,7 @@ export function ContestResultsPage() {
   const { rankingFor, badgesFor, contests: liveContests } = useMarketing();
   const contest = liveContests.find(c => c.id === id);
   useSeo({
-    title: contest ? `Résultats — ${contest.title}` : "Résultats du concours",
+    title: contest ? `Résultats - ${contest.title}` : "Résultats du concours",
     description: contest ? `Classement officiel : ${contest.title}` : "Classement du concours IPK",
   });
 
@@ -589,7 +589,7 @@ export function ContestResultsPage() {
   const share = async () => {
     const url = window.location.href;
     try {
-      if (navigator.share) await navigator.share({ title: `Résultats — ${contest.title}`, url });
+      if (navigator.share) await navigator.share({ title: `Résultats - ${contest.title}`, url });
       else { await navigator.clipboard.writeText(url); toast.success("Lien copié"); }
     } catch {}
   };
@@ -690,7 +690,7 @@ export function ContestResultsPage() {
 
 // ============= ROUE DE LA FORTUNE =============
 export function WheelPage() {
-  useSeo({ title: "Roue de la fortune — IPPOO KRAAFT", description: "Tentez votre chance et gagnez des bons d'achat IPK." });
+  useSeo({ title: "Roue de la fortune - IPPOO KRAAFT", description: "Tentez votre chance et gagnez des bons d'achat IPK." });
   const { canSpinWheel, recordWheelSpin, nextSpinIn, spinsLeftToday, awardTicket, earnPoints, wheelPrizes } = useMarketing();
   const [angle, setAngle] = useState(0);
   const [spinning, setSpinning] = useState(false);
@@ -749,7 +749,7 @@ export function WheelPage() {
         earnPoints(prize.value || 0, "Roue de la fortune");
         rewardToast({ kind: "points", title: "Points fidélité gagnés", highlight: `+${prize.value} pts` });
       } else {
-        toast.info("Pas cette fois — retentez demain !");
+        toast.info("Pas cette fois - retentez demain !");
       }
     }, 4500);
   };
@@ -768,7 +768,7 @@ export function WheelPage() {
       <div className="text-center mb-6">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--ipk-green-dark)]/10 text-[var(--ipk-green-dark)] text-xs font-medium">
           <Sparkles className="w-3.5 h-3.5" />
-          {spinsLeft > 0 ? `${spinsLeft} tour${spinsLeft > 1 ? "s" : ""} restant${spinsLeft > 1 ? "s" : ""} aujourd'hui` : "Quota du jour atteint — revenez demain"}
+          {spinsLeft > 0 ? `${spinsLeft} tour${spinsLeft > 1 ? "s" : ""} restant${spinsLeft > 1 ? "s" : ""} aujourd'hui` : "Quota du jour atteint - revenez demain"}
         </span>
       </div>
 
@@ -933,7 +933,7 @@ export function WheelPage() {
 
 // ============= CARTE CADEAU =============
 export function GiftCardPage() {
-  useSeo({ title: "Carte cadeau — IPPOO KRAAFT", description: "Offrez l'artisanat togolais avec une carte cadeau IPK." });
+  useSeo({ title: "Carte cadeau - IPPOO KRAAFT", description: "Offrez l'artisanat togolais avec une carte cadeau IPK." });
   const { buyGiftCard, sendGiftCardEmail, redeemGiftCard, giftCards } = useMarketing();
   const [amount, setAmount] = useState(25000);
   const [recipient, setRecipient] = useState("");
@@ -959,7 +959,7 @@ export function GiftCardPage() {
     setIssued(card.code);
     if (delivery === "digital") {
       const r = sendGiftCardEmail(card.code);
-      if (r.ok) rewardToast({ kind: "gift", title: "Carte cadeau envoyée", description: `Code ${card.code} — destinataire : ${recipientEmail}`, highlight: formatPrice(amount) });
+      if (r.ok) rewardToast({ kind: "gift", title: "Carte cadeau envoyée", description: `Code ${card.code} - destinataire : ${recipientEmail}`, highlight: formatPrice(amount) });
       else toast.error(r.reason);
     } else {
       rewardToast({ kind: "gift", title: "Carte cadeau créée", description: `Envoi postal vers ${recipientAddress.split("\n")[0]}`, highlight: formatPrice(amount) });
@@ -1028,7 +1028,7 @@ export function GiftCardPage() {
             <textarea value={recipientAddress} onChange={e => setRecipientAddress(e.target.value)} placeholder="Adresse postale (rue, ville, pays)" className="w-full px-3 py-2 border border-[var(--ipk-border)] rounded-xl text-sm h-20 resize-none" />
           )}
           <textarea value={message} onChange={e => setMessage(e.target.value)} placeholder="Message personnalisé" className="w-full px-3 py-2 border border-[var(--ipk-border)] rounded-xl text-sm h-20 resize-none" />
-          <Button onClick={purchase} className="w-full bg-[var(--ipk-green-dark)] text-white">Acheter — {formatPrice(amount)}</Button>
+          <Button onClick={purchase} className="w-full bg-[var(--ipk-green-dark)] text-white">Acheter - {formatPrice(amount)}</Button>
           {issued && (
             <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm space-y-2">
               <div>Code généré : <CopyCode code={issued} /></div>
@@ -1066,7 +1066,7 @@ export function GiftCardPage() {
 
 // ============= TICKETS CADEAUX =============
 export function GiftTicketsPage() {
-  useSeo({ title: "Tickets cadeaux — IPPOO KRAAFT", description: "Vos avantages exclusifs : bienvenue, anniversaire, parrainage, fidélité." });
+  useSeo({ title: "Tickets cadeaux - IPPOO KRAAFT", description: "Vos avantages exclusifs : bienvenue, anniversaire, parrainage, fidélité." });
   const { tickets, awardTicket, consumeTicket, loyaltyPoints, redeemPoints } = useMarketing();
   const [redeemAmount, setRedeemAmount] = useState(1000);
   const claim = (label: string, pct?: number) => {
@@ -1165,7 +1165,7 @@ export function GiftTicketsPage() {
 
 // ============= JOUR DE MARCHÉ =============
 export function MarketDayPage() {
-  useSeo({ title: "Jour de marché — IPPOO KRAAFT", description: "Le programme hebdomadaire de la communauté IPK." });
+  useSeo({ title: "Jour de marché - IPPOO KRAAFT", description: "Le programme hebdomadaire de la communauté IPK." });
   const today = new Date();
   const { marketDays } = useMarketing();
   return (
@@ -1199,7 +1199,7 @@ export function MarketDayPage() {
       <div className="mt-8 p-6 rounded-2xl bg-[var(--ipk-surface)] flex items-center gap-3 flex-wrap">
         <MapPin className="w-5 h-5 text-[var(--ipk-green-dark)]" />
         <div className="flex-1 min-w-0">
-          <div className="font-medium">Showroom IPK — Lomé, quartier Djidjolé</div>
+          <div className="font-medium">Showroom IPK - Lomé, quartier Djidjolé</div>
           <div className="text-sm text-[var(--ipk-text)]">Du mardi au dimanche, 9h-18h. Entrée libre.</div>
         </div>
         <Link to="/contact"><Button variant="outline">Itinéraire</Button></Link>

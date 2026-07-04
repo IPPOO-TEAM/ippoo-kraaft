@@ -1,12 +1,12 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router";
 import {
   ArrowLeft, ArrowRight, Calendar, Clock, User, Tag, ChevronRight,
-  Share2, BookOpen, Heart, MessageCircle, Search, Filter
+  Share2, BookOpen, Heart, MessageCircle, Search, Newspaper, Trash2
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { blogArticles, IMAGES } from "../data/mock-data";
+import { blogArticles } from "../data/mock-data";
 import { LazyImage } from "./lazy-image";
 import { useSeo } from "../hooks/use-seo";
 import { NotFoundDetail } from "./not-found-detail";
@@ -15,10 +15,34 @@ import { useLeads } from "../hooks/use-leads";
 
 const ALL_CATEGORIES = ["Tous", ...Array.from(new Set(blogArticles.map(a => a.category)))];
 
+// ============= COMMENTS HOOK (localStorage) =============
+type BlogComment = { id: string; slug: string; author: string; text: string; createdAt: string };
+const COMMENTS_KEY = "ipk:blog:comments:v1";
+function loadComments(): BlogComment[] {
+  try { return JSON.parse(localStorage.getItem(COMMENTS_KEY) || "[]"); } catch { return []; }
+}
+function saveComments(list: BlogComment[]) {
+  try { localStorage.setItem(COMMENTS_KEY, JSON.stringify(list)); } catch {}
+}
+function useBlogComments(slug: string | undefined) {
+  const [all, setAll] = useState<BlogComment[]>(() => loadComments());
+  useEffect(() => { saveComments(all); }, [all]);
+  const comments = useMemo(() => all.filter(c => c.slug === slug).sort((a, b) => b.createdAt.localeCompare(a.createdAt)), [all, slug]);
+  const add = (author: string, text: string) => {
+    if (!slug) return;
+    const c: BlogComment = { id: `c_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, slug, author: author.trim() || "Anonyme", text: text.trim(), createdAt: new Date().toISOString() };
+    setAll(prev => [c, ...prev]);
+  };
+  const remove = (id: string) => setAll(prev => prev.filter(c => c.id !== id));
+  return { comments, add, remove };
+}
+
 // ============= BLOG LIST PAGE =============
 export function BlogPage() {
-  useSeo({ title: "Blog — Récits d'artisanat africain", description: "Articles, reportages et savoir-faire ancestraux : 12 récits sur l'artisanat africain par IPPOO KRAAFT." });
+  useSeo({ title: "Blog & Actualités - Récits d'artisanat africain", description: "Articles, actualités, reportages et savoir-faire ancestraux : récits sur l'artisanat africain par IPPOO KRAAFT." });
   const [activeCategory, setActiveCategory] = useState("Tous");
+  const [activeAuthor, setActiveAuthor] = useState<string | null>(null);
+  const [activeTag, setActiveTag] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const { addLead, hasLead } = useLeads();
@@ -32,9 +56,29 @@ export function BlogPage() {
     setNewsletterEmail("");
   };
 
+  // Auteurs (avec compteur) - pour le filtre "par auteur"
+  const authors = useMemo(() => {
+    const map = new Map<string, number>();
+    blogArticles.forEach(a => map.set(a.author, (map.get(a.author) || 0) + 1));
+    return Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
+  }, []);
+  // Tags populaires (top 12)
+  const popularTags = useMemo(() => {
+    const map = new Map<string, number>();
+    blogArticles.forEach(a => a.tags?.forEach(t => map.set(t, (map.get(t) || 0) + 1)));
+    return Array.from(map.entries()).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  }, []);
+  // Dernières actus (par date desc, top 5)
+  const latestNews = useMemo(
+    () => [...blogArticles].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 5),
+    []
+  );
+
   const filtered = useMemo(() => {
     let list = blogArticles;
     if (activeCategory !== "Tous") list = list.filter(a => a.category === activeCategory);
+    if (activeAuthor) list = list.filter(a => a.author === activeAuthor);
+    if (activeTag) list = list.filter(a => a.tags?.includes(activeTag));
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(a =>
@@ -44,21 +88,60 @@ export function BlogPage() {
       );
     }
     return list;
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, activeAuthor, activeTag, searchQuery]);
 
+  const hasFilters = activeCategory !== "Tous" || !!activeAuthor || !!activeTag || !!searchQuery.trim();
+  const resetFilters = () => { setActiveCategory("Tous"); setActiveAuthor(null); setActiveTag(null); setSearchQuery(""); };
   const featured = blogArticles[0];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 pb-20 lg:pb-6">
       {/* Header */}
-      <div className="mb-6">
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px, 5vw, 36px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
-          Art & Cultures
-        </h1>
-        <p className="text-[var(--ipk-text)] mt-1" style={{ fontSize: "15px" }}>
-          Symboliques, portraits, reportages terroir et coulisses de l'artisanat africain
-        </p>
+      <div className="mb-6 flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <span className="inline-flex items-center gap-2 text-[var(--ipk-blue)]" style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <Newspaper className="w-4 h-4" /> Blog &amp; Actualités
+          </span>
+          <h1 className="mt-1" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px, 5vw, 36px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
+            Art &amp; Cultures
+          </h1>
+          <p className="text-[var(--ipk-text)] mt-1" style={{ fontSize: "15px" }}>
+            Symboliques, portraits, reportages terroir et coulisses de l'artisanat africain
+          </p>
+        </div>
+        <div className="text-[var(--ipk-text)]" style={{ fontSize: "13px" }}>
+          {blogArticles.length} article{blogArticles.length > 1 ? "s" : ""} publiés
+        </div>
       </div>
+
+      {/* Dernières actualités (chronologique) */}
+      <section className="mb-8 bg-gradient-to-r from-[var(--ipk-blue)]/10 to-[var(--ipk-green)]/5 border border-[var(--ipk-border)] rounded-2xl p-4 sm:p-5">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="inline-flex items-center gap-2 text-[var(--ipk-ink)]" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Dernières actualités
+          </h2>
+          <Link to="/blog" onClick={(e) => { e.preventDefault(); resetFilters(); }} className="text-[var(--ipk-blue)] hover:underline" style={{ fontSize: "13px", fontWeight: 600 }}>
+            Voir tout
+          </Link>
+        </div>
+        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" style={{ WebkitOverflowScrolling: "touch" }}>
+          {latestNews.map((n) => (
+            <Link key={n.id} to={`/blog/${n.slug}`} className="shrink-0 w-[260px] bg-white rounded-xl border border-[var(--ipk-border)] overflow-hidden hover:shadow-md transition-shadow">
+              <div className="aspect-[16/9] overflow-hidden">
+                <LazyImage src={n.image} alt={n.title} className="w-full h-full object-cover" />
+              </div>
+              <div className="p-3">
+                <div className="flex items-center gap-2 text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>
+                  <Calendar className="w-3 h-3" /> {n.date}
+                  <span>·</span>
+                  <span className="text-[var(--ipk-blue)]">{n.category}</span>
+                </div>
+                <p className="line-clamp-2 mt-1" style={{ fontSize: "13.5px", fontWeight: 600, color: "var(--ipk-ink)", lineHeight: 1.4 }}>{n.title}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* Search bar */}
       <div className="relative mb-5">
@@ -73,7 +156,7 @@ export function BlogPage() {
       </div>
 
       {/* Category filters */}
-      <div className="flex gap-2 overflow-x-auto pb-3 mb-6 scrollbar-hide" style={{ WebkitOverflowScrolling: "touch" }}>
+      <div className="flex gap-2 overflow-x-auto pb-3 mb-3 scrollbar-hide" style={{ WebkitOverflowScrolling: "touch" }}>
         {ALL_CATEGORIES.map(cat => (
           <button
             key={cat}
@@ -90,8 +173,49 @@ export function BlogPage() {
         ))}
       </div>
 
-      {/* Featured article (only show when on "Tous" with no search) */}
-      {activeCategory === "Tous" && !searchQuery && featured && (
+      {/* Auteurs + tags populaires */}
+      <div className="grid lg:grid-cols-2 gap-3 mb-5">
+        <div className="bg-white border border-[var(--ipk-border)] rounded-xl p-3">
+          <div className="flex items-center gap-1.5 mb-2 text-[var(--ipk-text)]" style={{ fontSize: "12px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            <User className="w-3.5 h-3.5" /> Par auteur
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <button onClick={() => setActiveAuthor(null)} className={`px-2.5 py-1 rounded-lg transition-colors ${activeAuthor === null ? "bg-[var(--ipk-blue)] text-white" : "bg-[var(--ipk-surface)] text-[var(--ipk-text)] hover:bg-[var(--ipk-blue)]/10"}`} style={{ fontSize: "12px", fontWeight: 500 }}>Tous</button>
+            {authors.map(([name, count]) => (
+              <button key={name} onClick={() => setActiveAuthor(activeAuthor === name ? null : name)} className={`px-2.5 py-1 rounded-lg transition-colors ${activeAuthor === name ? "bg-[var(--ipk-blue)] text-white" : "bg-[var(--ipk-surface)] text-[var(--ipk-text)] hover:bg-[var(--ipk-blue)]/10"}`} style={{ fontSize: "12px", fontWeight: 500 }}>
+                {name} <span className="opacity-60">·{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="bg-white border border-[var(--ipk-border)] rounded-xl p-3">
+          <div className="flex items-center gap-1.5 mb-2 text-[var(--ipk-text)]" style={{ fontSize: "12px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            <Tag className="w-3.5 h-3.5" /> Tags populaires
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {popularTags.map(([tag, count]) => (
+              <button key={tag} onClick={() => setActiveTag(activeTag === tag ? null : tag)} className={`px-2.5 py-1 rounded-lg transition-colors ${activeTag === tag ? "bg-[var(--ipk-green-dark)] text-white" : "bg-[var(--ipk-surface)] text-[var(--ipk-text)] hover:bg-[var(--ipk-green)]/10"}`} style={{ fontSize: "12px", fontWeight: 500 }}>
+                #{tag} <span className="opacity-60">·{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Bandeau filtres actifs */}
+      {hasFilters && (
+        <div className="mb-4 flex items-center gap-2 flex-wrap text-[var(--ipk-text)]" style={{ fontSize: "13px" }}>
+          <span>Filtres actifs :</span>
+          {activeCategory !== "Tous" && <span className="px-2 py-0.5 bg-[var(--ipk-surface)] rounded">{activeCategory}</span>}
+          {activeAuthor && <span className="px-2 py-0.5 bg-[var(--ipk-surface)] rounded">Auteur : {activeAuthor}</span>}
+          {activeTag && <span className="px-2 py-0.5 bg-[var(--ipk-surface)] rounded">#{activeTag}</span>}
+          {searchQuery && <span className="px-2 py-0.5 bg-[var(--ipk-surface)] rounded">« {searchQuery} »</span>}
+          <button onClick={resetFilters} className="text-[var(--ipk-blue)] hover:underline ml-1" style={{ fontWeight: 600 }}>Réinitialiser</button>
+        </div>
+      )}
+
+      {/* Featured article (only show when no filter is active) */}
+      {!hasFilters && featured && (
         <Link to={`/blog/${featured.slug}`} className="block rounded-2xl overflow-hidden border border-[var(--ipk-border)] mb-8 group hover:shadow-lg transition-shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
@@ -128,18 +252,16 @@ export function BlogPage() {
       )}
 
       {/* Results count */}
-      {(searchQuery || activeCategory !== "Tous") && (
+      {hasFilters && (
         <p className="mb-4 text-[var(--ipk-text)]" style={{ fontSize: "13px" }}>
           {filtered.length} article{filtered.length > 1 ? "s" : ""} trouvé{filtered.length > 1 ? "s" : ""}
-          {activeCategory !== "Tous" && <> dans <strong>{activeCategory}</strong></>}
-          {searchQuery && <> pour « <strong>{searchQuery}</strong> »</>}
         </p>
       )}
 
       {/* Articles grid */}
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {(activeCategory === "Tous" && !searchQuery ? filtered.slice(1) : filtered).map((article) => (
+          {(!hasFilters ? filtered.slice(1) : filtered).map((article) => (
             <Link
               key={article.id}
               to={`/blog/${article.slug}`}
@@ -182,7 +304,7 @@ export function BlogPage() {
           <BookOpen className="w-12 h-12 text-[var(--ipk-border)] mx-auto mb-3" />
           <p style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)" }}>Aucun article trouvé</p>
           <p className="text-[var(--ipk-text)] mt-1" style={{ fontSize: "14px" }}>Essayez une autre recherche ou catégorie</p>
-          <Button onClick={() => { setActiveCategory("Tous"); setSearchQuery(""); }} className="mt-4 bg-[var(--ipk-green-dark)] text-white rounded-xl">
+          <Button onClick={resetFilters} className="mt-4 bg-[var(--ipk-green-dark)] text-white rounded-xl">
             Voir tous les articles
           </Button>
         </div>
@@ -223,6 +345,24 @@ export function BlogDetailPage() {
   const toggleLike = () => {
     if (liked) { removeLead(liked.id); toast.info("Retiré de vos favoris"); }
     else { addLead({ type: "blog_like", ref: slug, refLabel: slug }); toast.success("Article ajouté à vos favoris !"); }
+  };
+  const { comments, add: addComment, remove: removeComment } = useBlogComments(slug);
+  const commentSectionRef = useRef<HTMLDivElement>(null);
+  const [commentAuthor, setCommentAuthor] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const focusCommentForm = () => {
+    commentSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => {
+      const ta = commentSectionRef.current?.querySelector<HTMLTextAreaElement>("textarea");
+      ta?.focus();
+    }, 300);
+  };
+  const submitComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commentText.trim()) { toast.error("Écrivez votre commentaire avant de publier"); return; }
+    addComment(commentAuthor, commentText);
+    setCommentText("");
+    toast.success("Commentaire publié");
   };
   const article = blogArticles.find(a => a.slug === slug);
 
@@ -369,9 +509,9 @@ export function BlogDetailPage() {
             <Heart className={`w-4 h-4 ${liked ? "fill-current" : ""}`} />
             <span style={{ fontSize: "13px" }}>{liked ? "Aimé" : "J'aime"}</span>
           </button>
-          <button className="flex items-center gap-1.5 text-[var(--ipk-text)] hover:text-[var(--ipk-blue)] transition-colors">
+          <button onClick={focusCommentForm} className="flex items-center gap-1.5 text-[var(--ipk-text)] hover:text-[var(--ipk-blue)] transition-colors">
             <MessageCircle className="w-4 h-4" />
-            <span style={{ fontSize: "13px" }}>Commenter</span>
+            <span style={{ fontSize: "13px" }}>Commenter{comments.length > 0 ? ` · ${comments.length}` : ""}</span>
           </button>
         </div>
         <button onClick={handleShare} className="flex items-center gap-1.5 text-[var(--ipk-text)] hover:text-[var(--ipk-blue)] transition-colors">
@@ -400,6 +540,66 @@ export function BlogDetailPage() {
             <ArrowRight className="w-5 h-5 text-[var(--ipk-text)] group-hover:text-[var(--ipk-green-dark)] shrink-0 transition-colors" />
           </Link>
         ) : <div />}
+      </div>
+
+      {/* Comments section */}
+      <div ref={commentSectionRef} className="mb-10 scroll-mt-24">
+        <h2 className="mb-4 flex items-center gap-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 600, color: "var(--ipk-ink)" }}>
+          <MessageCircle className="w-5 h-5 text-[var(--ipk-blue)]" />
+          Commentaires {comments.length > 0 && <span className="text-[var(--ipk-text)]" style={{ fontSize: "16px", fontWeight: 400 }}>· {comments.length}</span>}
+        </h2>
+        <form onSubmit={submitComment} className="bg-[var(--ipk-surface)] rounded-2xl p-4 mb-5 space-y-3">
+          <input
+            value={commentAuthor}
+            onChange={(e) => setCommentAuthor(e.target.value)}
+            placeholder="Votre nom (facultatif)"
+            className="w-full px-3 py-2 bg-white border border-[var(--ipk-border)] rounded-lg"
+            style={{ fontSize: "14px" }}
+          />
+          <textarea
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+            placeholder="Partagez votre avis, une anecdote, une question…"
+            rows={3}
+            className="w-full px-3 py-2 bg-white border border-[var(--ipk-border)] rounded-lg resize-y"
+            style={{ fontSize: "14px" }}
+          />
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>
+              Les commentaires sont stockés localement sur cet appareil.
+            </p>
+            <Button type="submit" className="bg-[var(--ipk-blue)] hover:bg-[var(--ipk-blue-dark)] text-white rounded-xl">
+              Publier
+            </Button>
+          </div>
+        </form>
+        {comments.length === 0 ? (
+          <p className="text-[var(--ipk-text)] italic" style={{ fontSize: "14px" }}>
+            Aucun commentaire pour le moment - soyez le premier à réagir.
+          </p>
+        ) : (
+          <ul className="space-y-3">
+            {comments.map((c) => (
+              <li key={c.id} className="bg-white border border-[var(--ipk-border)] rounded-xl p-4">
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-[var(--ipk-blue)]/10 text-[var(--ipk-blue)] flex items-center justify-center" style={{ fontSize: "12px", fontWeight: 700 }}>
+                      {c.author.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--ipk-ink)" }}>{c.author}</p>
+                      <p className="text-[var(--ipk-text)]" style={{ fontSize: "11px" }}>{new Date(c.createdAt).toLocaleString("fr-FR")}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => removeComment(c.id)} className="text-[var(--ipk-text)] hover:text-red-500 transition-colors" aria-label="Supprimer ce commentaire">
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <p className="text-[var(--ipk-text)] whitespace-pre-line" style={{ fontSize: "14px", lineHeight: 1.6 }}>{c.text}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Related articles */}

@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { CouponPattern, CouponTheme } from "../data/marketing-data";
 
-// Coupons CSS-only — inspirés des affiches promotionnelles et motifs textiles ouest-africains
+// Coupons CSS-only - inspirés des affiches promotionnelles et motifs textiles ouest-africains
 // (kente, perles, calebasse, adinkra, bogolan). Aucune image externe : dégradés, conic/radial-gradient
 // composent les visuels. Animations légères (shimmer, pulse) et adapté mobile.
 

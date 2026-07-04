@@ -171,7 +171,7 @@ function GroupBuyingCard({ offer }: { offer: GroupBuyingOffer }) {
 
 // ── LIST PAGE ──
 export function GroupBuyingPage() {
-  useSeo({ title: "Achats groupés — Jusqu'à -35%", description: "Rejoignez les achats groupés IPPOO KRAAFT et bénéficiez de paliers dégressifs pouvant aller jusqu'à -35% sur l'artisanat certifié." });
+  useSeo({ title: "Achats groupés - Jusqu'à -35%", description: "Rejoignez les achats groupés IPPOO KRAAFT et bénéficiez de paliers dégressifs pouvant aller jusqu'à -35% sur l'artisanat certifié." });
   const [filter, setFilter] = useState<"all" | "active" | "closing_soon" | "upcoming">("all");
 
   const filtered = filter === "all"
@@ -248,12 +248,6 @@ export function GroupBuyingPage() {
               <div key={i} className="text-center">
                 <div className="relative w-14 h-14 rounded-2xl bg-white border border-[var(--ipk-border)] flex items-center justify-center mx-auto mb-3">
                   <s.icon className="w-6 h-6 text-[var(--ipk-green)]" />
-                  <span
-                    className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--ipk-green)] text-white flex items-center justify-center"
-                    style={{ fontSize: "11px", fontWeight: 700 }}
-                  >
-                    {s.step}
-                  </span>
                 </div>
                 <h4 className="text-[var(--ipk-ink)] mb-1" style={{ fontSize: "14px", fontWeight: 600 }}>{s.title}</h4>
                 <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px", lineHeight: 1.5 }}>{s.desc}</p>
@@ -368,7 +362,7 @@ export function GroupBuyingDetailPage() {
 
   const handleJoin = () => {
     toast.success("Inscription confirmée !", {
-      description: `Vous avez rejoint le groupe "${offer.title}" — ${quantity} pièce(s) à ${formatPrice(currentTier.price)}/u.`,
+      description: `Vous avez rejoint le groupe "${offer.title}" - ${quantity} pièce(s) à ${formatPrice(currentTier.price)}/u.`,
     });
   };
 
@@ -387,7 +381,7 @@ export function GroupBuyingDetailPage() {
 
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid lg:grid-cols-5 gap-8">
-          {/* Left — Image & info */}
+          {/* Left - Image & info */}
           <div className="lg:col-span-3 space-y-6">
             {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden aspect-[16/10]">
@@ -472,7 +466,7 @@ export function GroupBuyingDetailPage() {
                         {artisan.name}
                       </span>
                       <span className="text-[var(--ipk-text)] block" style={{ fontSize: "12px" }}>
-                        {artisan.specialty} — {artisan.country}
+                        {artisan.specialty} - {artisan.country}
                       </span>
                       <div className="flex items-center gap-1 mt-0.5">
                         <Star className="w-3 h-3 text-[var(--ipk-amber)] fill-[var(--ipk-amber)]" />
@@ -494,7 +488,7 @@ export function GroupBuyingDetailPage() {
                         {groupement.name}
                       </span>
                       <span className="text-[var(--ipk-text)] block" style={{ fontSize: "12px" }}>
-                        {groupement.artisanCount} artisans — {groupement.country}
+                        {groupement.artisanCount} artisans - {groupement.country}
                       </span>
                       <div className="flex items-center gap-1 mt-0.5">
                         <Shield className="w-3 h-3 text-[var(--ipk-green)]" />
@@ -507,7 +501,7 @@ export function GroupBuyingDetailPage() {
             </div>
           </div>
 
-          {/* Right — Pricing Sidebar */}
+          {/* Right - Pricing Sidebar */}
           <div className="lg:col-span-2">
             <div className="sticky top-24 space-y-5">
               {/* Main pricing card */}
@@ -659,7 +653,7 @@ export function GroupBuyingDetailPage() {
 
                 <p className="text-center text-[var(--ipk-text)] mt-3" style={{ fontSize: "12px" }}>
                   <Shield className="w-3 h-3 inline mr-1" />
-                  Paiement sécurisé — Satisfaction garantie
+                  Paiement sécurisé - Satisfaction garantie
                 </p>
               </div>
 
@@ -730,7 +724,7 @@ export function GroupBuyingDetailPage() {
           )}
         </div>
       </div>
-      <LeadModal open={notifyOpen} onOpenChange={setNotifyOpen} type="notify_groupbuy" title={`Notification — ${offer.title}`} description="Vous serez prévenu dès l'ouverture de cette offre." refId={offer.id} refLabel={offer.title} fields={{ phone: false, message: false }} successToast="Notification activée pour cette offre." />
+      <LeadModal open={notifyOpen} onOpenChange={setNotifyOpen} type="notify_groupbuy" title={`Notification - ${offer.title}`} description="Vous serez prévenu dès l'ouverture de cette offre." refId={offer.id} refLabel={offer.title} fields={{ phone: false, message: false }} successToast="Notification activée pour cette offre." />
     </div>
   );
 }

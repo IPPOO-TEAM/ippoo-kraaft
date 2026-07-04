@@ -14,6 +14,7 @@ import { MarketingProvider } from "./hooks/use-marketing";
 import { NotificationsProvider } from "./hooks/use-notifications";
 import { MediaProvider } from "./hooks/use-media";
 import { CmsProvider } from "./hooks/use-cms";
+import { BackgroundMusicProvider } from "./hooks/use-background-music";
 
 // Fallback component for initial hydration and lazy loading
 function LoadingFallback() {
@@ -27,10 +28,38 @@ function LoadingFallback() {
   );
 }
 
-// IPPOO KRAAFT — racine de l'application. Stack de providers : admin → sync → webhooks
+// IPPOO KRAAFT - racine de l'application. Stack de providers : admin → sync → webhooks
 // → confirm → store → user → payments → marketing, puis le RouterProvider.
 function AppRoot() {
   useEffect(() => {
+    // PWA status bar / browser chrome : même couleur que le header IPPOO KRAAFT.
+    const setThemeColor = (color: string) => {
+      let el = document.head.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute("name", "theme-color");
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", color);
+      // iOS Safari
+      let iosMeta = document.head.querySelector<HTMLMetaElement>('meta[name="apple-mobile-web-app-status-bar-style"]');
+      if (!iosMeta) {
+        iosMeta = document.createElement("meta");
+        iosMeta.setAttribute("name", "apple-mobile-web-app-status-bar-style");
+        document.head.appendChild(iosMeta);
+      }
+      iosMeta.setAttribute("content", "black-translucent");
+      // Manifest dynamique
+      let manifestEl = document.head.querySelector<HTMLMetaElement>('meta[name="msapplication-navbutton-color"]');
+      if (!manifestEl) {
+        manifestEl = document.createElement("meta");
+        manifestEl.setAttribute("name", "msapplication-navbutton-color");
+        document.head.appendChild(manifestEl);
+      }
+      manifestEl.setAttribute("content", color);
+    };
+    setThemeColor("#C8F74A");
+
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
     const isProdLike = window.location.protocol.startsWith("http") && !window.location.hostname.includes("figma");
     if (!isProdLike) return;
@@ -49,13 +78,15 @@ function AppRoot() {
                       <NotificationsProvider>
                         <MediaProvider>
                           <CmsProvider>
-                            <Suspense fallback={<LoadingFallback />}>
-                              <RouterProvider
-                                router={router}
-                                fallbackElement={<LoadingFallback />}
-                              />
-                            </Suspense>
-                            <Toaster position="top-center" richColors />
+                            <BackgroundMusicProvider>
+                              <Suspense fallback={<LoadingFallback />}>
+                                <RouterProvider
+                                  router={router}
+                                  fallbackElement={<LoadingFallback />}
+                                />
+                              </Suspense>
+                              <Toaster position="top-center" richColors />
+                            </BackgroundMusicProvider>
                           </CmsProvider>
                         </MediaProvider>
                       </NotificationsProvider>

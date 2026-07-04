@@ -17,7 +17,7 @@ import { useEntityCrud } from "../../hooks/use-entity-crud";
 interface EventOverride { ticketPrice?: number; spotsLeft?: number; date?: string; published?: boolean; }
 
 export function AdminEventsPage() {
-  useSeo({ title: "Admin — Événements", noIndex: true });
+  useSeo({ title: "Admin - Événements", noIndex: true });
   const { session } = useAdmin();
   const confirm = useConfirm();
   const [search, setSearch] = useState("");
@@ -66,7 +66,7 @@ export function AdminEventsPage() {
 
   return (
     <div>
-      <PageHeader title="Événements" subtitle={`${merged.length} événements — ${crud.removedCount} archivés`} action={
+      <PageHeader title="Événements" subtitle={`${merged.length} événements - ${crud.removedCount} archivés`} action={
         <div className="flex gap-2">
           <Button onClick={exportData} variant="outline" className="rounded-xl h-10"><Download className="w-4 h-4 mr-1" /> CSV</Button>
           <AddButton onClick={() => toast.info("Création événement", { description: "Édition inline disponible." })} label="Nouvel événement" />
@@ -152,7 +152,7 @@ export function AdminEventsPage() {
 interface BlogOverride { published?: boolean; category?: string; }
 
 export function AdminBlogPage() {
-  useSeo({ title: "Admin — Blog", noIndex: true });
+  useSeo({ title: "Admin - Blog", noIndex: true });
   const { session } = useAdmin();
   const confirm = useConfirm();
   const [search, setSearch] = useState("");
@@ -210,7 +210,7 @@ export function AdminBlogPage() {
 
   return (
     <div>
-      <PageHeader title="Blog" subtitle={`${merged.length} articles — ${crud.removedCount} archivés`} action={
+      <PageHeader title="Blog" subtitle={`${merged.length} articles - ${crud.removedCount} archivés`} action={
         <div className="flex gap-2">
           <Button onClick={exportData} variant="outline" className="rounded-xl h-10"><Download className="w-4 h-4 mr-1" /> CSV</Button>
           <AddButton onClick={() => toast.info("Création article", { description: "Édition inline disponible." })} label="Nouvel article" />
@@ -291,7 +291,7 @@ const GB_STATUS: Record<NonNullable<GBOverride["status"]>, { label: string; tone
 };
 
 export function AdminGroupBuyingPage() {
-  useSeo({ title: "Admin — Achats groupés", noIndex: true });
+  useSeo({ title: "Admin - Achats groupés", noIndex: true });
   const { session } = useAdmin();
   const confirm = useConfirm();
   const crud = useEntityCrud<typeof seedGB[number], GBOverride>({
@@ -353,7 +353,7 @@ export function AdminGroupBuyingPage() {
 
   return (
     <div>
-      <PageHeader title="Achats groupés" subtitle={`${merged.length} offres — ${crud.removedCount} archivées`} action={
+      <PageHeader title="Achats groupés" subtitle={`${merged.length} offres - ${crud.removedCount} archivées`} action={
         <div className="flex gap-2">
           <Button onClick={exportData} variant="outline" className="rounded-xl h-10"><Download className="w-4 h-4 mr-1" /> CSV</Button>
           <AddButton onClick={() => toast.info("Création offre", { description: "Édition inline disponible." })} label="Nouvelle offre" />

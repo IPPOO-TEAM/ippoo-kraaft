@@ -2,15 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
 import {
   ArrowRight, Shield, Award, Users, Globe, Leaf, Star,
-  CheckCircle, ChevronRight, Play, Pause, MapPin, Heart,
+  CheckCircle, ChevronRight, Play, Pause, MapPin,
   ShoppingBag, BookOpen, Camera, Calendar, Mail, Phone,
-  Menu, X, ChevronDown, Sparkles, TrendingUp, Handshake,
+  Menu, X, ChevronDown, Sparkles, TrendingUp, Radio,
   TrendingDown, Timer, Package, UserPlus, Percent, Tag, Clock
 } from "lucide-react";
 import { IMAGES, formatPrice, groupBuyingOffers } from "../data/mock-data";
 import { LazyImage } from "./lazy-image";
 import { useSeo } from "../hooks/use-seo";
-import logoImg from "../../imports/logo_IPPOO_Kraft.png";
+import logoImg from "../../imports/kraaft_fav.jpg";
+import headerBgImg from "../../imports/Sintesi_Joy_PARADISE_60_119_Quick_sample_48h__Italy___1_.jpg";
+import { AdCarousel, landingAdSlides } from "./ad-carousel";
+import { BackgroundMusicPlayer } from "./background-music-player";
 
 const LANDING_IMAGES = {
   hero: IMAGES.heroArtisan,
@@ -53,7 +56,7 @@ function useInView(threshold = 0.2) {
 
 export function LandingPage() {
   useSeo({
-    title: "IPPOO KRAAFT — Artisanat africain ancestral",
+    title: "IPPOO KRAAFT - Artisanat africain ancestral",
     description: "IPPOO KRAAFT révèle l'artisanat africain authentique : oeuvres certifiées, traçabilité QR, formations et impact direct pour les artisans.",
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -71,45 +74,89 @@ export function LandingPage() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Colore les titres noirs de la landing avec des couleurs variées en rotation.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const palette = ["#0B6B3A", "#0046CC", "#B45309", "#6D28D9", "#BE185D", "#0F766E", "#C2410C", "#1D4ED8"];
+    let idx = 0;
+    const colorize = () => {
+      root.querySelectorAll<HTMLElement>("h1, h2, h3").forEach((h) => {
+        if (h.dataset.ipkColored) return;
+        const m = getComputedStyle(h).color.match(/\d+/g);
+        if (!m) return;
+        const [r, g, b] = m.map(Number);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        const grayish = Math.max(r, g, b) - Math.min(r, g, b) < 28;
+        if (brightness < 90 && grayish) {
+          h.style.setProperty("color", palette[idx % palette.length], "important");
+          h.dataset.ipkColored = "1";
+          idx += 1;
+        }
+      });
+    };
+    colorize();
+    const obs = new MutationObserver(() => colorize());
+    obs.observe(root, { childList: true, subtree: true });
+    return () => obs.disconnect();
+  }, []);
+
   const navLinks = [
-    { label: "Mission", href: "#mission" },
-    { label: "Artisanat", href: "#artisanat" },
-    { label: "Normes", href: "#normes" },
-    { label: "Impact", href: "#impact" },
-    { label: "Achats Groupés", href: "#achats-groupes" },
-    { label: "Témoignages", href: "#temoignages" },
+    { label: "Mission", to: "/a-propos" },
+    { label: "Artisanat", to: "/metiers" },
+    { label: "Normes", to: "/marketplace/labels-certificats" },
+    { label: "Impact", to: "/statistiques" },
+    { label: "Achats Groupés", to: "/achats-groupes" },
+    { label: "Témoignages", to: "/medias/temoignages" },
   ];
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div ref={rootRef} className="min-h-screen ipk-amb ipk-amb--green" style={{ fontFamily: "'Inter', sans-serif" }}>
       {/* ── NAVBAR ── */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
-          scrolled ? "shadow-sm" : "shadow-none"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "shadow-sm" : "shadow-none"}`}
+        style={{ backgroundColor: "#C8F74A", isolation: "isolate" }}
       >
+        {/* Motif tropical en filigrane 4% d'opacité */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${headerBgImg})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center center",
+            opacity: 0.04,
+            pointerEvents: "none",
+            zIndex: 0,
+            mixBlendMode: "multiply",
+          }}
+        />
+        {/* Espace vide + bande blanche pleine largeur en haut */}
+        <div style={{ height: 5 }} />
+        <div style={{ height: 6, backgroundColor: "#ffffff" }} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            <div className="flex items-center gap-2">
-              <img src={logoImg} alt="IPPOO KRAAFT" className="h-10 w-auto" />
-              <span
-                className="text-[var(--ipk-ink)]"
-                style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "18px" }}
-              >
-                IPPOO KRAAFT
-              </span>
+          <div className="flex items-center justify-between h-[72px] lg:h-[88px]">
+            <div className="flex items-center min-w-0">
+              <img
+                src={logoImg}
+                alt="IPPOO KRAAFT"
+                className="h-[52px] sm:h-[64px] lg:h-[72px] w-auto max-w-[240px] sm:max-w-[340px] lg:max-w-none object-contain"
+              />
             </div>
 
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
+                <Link
+                  key={l.to}
+                  to={l.to}
                   className="text-[var(--ipk-text)] transition-colors hover:text-[var(--ipk-green)]"
                   style={{ fontSize: "14px", fontWeight: 500 }}
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
             </div>
 
@@ -139,15 +186,15 @@ export function LandingPage() {
           <div className="lg:hidden bg-white border-t border-[var(--ipk-border)] shadow-lg">
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
+                <Link
+                  key={l.to}
+                  to={l.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-4 py-3 rounded-xl text-[var(--ipk-ink)] hover:bg-[var(--ipk-surface)] transition-colors"
                   style={{ fontSize: "15px", fontWeight: 500 }}
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
               <div className="pt-3 border-t border-[var(--ipk-border)]">
                 <Link
@@ -161,6 +208,9 @@ export function LandingPage() {
             </div>
           </div>
         )}
+        {/* Bande blanche pleine largeur + espace vide en bas */}
+        <div style={{ height: 6, backgroundColor: "#ffffff" }} />
+        <div style={{ height: 5 }} />
       </nav>
 
       {/* ── HERO ── */}
@@ -215,14 +265,14 @@ export function LandingPage() {
                 <ShoppingBag className="w-5 h-5" />
                 Explorer la Boutique
               </Link>
-              <a
-                href="#mission"
+              <Link
+                to="/a-propos"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white/20 transition-all"
                 style={{ fontSize: "16px", fontWeight: 500 }}
               >
                 Découvrir notre mission
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
 
             {/* Trust badges */}
@@ -247,6 +297,13 @@ export function LandingPage() {
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <span className="text-white/50" style={{ fontSize: "11px", fontWeight: 500 }}>Défiler</span>
           <ChevronDown className="w-5 h-5 text-white/50 animate-bounce" />
+        </div>
+      </section>
+
+      {/* ── CARROUSEL PUBLICITAIRE & PARTENAIRES ── */}
+      <section className="py-10 sm:py-14 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdCarousel slides={landingAdSlides} />
         </div>
       </section>
 
@@ -276,13 +333,12 @@ export function LandingPage() {
                 patrimoine culturel inestimable qui mérite d'être célébré, protégé et transmis.
                 Notre plateforme crée un pont direct entre les artisans des villages et les
                 amateurs d'art du monde entier. Nous garantissons à chaque acheteur une traçabilité
-                complète, une rémunération équitable reversée aux créateurs, et une certification
-                qualité rigoureuse selon nos normes exclusives N001KHAM et N001PAAG.
+                complète et une certification qualité rigoureuse selon nos normes exclusives
+                N001KHAM et N001PAAG.
               </p>
 
               <div className="space-y-4 mb-10">
                 {[
-                  { icon: Heart, title: "Commerce équitable", desc: "Nous reversons 80% du prix de vente directement aux artisans et à leurs communautés, sans intermédiaire superflu. Votre achat finance le matériel, la formation et le quotidien des familles." },
                   { icon: Shield, title: "Traçabilité totale", desc: "Chaque pièce est accompagnée d'un QR code unique. En le scannant, vous accédez à l'identité de l'artisan, l'origine géographique, les matériaux et les étapes de fabrication." },
                   { icon: Leaf, title: "Eco-responsable", desc: "Les artisans travaillent avec des matériaux naturels locaux tels que le bois, l'argile, les fibres végétales et les teintures à base de plantes, selon des techniques ancestrales à faible impact environnemental." },
                 ].map((item, i) => (
@@ -319,20 +375,6 @@ export function LandingPage() {
                   alt="Artisane africaine"
                   className="w-full h-full object-cover"
                 />
-              </div>
-              {/* Floating card */}
-              <div className="absolute -bottom-6 -left-4 sm:left-4 bg-white rounded-2xl shadow-xl border border-[var(--ipk-border)] p-5 max-w-[260px]">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-[#0D8A3E]/10 flex items-center justify-center">
-                    <Handshake className="w-5 h-5 text-[var(--ipk-green)]" />
-                  </div>
-                  <div>
-                    <span className="text-[var(--ipk-ink)]" style={{ fontSize: "14px", fontWeight: 600 }}>Impact Direct</span>
-                  </div>
-                </div>
-                <p className="text-[var(--ipk-text)]" style={{ fontSize: "13px", lineHeight: 1.6 }}>
-                  80% du prix de vente revient directement aux artisans et à leurs communautés.
-                </p>
               </div>
             </div>
           </div>
@@ -404,6 +446,25 @@ export function LandingPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12">
+            <Link
+              to="/metiers"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-[var(--ipk-green)] text-white hover:bg-[#0a7434] transition-colors"
+              style={{ fontSize: "15px", fontWeight: 600 }}
+            >
+              Explorer le classement complet des métiers
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/arts-culture"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl border-2 border-[var(--ipk-blue)] text-[var(--ipk-blue)] hover:bg-[var(--ipk-blue)]/5 transition-colors"
+              style={{ fontSize: "15px", fontWeight: 600 }}
+            >
+              Découvrir les arts &amp; identités
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -720,12 +781,6 @@ export function LandingPage() {
               <div key={i} className="text-center">
                 <div className="relative w-12 h-12 rounded-xl bg-[var(--ipk-surface)] border border-[var(--ipk-border)] flex items-center justify-center mx-auto mb-2">
                   <s.icon className="w-5 h-5 text-[var(--ipk-green)]" />
-                  <span
-                    className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-[var(--ipk-green)] text-white flex items-center justify-center"
-                    style={{ fontSize: "10px", fontWeight: 700 }}
-                  >
-                    {s.step}
-                  </span>
                 </div>
                 <h4 className="text-[var(--ipk-ink)]" style={{ fontSize: "14px", fontWeight: 600 }}>{s.title}</h4>
                 <p className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>{s.desc}</p>
@@ -837,7 +892,12 @@ export function LandingPage() {
               { icon: Percent, title: "Achats Groupés", desc: "6 offres actives avec prix dégressifs par paliers, jusqu'à -35% sur l'artisanat certifié en achetant ensemble.", link: "/achats-groupes", color: "var(--ipk-green)" },
               { icon: Calendar, title: "Événements", desc: "Agenda des salons, séminaires, ateliers découverte et rencontres culturelles organisés à travers le continent.", link: "/evenements", color: "#EF4444" },
               { icon: TrendingUp, title: "Statistiques", desc: "Tableau de bord transparent : ventes, artisans soutenus, communautés bénéficiaires et impact économique réel.", link: "/statistiques", color: "var(--ipk-green)" },
+              { icon: Sparkles, title: "Salons & rencontres", desc: "Grand Salon KRAAFT, foires thématiques, musées vivants, villages artisanaux, circuits culturels et rencontres internationales des métiers d'art.", link: "/salons", color: "#EC4899" },
               { icon: Mail, title: "Blog & Actus", desc: "12 articles de fond : reportages terroir, portraits d'artisans, guides d'achat et tendances de l'artisanat africain.", link: "/blog", color: "var(--ipk-amber)" },
+              { icon: Radio, title: "Médias & Podcasts Griots", desc: "Le grand média culturel : podcasts griots, séries documentaires, éditoriaux, dossiers thématiques, médiathèque, chroniques, témoignages et collections.", link: "/medias", color: "var(--ipk-ink)" },
+              { icon: Award, title: "Centre Patrimoines", desc: "Recherche, conservation et sauvegarde : documentation, inventaire des patrimoines vivants, collections, grands maîtres, langues, savoirs oraux, laboratoire, cartes interactives et Fonds KRAAFT.", link: "/patrimoines", color: "var(--ipk-green-darker)" },
+              { icon: Package, title: "Place de Marché KRAAFT", desc: "Galeries d'œuvres, boutiques d'artisans, commandes personnalisées, appels à création, ventes aux enchères, labels d'authenticité, collections thématiques et services numériques.", link: "/marketplace", color: "var(--ipk-amber)" },
+              { icon: Globe, title: "Dialogues & Innovation", desc: "Influence mondiale des patrimoines africains, diasporas, industries créatives, laboratoires KRAAFT, matériaux du futur, numérique, observatoires, partenariats et prospective.", link: "/dialogues", color: "var(--ipk-blue)" },
             ].map((item, i) => (
               <Link
                 key={i}
@@ -921,12 +981,21 @@ export function LandingPage() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-[var(--ipk-ink)] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <footer className="bg-[var(--ipk-ink)]">
+        {/* Bande blanche opaque pleine largeur avec le logo centré */}
+        <div className="w-full bg-white" style={{ backgroundColor: "#ffffff" }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-center">
+            <img
+              src={logoImg}
+              alt="IPPOO KRAAFT"
+              className="h-10 sm:h-12 w-auto max-w-[280px] object-contain"
+            />
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <img src={logoImg} alt="IPPOO KRAAFT" className="h-8 w-auto" />
                 <span
                   className="text-white"
                   style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "16px" }}
@@ -1018,6 +1087,9 @@ export function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Lecteur de musique de fond - même widget que l'application */}
+      <BackgroundMusicPlayer />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-// CSV utilities — minimal, RFC 4180 compliant for common cases.
+// CSV utilities - minimal, RFC 4180 compliant for common cases.
 
 function csvEscape(v: unknown): string {
   if (v == null) return "";

@@ -40,7 +40,7 @@ function seedOrders(): AdminOrder[] {
 }
 
 export function AdminOrdersPage() {
-  useSeo({ title: "Admin — Commandes", noIndex: true });
+  useSeo({ title: "Admin - Commandes", noIndex: true });
   const [orders, setOrders] = useLocalState<AdminOrder[]>("ipk:admin:orders:v1", seedOrders());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<AdminOrder["status"] | "all">("all");
@@ -73,7 +73,7 @@ export function AdminOrdersPage() {
 
   return (
     <div>
-      <PageHeader title="Commandes" subtitle={`${orders.length} commandes — ${formatPrice(totals.revenue)} encaissé`} action={
+      <PageHeader title="Commandes" subtitle={`${orders.length} commandes - ${formatPrice(totals.revenue)} encaissé`} action={
         <Button onClick={() => exportCSV(`commandes-${new Date().toISOString().slice(0, 10)}.csv`, sorted.map(o => ({
           ref: o.id, client: o.customer, email: o.email, produit: products.find(p => p.id === o.productId)?.name || "", quantite: o.quantity, total: o.total, statut: ORDER_STATUS[o.status].label, date: o.date,
         })))} variant="outline" className="rounded-xl h-10">
@@ -130,7 +130,7 @@ export function AdminOrdersPage() {
                       <div className="font-medium text-[var(--ipk-ink)] truncate max-w-[140px]">{o.customer}</div>
                       <div className="text-[var(--ipk-text)] truncate max-w-[140px]" style={{ fontSize: "11px" }}>{o.email}</div>
                     </td>
-                    <td className="py-3 pr-2 hidden md:table-cell text-[var(--ipk-text)] truncate max-w-[160px]">{product?.name || "—"}</td>
+                    <td className="py-3 pr-2 hidden md:table-cell text-[var(--ipk-text)] truncate max-w-[160px]">{product?.name || "-"}</td>
                     <td className="py-3 pr-2 text-right">{o.quantity}</td>
                     <td className="py-3 pr-2 text-right" style={{ fontWeight: 600 }}>{formatPrice(o.total)}</td>
                     <td className="py-3 pr-2">

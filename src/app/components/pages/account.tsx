@@ -77,7 +77,7 @@ function OrdersList({ email }: { email: string }) {
             </Badge>
           </div>
           <div className="flex items-center justify-between gap-2 flex-wrap" style={{ fontSize: "13px", color: "var(--ipk-text)" }}>
-            <span>{new Date(order.createdAt).toLocaleString("fr-FR")} — {order.items.length} article{order.items.length > 1 ? "s" : ""} · {order.providerLabel}</span>
+            <span>{new Date(order.createdAt).toLocaleString("fr-FR")} - {order.items.length} article{order.items.length > 1 ? "s" : ""} · {order.providerLabel}</span>
             <span style={{ fontWeight: 600, color: "var(--ipk-green)" }}>{formatPrice(order.amount)}</span>
           </div>
         </Link>

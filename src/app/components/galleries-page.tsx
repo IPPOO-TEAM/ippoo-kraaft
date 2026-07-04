@@ -205,7 +205,7 @@ export function GalleryDetailPage() {
             <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
           <div className="max-w-4xl max-h-[80vh] px-10 sm:px-12" onClick={(e) => e.stopPropagation()}>
-            <LazyImage src={collection.images[currentImageIndex]} alt={`${collection.name} — image ${currentImageIndex + 1} sur ${collection.images.length}`} className="max-w-full max-h-[80vh] object-contain rounded-lg" />
+            <LazyImage src={collection.images[currentImageIndex]} alt={`${collection.name} - image ${currentImageIndex + 1} sur ${collection.images.length}`} className="max-w-full max-h-[80vh] object-contain rounded-lg" />
           </div>
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white" style={{ fontSize: "14px" }}>
             {currentImageIndex + 1} / {collection.images.length}

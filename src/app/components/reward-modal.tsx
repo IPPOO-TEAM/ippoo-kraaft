@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router";
-import { Gift, Coins, Ticket, Sparkles, Truck, Trophy, Star, X, type LucideIcon } from "lucide-react";
+import { Gift, Coins, Ticket, Sparkles, Truck, Trophy, Star, X, Check, type LucideIcon } from "lucide-react";
 import type { RewardKind } from "./reward-toast";
 
 const KIND_ICON: Record<RewardKind, LucideIcon> = {
@@ -145,7 +145,7 @@ export function RewardModal({
             >
               {code}
               <span className="text-[var(--ipk-text-muted)]" style={{ fontSize: "11px", fontWeight: 600 }}>
-                {copied ? "Copié ✓" : "Copier"}
+                {copied ? <span className="inline-flex items-center gap-1">Copié <Check className="w-4 h-4" /></span> : "Copier"}
               </span>
             </button>
           )}

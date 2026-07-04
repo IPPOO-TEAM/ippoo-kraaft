@@ -30,7 +30,7 @@ interface Row {
 type Filter = "all" | "pending" | "approved" | "flagged" | "replied";
 
 export function AdminReviewsPage() {
-  useSeo({ title: "Admin — Avis", noIndex: true });
+  useSeo({ title: "Admin - Avis", noIndex: true });
   const { session } = useAdmin();
   const actor = session?.username || "system";
   const [version, setVersion] = useState(0);
@@ -103,7 +103,7 @@ export function AdminReviewsPage() {
 
   const unpublish = (r: Row) => {
     mutate(r.productId, r.index, x => pushHistory({ ...x, approved: false }, { action: "unpublish" }));
-    logAudit({ actor, action: "update", entity: "review", entityId: r.productId, details: `dépublié — ${r.author}` });
+    logAudit({ actor, action: "update", entity: "review", entityId: r.productId, details: `dépublié - ${r.author}` });
     toast.success("Avis dépublié");
   };
 
@@ -124,7 +124,7 @@ export function AdminReviewsPage() {
     const trimmed = text.trim();
     if (!trimmed) { toast.error("Réponse vide"); return; }
     mutate(r.productId, r.index, x => pushHistory({ ...x, reply: { text: trimmed, author: actor, date: new Date().toISOString() } }, { action: "reply", note: trimmed.slice(0, 80) }));
-    logAudit({ actor, action: "update", entity: "review", entityId: r.productId, details: `réponse — ${r.author}` });
+    logAudit({ actor, action: "update", entity: "review", entityId: r.productId, details: `réponse - ${r.author}` });
     toast.success("Réponse publiée");
     setReplyOn(null);
   };
@@ -136,7 +136,7 @@ export function AdminReviewsPage() {
 
   const submitFlag = (r: Row, reason: string) => {
     mutate(r.productId, r.index, x => pushHistory({ ...x, flagged: true, flagReason: reason }, { action: "flag", note: reason }));
-    logAudit({ actor, action: "update", entity: "review", entityId: r.productId, details: `signalé — ${reason}` });
+    logAudit({ actor, action: "update", entity: "review", entityId: r.productId, details: `signalé - ${reason}` });
     toast.warning("Avis signalé");
     setFlagOn(null);
   };
@@ -186,7 +186,7 @@ export function AdminReviewsPage() {
     flagged: reviews.filter(r => r.flagged).length,
     replied: reviews.filter(r => r.reply).length,
   };
-  const avgRating = reviews.length > 0 ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1) : "—";
+  const avgRating = reviews.length > 0 ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1) : "-";
 
   return (
     <div>

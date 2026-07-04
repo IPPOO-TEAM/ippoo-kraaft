@@ -39,7 +39,7 @@ function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
 }
 
 export function AdminCmsPage() {
-  useSeo({ title: "Admin — CMS", noIndex: true });
+  useSeo({ title: "Admin - CMS", noIndex: true });
   const { home, setHero, setTrust, setSavoir, toggleSection, reset } = useCms();
   const confirm = useConfirm();
 
@@ -69,7 +69,7 @@ export function AdminCmsPage() {
     <div className="space-y-4 max-w-5xl">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", fontWeight: 700 }}>CMS — Page d'accueil</h1>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", fontWeight: 700 }}>CMS - Page d'accueil</h1>
           <p className="text-[var(--ipk-text-muted)]" style={{ fontSize: "13px" }}>Édition des sections, textes et images. Les changements sont visibles instantanément sur le site.</p>
         </div>
         <button onClick={handleReset} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[var(--ipk-border)] hover:bg-[var(--ipk-surface)]" style={{ fontSize: "13px", fontWeight: 500 }}>
@@ -108,11 +108,11 @@ export function AdminCmsPage() {
             <Textarea rows={2} value={home.hero.subtitle} onChange={e => setHero({ subtitle: e.target.value })} />
           </div>
           <div>
-            <FieldLabel>CTA — libellé</FieldLabel>
+            <FieldLabel>CTA - libellé</FieldLabel>
             <Input value={home.hero.cta.label} onChange={e => setHero({ cta: { ...home.hero.cta, label: e.target.value } })} />
           </div>
           <div>
-            <FieldLabel>CTA — lien</FieldLabel>
+            <FieldLabel>CTA - lien</FieldLabel>
             <Input value={home.hero.cta.href} onChange={e => setHero({ cta: { ...home.hero.cta, href: e.target.value } })} />
           </div>
           <div className="md:col-span-2">

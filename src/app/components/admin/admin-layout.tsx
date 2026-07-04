@@ -136,7 +136,7 @@ function SyncBanner() {
       <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-between gap-2" role="status">
         <div className="flex items-center gap-2 text-amber-800 min-w-0">
           <WifiOff className="w-4 h-4 shrink-0" />
-          <span style={{ fontSize: "12px", fontWeight: 500 }} className="truncate">Hors-ligne — vos modifications sont mises en file d'attente{pendingCount > 0 ? ` (${pendingCount})` : ""}.</span>
+          <span style={{ fontSize: "12px", fontWeight: 500 }} className="truncate">Hors-ligne - vos modifications sont mises en file d'attente{pendingCount > 0 ? ` (${pendingCount})` : ""}.</span>
         </div>
       </div>
     );
@@ -146,7 +146,7 @@ function SyncBanner() {
       <div className="bg-red-50 border-b border-red-200 px-4 py-2 flex items-center justify-between gap-2" role="alert">
         <div className="flex items-center gap-2 text-red-800 min-w-0">
           <WifiOff className="w-4 h-4 shrink-0" />
-          <span style={{ fontSize: "12px", fontWeight: 500 }} className="truncate">{failedCount} opération(s) en échec — voir Paramètres › File de synchro.</span>
+          <span style={{ fontSize: "12px", fontWeight: 500 }} className="truncate">{failedCount} opération(s) en échec - voir Paramètres › File de synchro.</span>
         </div>
         <button onClick={flush} className="px-2 py-1 rounded-lg bg-red-600 text-white shrink-0" style={{ fontSize: "11px" }}>Réessayer</button>
       </div>

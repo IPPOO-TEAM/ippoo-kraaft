@@ -1,4 +1,4 @@
-// Barrel — pages éclatées sous ./pages/
+// Barrel - pages éclatées sous ./pages/
 export { AboutPage } from "./pages/about";
 export { ContactPage, FAQPage } from "./pages/contact";
 export { EventsPage, StatsPage } from "./pages/events-stats";

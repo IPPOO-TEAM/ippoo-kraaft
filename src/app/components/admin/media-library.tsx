@@ -7,7 +7,7 @@ import { DataCard, EmptyRow } from "./admin-shared";
 import { copyToClipboard } from "../../utils/clipboard";
 
 function formatSize(bytes: number): string {
-  if (!bytes) return "—";
+  if (!bytes) return "-";
   if (bytes < 1024) return `${bytes} o`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} Ko`;
   return `${(bytes / 1024 / 1024).toFixed(2)} Mo`;

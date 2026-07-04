@@ -21,7 +21,7 @@ const REASON_TONE: Record<MovementReason, "success" | "warn" | "danger" | "info"
 };
 
 export function AdminStockMovementsPage() {
-  useSeo({ title: "Admin — Mouvements de stock", noIndex: true });
+  useSeo({ title: "Admin - Mouvements de stock", noIndex: true });
   const { session } = useAdmin();
   const actor = session?.username || "system";
   const confirm = useConfirm();
@@ -146,7 +146,7 @@ export function AdminStockMovementsPage() {
                       </span>
                     </td>
                     <td className="py-3 pr-2"><StatusPill status={REASON_LABEL[m.reason]} tone={REASON_TONE[m.reason]} /></td>
-                    <td className="py-3 pr-2 text-[var(--ipk-text)] truncate max-w-[200px]" style={{ fontSize: "12px" }}>{m.note || "—"}</td>
+                    <td className="py-3 pr-2 text-[var(--ipk-text)] truncate max-w-[200px]" style={{ fontSize: "12px" }}>{m.note || "-"}</td>
                     <td className="py-3 pr-2 text-[var(--ipk-text)]" style={{ fontSize: "12px", fontFamily: "monospace" }}>{m.actor}</td>
                     <td className="py-3 text-right" style={{ fontWeight: 600 }}>{m.balanceAfter}</td>
                   </tr>

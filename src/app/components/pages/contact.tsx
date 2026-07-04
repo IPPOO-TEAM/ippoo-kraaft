@@ -33,7 +33,7 @@ import {
 
 // ============= CONTACT PAGE =============
 function ContactLeadModal({ state, setState }: { state: { open: boolean; type: import("../../hooks/use-leads").LeadType; title: string; desc: string }; setState: (v: typeof state) => void }) {
-  return <LeadModal open={state.open} onOpenChange={(v: boolean) => setState({ ...state, open: v })} type={state.type} title={state.title} description={state.desc} successToast="Demande envoyée — réponse sous 24h." />;
+  return <LeadModal open={state.open} onOpenChange={(v: boolean) => setState({ ...state, open: v })} type={state.type} title={state.title} description={state.desc} successToast="Demande envoyée - réponse sous 24h." />;
 }
 
 export function ContactPage() {
@@ -203,7 +203,7 @@ export function ContactPage() {
 
 // ============= FAQ PAGE =============
 export function FAQPage() {
-  useSeo({ title: "FAQ — Questions fréquentes", description: "Réponses aux questions les plus posées sur la boutique, les normes, les certifications et les commandes IPPOO KRAAFT." });
+  useSeo({ title: "FAQ - Questions fréquentes", description: "Réponses aux questions les plus posées sur la boutique, les normes, les certifications et les commandes IPPOO KRAAFT." });
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 pb-20 lg:pb-8">
       <h1 className="text-center mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(26px, 5vw, 36px)", fontWeight: 600, color: "var(--ipk-ink)" }}>

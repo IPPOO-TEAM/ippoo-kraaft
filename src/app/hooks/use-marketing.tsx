@@ -82,7 +82,7 @@ export interface GiftTicketRecord {
   expiresAt: string;
   /** Restriction produits : ids ou catégories applicables */
   scope?: { categories?: string[]; productIds?: string[] };
-  /** Email du client destinataire (optionnel — null = ticket non nominatif) */
+  /** Email du client destinataire (optionnel - null = ticket non nominatif) */
   assignedEmail?: string;
   /** Origine de l'émission */
   issuedBy?: "system" | "admin";
@@ -251,7 +251,7 @@ function genCode(prefix: string) {
   return `${prefix}-${ts}${rnd}`;
 }
 
-// Plus de cooldown — quota quotidien de MAX_SPINS_PER_DAY (reset à minuit local).
+// Plus de cooldown - quota quotidien de MAX_SPINS_PER_DAY (reset à minuit local).
 
 export function MarketingProvider({ children }: { children: ReactNode }) {
   const [promotions, setPromotions] = useState<Promotion[]>(() => load(PROMOTIONS_KEY, seedPromotions));
@@ -503,7 +503,7 @@ export function MarketingProvider({ children }: { children: ReactNode }) {
     const card = load<GiftCard[]>(GC_KEY, []).find(c => c.code === code);
     if (!card) return { ok: false, reason: "Carte introuvable" };
     if (!card.recipientEmail) return { ok: false, reason: "Aucun email destinataire" };
-    // Mock — en prod : POST /api/giftcards/:code/email
+    // Mock - en prod : POST /api/giftcards/:code/email
     const sentAt = new Date().toISOString();
     setGiftCards(prev => prev.map(c => c.code === code ? { ...c, emailSentAt: sentAt } : c));
     logAudit({ actor: "system", action: "giftcard_email_sent", entity: "promo", entityId: code, details: card.recipientEmail });
@@ -704,7 +704,7 @@ export function MarketingProvider({ children }: { children: ReactNode }) {
     if (points < loyaltyConfig.redeemMin) return { ok: false, reason: `Minimum ${loyaltyConfig.redeemMin} points` };
     if (points > loyalty.points) return { ok: false, reason: "Solde insuffisant" };
     const amount = points * loyaltyConfig.toFcfaRatio;
-    const ticket = awardTicket({ label: `Fidélité — ${points} pts`, amount });
+    const ticket = awardTicket({ label: `Fidélité - ${points} pts`, amount });
     const txn: LoyaltyTxn = { id: `lp-${Date.now()}-${Math.random().toString(36).slice(2, 5)}`, delta: -points, reason: `Conversion ticket ${ticket.code}`, at: new Date().toISOString() };
     setLoyalty(prev => ({ points: prev.points - points, history: [txn, ...prev.history].slice(0, 100) }));
     logAudit({ actor: "system", action: "loyalty_redeemed", entity: "promo", entityId: ticket.code, details: `-${points} pts → ${amount} Fcfa` });

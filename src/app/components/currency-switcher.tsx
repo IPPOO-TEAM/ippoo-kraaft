@@ -1,4 +1,4 @@
-import { Globe } from "lucide-react";
+import { Globe, Check } from "lucide-react";
 import { useCurrency, type CurrencyCode } from "../hooks/use-currency";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
@@ -27,7 +27,7 @@ export function CurrencySwitcher() {
             <DropdownMenuItem key={code} onClick={() => setActive(code)} className={active === code ? "bg-[var(--ipk-surface)]" : ""}>
               <span className="flex items-center justify-between w-full">
                 <span><span className="font-mono mr-2">{c.symbol}</span>{c.label}</span>
-                {active === code && <span className="text-[var(--ipk-green-dark)]" style={{ fontSize: "11px", fontWeight: 700 }}>✓</span>}
+                {active === code && <Check className="w-3.5 h-3.5 text-[var(--ipk-green-dark)]" />}
               </span>
             </DropdownMenuItem>
           );

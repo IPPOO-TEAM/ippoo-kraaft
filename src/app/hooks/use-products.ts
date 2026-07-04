@@ -70,8 +70,8 @@ function safeRead<T>(key: string): T[] {
 }
 
 function mapArtisanProduct(ap: RawArtisanProduct, shop: RawShop | undefined, user: RawUser | undefined): Product {
-  const country = shop?.country || user?.country || "—";
-  const region = shop?.region || user?.region || "—";
+  const country = shop?.country || user?.country || "-";
+  const region = shop?.region || user?.region || "-";
   const artisanName = shop?.name || user?.fullName || "Artisan IPPOO";
   return {
     id: ap.id,
@@ -216,8 +216,8 @@ export function useArtisans(): Artisan[] {
         name: s.name || user?.fullName || "Artisan",
         slug: `u-${s.userId}`,
         specialty: s.specialty || "Artisanat",
-        region: s.region || user?.region || "—",
-        country: s.country || user?.country || "—",
+        region: s.region || user?.region || "-",
+        country: s.country || user?.country || "-",
         bio: s.story || "",
         image: s.logo || s.cover || user?.profilePhoto || IMAGES.heroArtisan,
         groupementId: "",

@@ -112,7 +112,7 @@ export function FavoritesPage() {
           <Eye className="w-5 h-5 text-[var(--ipk-blue)] shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
             <div className="text-[var(--ipk-ink)]" style={{ fontSize: "13px", fontWeight: 600 }}>Vous consultez une liste partagée</div>
-            <p className="text-[var(--ipk-text)] mt-0.5" style={{ fontSize: "12px" }}>{favProducts.length} produit{favProducts.length > 1 ? "s" : ""} — importez-les dans vos favoris ou retournez à votre liste.</p>
+            <p className="text-[var(--ipk-text)] mt-0.5" style={{ fontSize: "12px" }}>{favProducts.length} produit{favProducts.length > 1 ? "s" : ""} - importez-les dans vos favoris ou retournez à votre liste.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 shrink-0">
             <Button onClick={importAll} className="bg-[var(--ipk-green-dark)] text-white rounded-xl h-9 px-3" style={{ fontSize: "12px" }}>
@@ -315,8 +315,8 @@ function CompareTable({ products, showPrice, onRemove }: { products: any[]; show
       ),
       rawValues: (p) => (p.materials || []).join("|"),
     },
-    { label: "Dimensions", get: (p) => p.dimensions || "—", rawValues: (p) => p.dimensions || "" },
-    { label: "Poids", get: (p) => p.weight || "—", rawValues: (p) => p.weight || "" },
+    { label: "Dimensions", get: (p) => p.dimensions || "-", rawValues: (p) => p.dimensions || "" },
+    { label: "Poids", get: (p) => p.weight || "-", rawValues: (p) => p.weight || "" },
     { label: "Origine", get: (p) => `${p.origin?.region || ""}, ${p.origin?.country || ""}`, rawValues: (p) => `${p.origin?.region || ""}|${p.origin?.country || ""}` },
     {
       label: "Certifications",
@@ -340,12 +340,12 @@ function CompareTable({ products, showPrice, onRemove }: { products: any[]; show
         <div className="flex flex-wrap gap-1">
           {p.isUnique && <Badge className="bg-[var(--ipk-green-dark)] text-white border-0" style={{ fontSize: "10px" }}>Pièce unique</Badge>}
           {p.isExclusive && <Badge className="bg-[var(--ipk-blue)] text-white border-0" style={{ fontSize: "10px" }}>Exclusivité</Badge>}
-          {!p.isUnique && !p.isExclusive && <span className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>—</span>}
+          {!p.isUnique && !p.isExclusive && <span className="text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>-</span>}
         </div>
       ),
       rawValues: (p) => `${!!p.isUnique}|${!!p.isExclusive}`,
     },
-    { label: "Entretien", get: (p) => p.care || "—", rawValues: (p) => p.care || "" },
+    { label: "Entretien", get: (p) => p.care || "-", rawValues: (p) => p.care || "" },
   ];
 
   const isDifferent = (row: RowDef) => {

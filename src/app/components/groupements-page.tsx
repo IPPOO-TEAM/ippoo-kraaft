@@ -237,9 +237,9 @@ export function GroupementDetailPage() {
           </Button>
         </div>
       </div>
-      <LeadModal open={orderOpen} onOpenChange={setOrderOpen} type="order_groupement" title={`Commander — ${groupement.name}`} description="Précisez vos besoins (volumes, modèles, délais)." refId={groupement.id} refLabel={groupement.name} successToast="Commande transmise au groupement." />
-      <LeadModal open={inviteOpen} onOpenChange={setInviteOpen} type="event_invite" title={`Inviter ${groupement.name} à un événement`} description="Date, lieu, type d'événement — nous transmettons." refId={groupement.id} refLabel={groupement.name} successToast="Invitation transmise." />
-      <LeadModal open={partnerOpen} onOpenChange={setPartnerOpen} type="partner" title={`Devenir partenaire — ${groupement.name}`} description="Nature du partenariat envisagé." refId={groupement.id} refLabel={groupement.name} successToast="Demande partenariat reçue — réponse sous 48h." />
+      <LeadModal open={orderOpen} onOpenChange={setOrderOpen} type="order_groupement" title={`Commander - ${groupement.name}`} description="Précisez vos besoins (volumes, modèles, délais)." refId={groupement.id} refLabel={groupement.name} successToast="Commande transmise au groupement." />
+      <LeadModal open={inviteOpen} onOpenChange={setInviteOpen} type="event_invite" title={`Inviter ${groupement.name} à un événement`} description="Date, lieu, type d'événement - nous transmettons." refId={groupement.id} refLabel={groupement.name} successToast="Invitation transmise." />
+      <LeadModal open={partnerOpen} onOpenChange={setPartnerOpen} type="partner" title={`Devenir partenaire - ${groupement.name}`} description="Nature du partenariat envisagé." refId={groupement.id} refLabel={groupement.name} successToast="Demande partenariat reçue - réponse sous 48h." />
     </div>
   );
 }

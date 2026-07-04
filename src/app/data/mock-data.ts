@@ -900,7 +900,7 @@ export const blogArticles: BlogArticle[] = [
     relatedImages: [IMAGES.woodCarvingDetail, IMAGES.figurine, IMAGES.sculpture],
     content: [
       "Dans la tradition Éwé, le masque n'est jamais un simple objet décoratif. C'est un véhicule entre le monde visible et l'invisible, un pont sacré qui permet la communication avec les ancêtres et les divinités. Chaque masque est sculpté selon des codes précis, transmis oralement de maître à apprenti, où la moindre courbe, la moindre incision raconte un chapitre de l'histoire collective.",
-      "Les masques Éwé se distinguent par leur réalisme tempéré. Contrairement aux masques Dogon, plus abstraits, ou aux masques Baoulé, très idéalisés, le style Éwé recherche un équilibre entre la figuration humaine et l'expression symbolique. Les yeux mi-clos évoquent la méditation et le recueillement nécessaires au contact avec le divin. La bouche, souvent légèrement ouverte, symbolise le souffle vital — l'agbe — qui relie tous les êtres.",
+      "Les masques Éwé se distinguent par leur réalisme tempéré. Contrairement aux masques Dogon, plus abstraits, ou aux masques Baoulé, très idéalisés, le style Éwé recherche un équilibre entre la figuration humaine et l'expression symbolique. Les yeux mi-clos évoquent la méditation et le recueillement nécessaires au contact avec le divin. La bouche, souvent légèrement ouverte, symbolise le souffle vital - l'agbe - qui relie tous les êtres.",
       "Le bois utilisé n'est jamais choisi au hasard. L'iroko, considéré comme l'arbre des esprits, est privilégié pour les masques de cérémonie majeure. Le fromager est réservé aux masques de divertissement. Avant l'abattage, le sculpteur effectue un rituel d'excuse auprès de l'esprit de l'arbre, un moment de profond respect qui illustre la relation harmonieuse entre l'artisan et la nature.",
       "Les scarifications reproduites sur les masques correspondent à des marques identitaires réelles. Trois lignes parallèles sur les joues indiquent l'appartenance au clan Anlo. Des motifs en losange sur le front signalent un rang de notable ou de chef spirituel. Ces détails, invisibles pour l'oeil non initié, sont autant de cartes d'identité gravées dans le bois.",
       "La polychromie des masques Éwé utilise exclusivement des pigments naturels : le kaolin blanc pour la pureté spirituelle, l'ocre rouge pour la force vitale et la terre, le charbon noir pour l'autorité et la sagesse des ancêtres. L'application de ces couleurs suit un ordre rituel précis qui consacre le masque et lui confère son pouvoir.",
@@ -915,10 +915,10 @@ export const blogArticles: BlogArticle[] = [
     relatedImages: [IMAGES.kenteLoom, IMAGES.textileWeaving, IMAGES.womanWeaving],
     content: [
       "Le Kente est bien plus qu'un tissu : c'est un langage visuel codifié depuis des siècles, où chaque combinaison de couleurs et de motifs porte un nom, un proverbe et une signification sociale. Originaire du pays Ashanti au Ghana, cet art textile s'est étendu à l'ensemble de l'Afrique de l'Ouest, et les Plateaux du Togo abritent aujourd'hui certaines des tisserandes les plus talentueuses du continent.",
-      "Le processus de tissage d'un Kente authentique est d'une complexité remarquable. Chaque pièce est composée de bandes étroites — entre 5 et 10 centimètres de large — tissées séparément sur un métier à bandes, puis cousues ensemble. Un Kente complet peut nécessiter de 15 à 30 bandes, soit entre trois semaines et trois mois de travail selon la complexité des motifs.",
+      "Le processus de tissage d'un Kente authentique est d'une complexité remarquable. Chaque pièce est composée de bandes étroites - entre 5 et 10 centimètres de large - tissées séparément sur un métier à bandes, puis cousues ensemble. Un Kente complet peut nécessiter de 15 à 30 bandes, soit entre trois semaines et trois mois de travail selon la complexité des motifs.",
       "Les motifs géométriques du Kente portent des noms évocateurs. Le motif « Oyokoman » (losanges imbriqués) représente la bravoure et le leadership. « Sika Futuro » (cercles dorés sur fond sombre) symbolise la richesse spirituelle. « Abrewa Ben » (zigzags serrés) évoque la sagesse des anciens. Chaque tisserande connaît par coeur des dizaines de motifs et peut en créer de nouveaux pour des occasions spéciales.",
       "La teinture des fils est une étape cruciale. Les tisserandes des Plateaux utilisent encore des teintures naturelles pour les pièces de prestige : l'indigo extrait des feuilles de Lonchocarpus, le jaune de la gousse de Gardenia, le rouge de l'écorce de sorgho. Ces couleurs naturelles vieillissent différemment des teintures synthétiques, acquérant une patine qui rend chaque pièce unique avec le temps.",
-      "IPPOO KRAAFT soutient activement les groupements de tisserandes des Plateaux en facilitant l'accès aux matières premières de qualité et en ouvrant des débouchés commerciaux à l'international. Chaque Kente certifié est accompagné d'une fiche descriptive détaillant les motifs utilisés, leur signification, le nom de la tisserande et le nombre d'heures de travail — un véritable passeport culturel."
+      "IPPOO KRAAFT soutient activement les groupements de tisserandes des Plateaux en facilitant l'accès aux matières premières de qualité et en ouvrant des débouchés commerciaux à l'international. Chaque Kente certifié est accompagné d'une fiche descriptive détaillant les motifs utilisés, leur signification, le nom de la tisserande et le nombre d'heures de travail - un véritable passeport culturel."
     ]
   },
   {
@@ -933,7 +933,7 @@ export const blogArticles: BlogArticle[] = [
       "Son atelier, un espace ouvert ombragé par un grand manguier, est à la fois un lieu de création et une école. Cinq apprentis, âgés de 14 à 22 ans, l'entourent au quotidien. L'enseignement se fait exclusivement par l'observation et la pratique : pas de manuels, pas de cours théoriques. « On apprend avec les yeux et les mains, pas avec les livres, explique Kofi. Le bois te parle, et il faut apprendre à l'écouter avant de lui répondre avec l'outil. »",
       "La spécialité de Maître Kofi, ce sont les statuettes de fertilité et les masques de cérémonie. Chaque pièce nécessite entre deux semaines et deux mois de travail. Le processus commence par le choix de l'arbre, un moment solennel où Kofi évalue non seulement la qualité du bois mais aussi son « énergie ». Vient ensuite le dégrossissage à la hache, puis le travail de détail à l'herminette et au ciseau, et enfin la finition au papier de verre naturel (écorce séchée) et l'application de beurre de karité pour nourrir et protéger le bois.",
       "Depuis son intégration au réseau IPPOO KRAAFT, Kofi a vu ses revenus tripler et sa visibilité s'étendre bien au-delà des frontières togolaises. « Avant, je vendais au marché de Kpalimé, à des touristes qui marchandaient chaque pièce sans en comprendre la valeur. Aujourd'hui, mes oeuvres partent avec un certificat, une histoire, une traçabilité. Les gens n'achètent plus un objet, ils accueillent un morceau de notre culture chez eux. »",
-      "Maître Kofi rêve de former une nouvelle génération qui saura marier tradition et modernité : « Les jeunes doivent connaître les gestes ancestraux, mais aussi comprendre le monde d'aujourd'hui. Un artisan qui sait sculpter et qui comprend les normes de qualité, la traçabilité, le commerce équitable — celui-là pourra vivre dignement de son art et transmettre à son tour. »"
+      "Maître Kofi rêve de former une nouvelle génération qui saura marier tradition et modernité : « Les jeunes doivent connaître les gestes ancestraux, mais aussi comprendre le monde d'aujourd'hui. Un artisan qui sait sculpter et qui comprend les normes de qualité et la traçabilité - celui-là pourra vivre dignement de son art et transmettre à son tour. »"
     ]
   },
   {
@@ -944,25 +944,11 @@ export const blogArticles: BlogArticle[] = [
     relatedImages: [IMAGES.potteryWorkshop, IMAGES.potteryFiring, IMAGES.decoratedPottery],
     content: [
       "À Tiébélé, dans le sud du Burkina Faso, la poterie n'est pas un métier mais un héritage sacré. Les femmes Gurunsi, gardiennes exclusives de cet art, façonnent l'argile depuis des millénaires selon des techniques transmises de mère en fille. Ici, chaque pot, chaque jarre, chaque assiette est le fruit d'un savoir-faire qui remonte aux origines de la civilisation voltaïque.",
-      "Le processus commence par la collecte de l'argile, une opération qui obéit à des règles précises. L'argile est prélevée dans des gisements spécifiques, souvent situés près de rivières, à des périodes déterminées du calendrier. Elle est ensuite laissée à sécher au soleil, pilée, tamisée et réhydratée selon des proportions que chaque potière connaît intuitivement — un savoir corporel impossible à codifier dans un manuel.",
+      "Le processus commence par la collecte de l'argile, une opération qui obéit à des règles précises. L'argile est prélevée dans des gisements spécifiques, souvent situés près de rivières, à des périodes déterminées du calendrier. Elle est ensuite laissée à sécher au soleil, pilée, tamisée et réhydratée selon des proportions que chaque potière connaît intuitivement - un savoir corporel impossible à codifier dans un manuel.",
       "Le façonnage se fait sans tour de potier, uniquement par la technique du colombin : des boudins d'argile enroulés en spirale et lissés à la main. Cette méthode, qui peut sembler archaïque, permet en réalité une maîtrise totale de la forme et de l'épaisseur de la paroi. Les potières Gurunsi parviennent à créer des pièces d'une régularité stupéfiante, avec des parois uniformément fines de quelques millimètres.",
-      "La décoration des poteries Gurunsi est un art en soi. Les motifs géométriques — triangles, losanges, lignes ondulées — sont gravés dans l'argile encore humide à l'aide de tiges de mil ou de cailloux polis. Chaque motif a une signification : les zigzags représentent le serpent python, gardien de la maison ; les cercles concentriques symbolisent la lune et la fécondité ; les damiers évoquent les champs cultivés et la prospérité.",
-      "La cuisson traditionnelle est un spectacle fascinant. Les poteries sont disposées en pyramide dans un espace dégagé et recouvertes de paille, de bouse de vache séchée et de branches. Le feu est allumé et monte progressivement à 800-900°C. Cette cuisson à ciel ouvert, sans four, donne aux pièces leur couleur caractéristique — un dégradé allant du noir profond à l'ocre chaud — et une résistance surprenante.",
+      "La décoration des poteries Gurunsi est un art en soi. Les motifs géométriques - triangles, losanges, lignes ondulées - sont gravés dans l'argile encore humide à l'aide de tiges de mil ou de cailloux polis. Chaque motif a une signification : les zigzags représentent le serpent python, gardien de la maison ; les cercles concentriques symbolisent la lune et la fécondité ; les damiers évoquent les champs cultivés et la prospérité.",
+      "La cuisson traditionnelle est un spectacle fascinant. Les poteries sont disposées en pyramide dans un espace dégagé et recouvertes de paille, de bouse de vache séchée et de branches. Le feu est allumé et monte progressivement à 800-900°C. Cette cuisson à ciel ouvert, sans four, donne aux pièces leur couleur caractéristique - un dégradé allant du noir profond à l'ocre chaud - et une résistance surprenante.",
       "IPPOO KRAAFT accompagne les potières de Tiébélé dans la valorisation de leur art à travers la certification N001PAAG qui garantit l'authenticité terroir de chaque pièce, et la mise en place d'emballages adaptés pour l'expédition internationale de ces oeuvres fragiles mais inestimables."
-    ]
-  },
-  {
-    id: "b5", title: "Commerce équitable et artisanat africain", slug: "commerce-equitable-artisanat", category: "Éditorial",
-    excerpt: "Comment IPPOO KRAAFT construit un modèle économique qui protège les artisans et valorise leur travail à sa juste mesure.",
-    date: "2026-01-20", author: "Direction IPPOO", image: IMAGES.community, readTime: "5 min",
-    tags: ["Commerce équitable", "Économie", "Artisans", "Modèle durable"],
-    relatedImages: [IMAGES.training, IMAGES.villageMarket, IMAGES.craftMarket],
-    content: [
-      "L'artisanat africain représente un patrimoine culturel inestimable et un potentiel économique considérable. Pourtant, les artisans qui perpétuent ces traditions ancestrales vivent souvent dans la précarité, pris au piège d'un système commercial qui sous-évalue systématiquement leur travail. IPPOO KRAAFT est né de la conviction qu'un autre modèle est possible.",
-      "Notre approche repose sur trois piliers fondamentaux. Le premier est la juste rémunération : chaque artisan partenaire reçoit au minimum 60% du prix de vente final de son oeuvre, contre 15 à 25% dans les circuits traditionnels. Cette politique de prix garantit que le créateur est le premier bénéficiaire de la valeur qu'il génère.",
-      "Le deuxième pilier est la formation continue. Nous organisons des ateliers de perfectionnement technique, de gestion financière et de compréhension des marchés internationaux. L'objectif n'est pas de changer ce que font les artisans, mais de leur donner les outils pour mieux valoriser ce qu'ils savent déjà faire. Un artisan informé est un artisan qui peut négocier, innover et transmettre dans de meilleures conditions.",
-      "Le troisième pilier est la structuration en groupements. En regroupant les artisans par spécialité ou par zone géographique, nous créons des dynamiques collectives qui rompent l'isolement individuel. Les groupements permettent la mutualisation des ressources (matières premières, outils, espaces de travail), le partage des commandes et une plus grande force de négociation face aux acheteurs.",
-      "Les résultats sont encourageants : depuis la création d'IPPOO KRAAFT, le revenu moyen de nos artisans partenaires a augmenté de 180%, le nombre de jeunes apprentis a doublé et trois groupements ont obtenu une autonomie financière complète. Ce n'est qu'un début, mais c'est la preuve qu'un commerce respectueux et rentable est non seulement possible, mais souhaitable."
     ]
   },
   {
@@ -974,8 +960,8 @@ export const blogArticles: BlogArticle[] = [
     content: [
       "La technique de la fonte à la cire perdue est l'une des plus anciennes et des plus sophistiquées de la métallurgie africaine. Pratiquée depuis plus de mille ans au Bénin, elle a permis la création des célèbres Bronzes du Bénin, ces plaques et statuettes qui ornaient les murs du palais royal d'Abomey et qui comptent parmi les chefs-d'oeuvre de l'art mondial.",
       "Le processus commence par la sculpture d'un modèle en cire d'abeille. L'artiste façonne chaque détail avec une précision millimétrique : les traits du visage, les scarifications, les parures, les postures. Ce modèle en cire est ensuite recouvert de plusieurs couches d'argile fine, formant un moule qui va résister aux températures extrêmes de la fonte.",
-      "Lorsque le moule est sec, il est chauffé pour faire fondre et évacuer la cire — d'où le nom de « cire perdue ». Il ne reste alors qu'un moule creux dont chaque anfractuosité reproduit exactement les détails du modèle original. Le bronze en fusion, porté à plus de 1000°C, est versé dans ce moule et prend la place exacte laissée par la cire disparue.",
-      "Après refroidissement, le moule d'argile est brisé — il ne peut servir qu'une seule fois, ce qui fait de chaque pièce une oeuvre unique. Le bronze brut est ensuite poli, patiné et gravé de détails additionnels. Ce processus complet peut prendre de deux à six semaines pour une seule pièce.",
+      "Lorsque le moule est sec, il est chauffé pour faire fondre et évacuer la cire - d'où le nom de « cire perdue ». Il ne reste alors qu'un moule creux dont chaque anfractuosité reproduit exactement les détails du modèle original. Le bronze en fusion, porté à plus de 1000°C, est versé dans ce moule et prend la place exacte laissée par la cire disparue.",
+      "Après refroidissement, le moule d'argile est brisé - il ne peut servir qu'une seule fois, ce qui fait de chaque pièce une oeuvre unique. Le bronze brut est ensuite poli, patiné et gravé de détails additionnels. Ce processus complet peut prendre de deux à six semaines pour une seule pièce.",
       "À Abomey, les fondeurs perpétuent cet art dans des conditions de plus en plus difficiles. Le coût des matières premières augmente, les apprentis se font rares et la concurrence des reproductions industrielles érode les marchés. IPPOO KRAAFT s'engage auprès de ces artisans en garantissant des prix justes et une certification qui distingue clairement l'authentique de l'imitation."
     ]
   },
@@ -988,9 +974,9 @@ export const blogArticles: BlogArticle[] = [
     content: [
       "Bolgatanga, dans le nord du Ghana, est la capitale incontestée de la vannerie ouest-africaine. Ici, des milliers de femmes transforment la paille de Veta vera (herbe d'éléphant) en paniers, chapeaux et objets décoratifs d'une beauté saisissante, reconnus et convoités dans le monde entier.",
       "La récolte de l'herbe d'éléphant se fait en saison sèche, entre novembre et février. Les tiges sont séchées au soleil puis teintes avec des colorants naturels : le brun provient de l'écorce de néré, le rouge de la latérite, le noir des gousses de tamarin fermentées. Les couleurs vives (rose, violet, vert vif) utilisent désormais des teintures synthétiques, mais les paniers les plus prisés restent ceux en couleurs naturelles.",
-      "Le tressage est un art de la patience et de la précision. Chaque panier est construit en spirale, de la base vers les bords, avec une technique de couture qui emprisonne les tiges de paille dans une armature de cuir tanné. Un panier de taille moyenne nécessite entre deux et cinq jours de travail continu. Les motifs — étoiles, fleurs, animaux — naissent de l'alternance savante des couleurs au fil du tressage.",
+      "Le tressage est un art de la patience et de la précision. Chaque panier est construit en spirale, de la base vers les bords, avec une technique de couture qui emprisonne les tiges de paille dans une armature de cuir tanné. Un panier de taille moyenne nécessite entre deux et cinq jours de travail continu. Les motifs - étoiles, fleurs, animaux - naissent de l'alternance savante des couleurs au fil du tressage.",
       "Les paniers Bolga ne sont pas que décoratifs. Ils sont conçus pour être solides, flexibles et durables. Les modèles traditionnels servent au transport des marchandises sur la tête, au stockage des céréales et à la cueillette. Cette fonctionnalité ancestrale se retrouve dans leur conception : anses renforcées, fond plat ou arrondi selon l'usage, tressage serré pour les contenants alimentaires.",
-      "IPPOO KRAAFT collabore avec le groupement des tisseuses de Bolgatanga pour garantir une rémunération équitable et une reconnaissance de leur travail. Chaque panier certifié porte le nom de sa créatrice et une description des motifs utilisés, transformant un objet du quotidien en oeuvre de collection."
+      "IPPOO KRAAFT collabore avec le groupement des tisseuses de Bolgatanga pour garantir la reconnaissance et la valorisation de leur travail. Chaque panier certifié porte le nom de sa créatrice et une description des motifs utilisés, transformant un objet du quotidien en oeuvre de collection."
     ]
   },
   {
@@ -1000,7 +986,7 @@ export const blogArticles: BlogArticle[] = [
     tags: ["Indigo", "Yoruba", "Teinture", "Nigeria", "Adire"],
     relatedImages: [IMAGES.batikDyeing, IMAGES.marketTextiles, IMAGES.textileWeaving],
     content: [
-      "L'indigo occupe une place singulière dans les cultures ouest-africaines. Chez les Yoruba du Nigeria et du Bénin, cette teinture bleu profond est indissociable du pouvoir, de la noblesse et du sacré. Le tissu teint à l'indigo — l'Adire — est porté lors des cérémonies importantes, des intronisations royales et des rites funéraires de personnalités éminentes.",
+      "L'indigo occupe une place singulière dans les cultures ouest-africaines. Chez les Yoruba du Nigeria et du Bénin, cette teinture bleu profond est indissociable du pouvoir, de la noblesse et du sacré. Le tissu teint à l'indigo - l'Adire - est porté lors des cérémonies importantes, des intronisations royales et des rites funéraires de personnalités éminentes.",
       "L'extraction de l'indigo est un processus long et complexe. Les feuilles de la plante Lonchocarpus cyanescens sont récoltées, séchées puis fermentées dans de grandes jarres pendant plusieurs semaines. La fermentation libère l'indigotine, le pigment qui donne cette couleur bleue si profonde et si stable. Le liquide obtenu est ensuite concentré par évaporation et conditionné en boules ou en pains prêts à l'emploi.",
       "La technique de l'Adire Eleko utilise une pâte d'amidon de manioc comme agent de réserve : appliquée au pinceau ou à la plume sur le tissu blanc, elle empêche la teinture de pénétrer les zones couvertes, créant ainsi des motifs en négatif. Les dessins sont d'une finesse remarquable : oiseaux, lézards, spirales, motifs géométriques, proverbes illustrés... Chaque tissu raconte une histoire.",
       "La technique du Adire Oniko, quant à elle, utilise des ligatures, des noeuds et des pliages pour créer des motifs par réserve mécanique. Les résultats sont plus abstraits, plus organiques, avec des dégradés de bleu qui évoquent les vagues de l'océan ou les nuages d'un ciel d'harmattan.",
@@ -1017,8 +1003,8 @@ export const blogArticles: BlogArticle[] = [
       "Dans son atelier de Bamako, Fanta Touré martèle une plaque d'argent avec la régularité d'un métronome. Ses gestes sont précis, assurés, hérités de son père et de son grand-père, forgerons Touareg nomades qui parcouraient le Sahara en créant des bijoux pour les chefs de campement. À 42 ans, Fanta est l'une des rares femmes à pratiquer cet art traditionnellement masculin, et elle le fait avec une maîtrise qui force le respect de ses pairs.",
       "Les bijoux Touareg sont reconnaissables entre tous : géométrie rigide, motifs en croix et en losanges, alternance d'argent et d'ébène. La fameuse Croix d'Agadez, le bijou le plus emblématique de cette tradition, existe en plus de 20 variantes, chacune associée à une ville ou un campement du Sahara. « Mon père disait qu'on offre la Croix d'Agadez à son fils en lui disant : je te donne les quatre directions du monde, car on ne sait pas où le destin te mènera », raconte Fanta.",
       "La technique de Fanta combine le martelage à froid et le filigrane. L'argent est aplati en fines plaques, découpé, gravé de motifs à l'aide de poinçons chauffés, puis assemblé par brasure. Le résultat est d'une précision géométrique impressionnante, chaque ligne tracée à main levée étant d'une rectitude quasi parfaite.",
-      "Fanta innove en intégrant des perles de verre anciennes dans ses créations — des perles vénitiennes du commerce transsaharien, vieilles parfois de plusieurs siècles, qu'elle déniche dans les marchés de Djenne et de Mopti. Cette fusion entre la bijouterie Touareg et les perles de commerce crée des pièces uniques qui honorent plusieurs couches d'histoire africaine.",
-      "Grâce à IPPOO KRAAFT, les bijoux de Fanta atteignent désormais des collectionneurs en Europe, en Amérique et en Asie. « Chaque bijou qui part, c'est un ambassadeur de notre culture, dit-elle. Les gens n'achètent pas juste de l'argent — ils achètent l'histoire du Sahara. »"
+      "Fanta innove en intégrant des perles de verre anciennes dans ses créations - des perles vénitiennes du commerce transsaharien, vieilles parfois de plusieurs siècles, qu'elle déniche dans les marchés de Djenne et de Mopti. Cette fusion entre la bijouterie Touareg et les perles de commerce crée des pièces uniques qui honorent plusieurs couches d'histoire africaine.",
+      "Grâce à IPPOO KRAAFT, les bijoux de Fanta atteignent désormais des collectionneurs en Europe, en Amérique et en Asie. « Chaque bijou qui part, c'est un ambassadeur de notre culture, dit-elle. Les gens n'achètent pas juste de l'argent - ils achètent l'histoire du Sahara. »"
     ]
   },
   {
@@ -1028,10 +1014,10 @@ export const blogArticles: BlogArticle[] = [
     tags: ["Djembé", "Musique", "Mandingue", "Guinée", "Rythme"],
     relatedImages: [IMAGES.djembeCarving, IMAGES.woodCarvingDetail, IMAGES.artisanHands],
     content: [
-      "Le djembé est né dans l'Empire Mandingue, au coeur de l'actuelle Guinée, il y a environ 800 ans. Son nom vient de l'expression « Anke djé, anke bé » qui signifie « tout le monde se rassemble en paix » — une devise qui résume la vocation première de cet instrument : réunir la communauté dans le rythme et l'harmonie.",
+      "Le djembé est né dans l'Empire Mandingue, au coeur de l'actuelle Guinée, il y a environ 800 ans. Son nom vient de l'expression « Anke djé, anke bé » qui signifie « tout le monde se rassemble en paix » - une devise qui résume la vocation première de cet instrument : réunir la communauté dans le rythme et l'harmonie.",
       "La fabrication d'un djembé traditionnel est un processus qui peut durer plusieurs semaines. Le corps de l'instrument est taillé dans un seul tronc de lenké (Afzelia africana), un bois dense et résonnant que les Mandingues considèrent comme sacré. Le sculpteur évide le tronc à l'herminette pour créer la forme caractéristique en calice, avec un fût étroit qui s'évase en coupe. L'épaisseur de la paroi, irrégulière par endroits, contribue à la richesse sonore de l'instrument.",
-      "La peau de chèvre est ensuite tendue sur l'ouverture du calice et maintenue par un système complexe de cordes et d'anneaux en fer forgé. Le montage de la peau est un art en soi : le tension doit être parfaitement homogène pour produire les trois sons fondamentaux du djembé — le ton (son grave au centre), la claque (son aigu sur le bord) et le fla (son sec entre les deux).",
-      "Dans la tradition mandingue, le djembé n'est pas un simple instrument de musique. C'est un être vivant doté d'une âme — le « nyama » — qui peut guérir, protéger ou maudire selon l'intention du joueur. Certains rythmes sont réservés à des occasions spécifiques : le « Kuku » pour les sorties de pêche, le « Soli » pour les cérémonies d'initiation, le « Doundounba » pour les fêtes de la récolte.",
+      "La peau de chèvre est ensuite tendue sur l'ouverture du calice et maintenue par un système complexe de cordes et d'anneaux en fer forgé. Le montage de la peau est un art en soi : le tension doit être parfaitement homogène pour produire les trois sons fondamentaux du djembé - le ton (son grave au centre), la claque (son aigu sur le bord) et le fla (son sec entre les deux).",
+      "Dans la tradition mandingue, le djembé n'est pas un simple instrument de musique. C'est un être vivant doté d'une âme - le « nyama » - qui peut guérir, protéger ou maudire selon l'intention du joueur. Certains rythmes sont réservés à des occasions spécifiques : le « Kuku » pour les sorties de pêche, le « Soli » pour les cérémonies d'initiation, le « Doundounba » pour les fêtes de la récolte.",
       "IPPOO KRAAFT travaille avec les maîtres djembéfolas de Guinée et du Mali pour proposer des instruments authentiques, fabriqués selon les règles ancestrales et certifiés quant à la provenance du bois et de la peau. Chaque djembé vendu est accompagné d'un guide des rythmes de base, permettant à l'acheteur de s'initier à cette tradition musicale millénaire."
     ]
   },
@@ -1042,8 +1028,8 @@ export const blogArticles: BlogArticle[] = [
     tags: ["Calebasses", "Niger", "Gravure", "Pyrographie"],
     relatedImages: [IMAGES.decoratedPottery, IMAGES.woodenBowl, IMAGES.villageMarket],
     content: [
-      "La calebasse — fruit séché et évidé du calebassier — est l'un des objets les plus répandus en Afrique de l'Ouest. Utilisée comme récipient, louche, instrument de musique ou décoration, elle accompagne la vie quotidienne depuis des millénaires. Au Niger, les artisans Haoussa ont élevé la décoration de calebasses au rang d'art majeur, créant des pièces d'une finesse extraordinaire.",
-      "La technique de la pyrographie consiste à graver des motifs dans la surface dure de la calebasse à l'aide d'un fer chauffé. Les artisans utilisent des fers de différentes tailles et formes — pointes fines pour les détails, fers plats pour les aplats — et maîtrisent la température avec une précision remarquable : trop chaud, le fer brûle et noircit la surface ; pas assez, il ne marque pas.",
+      "La calebasse - fruit séché et évidé du calebassier - est l'un des objets les plus répandus en Afrique de l'Ouest. Utilisée comme récipient, louche, instrument de musique ou décoration, elle accompagne la vie quotidienne depuis des millénaires. Au Niger, les artisans Haoussa ont élevé la décoration de calebasses au rang d'art majeur, créant des pièces d'une finesse extraordinaire.",
+      "La technique de la pyrographie consiste à graver des motifs dans la surface dure de la calebasse à l'aide d'un fer chauffé. Les artisans utilisent des fers de différentes tailles et formes - pointes fines pour les détails, fers plats pour les aplats - et maîtrisent la température avec une précision remarquable : trop chaud, le fer brûle et noircit la surface ; pas assez, il ne marque pas.",
       "Les motifs représentent des scènes de la vie quotidienne, des motifs géométriques hérités de la tradition islamique, des animaux du Sahel (chameaux, autruches, lézards) et des motifs floraux stylisés. Les calebasses de prestige, offertes lors des mariages ou des naissances, portent des inscriptions en haoussa ou en arabe, souvent des bénédictions et des voeux de prospérité.",
       "IPPOO KRAAFT certifie les calebasses décorées du Niger sous la norme N001PAAG, garantissant leur authenticité terroir. Chaque pièce est photographiée, décrite et accompagnée du nom de l'artisan, transformant cet objet utilitaire en oeuvre de collection à part entière."
     ]
@@ -1056,8 +1042,8 @@ export const blogArticles: BlogArticle[] = [
     relatedImages: [IMAGES.training, IMAGES.community, IMAGES.gallery],
     content: [
       "Dans un marché mondial inondé de reproductions industrielles vendues comme « artisanat authentique », comment distinguer une oeuvre véritablement artisanale d'une copie fabriquée en série ? C'est pour répondre à cette question cruciale qu'IPPOO KRAAFT a développé deux normes de certification uniques.",
-      "La norme N001KHAM/51-26-02/OCTEGO-A — Ordre de Conception, des Techniques d'Évaluation, Garanties d'Origine Ancestrale — évalue chaque oeuvre sur cinq critères : l'authenticité de la technique utilisée, la provenance des matériaux, la filiation artisanale du créateur, la cohérence iconographique et le respect des procédés traditionnels. Chaque critère est noté sur une échelle de 1 à 5 par un comité d'experts.",
-      "La norme N001PAAG/51-26-02/OPT — Produit du Terroir garanti d'Origine Ancestrale — met l'accent sur la dimension territoriale. Elle vérifie que l'oeuvre est bien produite dans sa zone d'origine historique, avec des matériaux locaux, par un artisan dont le savoir-faire est ancré dans la tradition de ce terroir spécifique. C'est l'équivalent d'une « appellation d'origine contrôlée » pour l'artisanat.",
+      "La norme N001KHAM/51-26-02/OCTEGO-A - Ordre de Conception, des Techniques d'Évaluation, Garanties d'Origine Ancestrale - évalue chaque oeuvre sur cinq critères : l'authenticité de la technique utilisée, la provenance des matériaux, la filiation artisanale du créateur, la cohérence iconographique et le respect des procédés traditionnels. Chaque critère est noté sur une échelle de 1 à 5 par un comité d'experts.",
+      "La norme N001PAAG/51-26-02/OPT - Produit du Terroir garanti d'Origine Ancestrale - met l'accent sur la dimension territoriale. Elle vérifie que l'oeuvre est bien produite dans sa zone d'origine historique, avec des matériaux locaux, par un artisan dont le savoir-faire est ancré dans la tradition de ce terroir spécifique. C'est l'équivalent d'une « appellation d'origine contrôlée » pour l'artisanat.",
       "Concrètement, chaque oeuvre certifiée reçoit un numéro d'identification unique, un certificat papier détaillé et un QR code de traçabilité. En scannant ce QR code, l'acheteur accède à une fiche complète : nom et photo de l'artisan, village d'origine, techniques utilisées, matériaux, signification culturelle de l'oeuvre, et historique de la chaîne de valeur du créateur au vendeur.",
       "Pour les artisans, la certification est un outil de valorisation économique. Une oeuvre certifiée se vend en moyenne 2,5 fois plus cher qu'une oeuvre non certifiée. Pour les collectionneurs, c'est une garantie d'authenticité et un engagement éthique. Pour le patrimoine africain, c'est un rempart contre la banalisation et l'appropriation culturelle."
     ]
@@ -1111,7 +1097,7 @@ export const faqData = [
   ]},
   { category: "Artisans", questions: [
     { q: "Comment devenir artisan IPPOO KRAAFT ?", a: "Remplissez le formulaire sur la page 'Devenir artisan'. Après validation de votre dossier (entretien, test qualité), vous recevrez un identifiant et un accès à votre espace artisan." },
-    { q: "Quels sont les avantages pour les artisans ?", a: "Visibilité en ligne, accès aux formations, commandes régulières, certification, participation aux salons et événements, et rémunération équitable." },
+    { q: "Quels sont les avantages pour les artisans ?", a: "Visibilité en ligne, accès aux formations, commandes régulières, certification, et participation aux salons et événements." },
   ]},
 ];
 
@@ -1157,63 +1143,63 @@ export interface GroupBuyingOffer {
 
 export const groupBuyingOffers: GroupBuyingOffer[] = [
   {
-    id: "gb1", slug: "lot-masques-rituels", title: "Lot Masques Rituels Éwé — Édition Collecteurs",
+    id: "gb1", slug: "lot-masques-rituels", title: "Lot Masques Rituels Éwé - Édition Collecteurs",
     description: "Regroupement d'achat de masques ancestraux sculptés par le Collectif des Artisans du Golfe. Chaque masque est une pièce unique taillée dans l'iroko, accompagnée de son certificat N001KHAM.",
     category: "Sculpture", image: IMAGES.mask, originalPrice: 295000,
     tiers: [{ minQty: 3, price: 265000, discount: 10 }, { minQty: 5, price: 247000, discount: 16 }, { minQty: 10, price: 221000, discount: 25 }],
     minParticipants: 3, maxParticipants: 15, currentParticipants: 7, deadline: "2026-05-15",
     groupementId: "g1", artisanId: "a1", products: ["p1"], status: "active",
     highlights: ["Pièces uniques certifiées N001KHAM", "Certificat d'ancestralité individuel", "QR code de traçabilité par pièce", "Emballage sécurisé avec assurance"],
-    deliveryInfo: "Livraison groupée sous 14 jours après clôture — Monde entier — Frais inclus dès 5 pièces",
+    deliveryInfo: "Livraison groupée sous 14 jours après clôture - Monde entier - Frais inclus dès 5 pièces",
   },
   {
-    id: "gb2", slug: "collection-kente-royal", title: "Collection Kente Royal — Pack Décoration",
+    id: "gb2", slug: "collection-kente-royal", title: "Collection Kente Royal - Pack Décoration",
     description: "Offre groupée sur les tissus Kente tissés à la main par les Tisseuses des Plateaux. Idéal pour décorateurs, hôtels et galeries.",
     category: "Textile", image: IMAGES.kente, originalPrice: 210000,
     tiers: [{ minQty: 3, price: 189000, discount: 10 }, { minQty: 6, price: 168000, discount: 20 }, { minQty: 12, price: 147000, discount: 30 }],
     minParticipants: 3, maxParticipants: 20, currentParticipants: 12, deadline: "2026-04-30",
     groupementId: "g2", artisanId: "a2", products: ["p2"], status: "closing_soon",
     highlights: ["Tissage main sur métier traditionnel", "Motifs personnalisables par lot", "Certifié N001PAAG Terroir", "Palette de 8 combinaisons de couleurs"],
-    deliveryInfo: "Livraison échelonnée possible — Afrique & Europe — Frais réduits dès 6 pièces",
+    deliveryInfo: "Livraison échelonnée possible - Afrique & Europe - Frais réduits dès 6 pièces",
   },
   {
-    id: "gb3", slug: "pack-poterie-gurunsi", title: "Pack Poterie Gurunsi — Art de Table & Décoration",
+    id: "gb3", slug: "pack-poterie-gurunsi", title: "Pack Poterie Gurunsi - Art de Table & Décoration",
     description: "Ensemble de jarres, bols et vases cérémoniels fabriqués par les Potiers du Centre. Cuisson en fosse ancestrale, motifs Kassena-Nankana authentiques.",
     category: "Poterie", image: IMAGES.pottery, originalPrice: 118000,
     tiers: [{ minQty: 5, price: 100000, discount: 15 }, { minQty: 10, price: 89000, discount: 25 }, { minQty: 20, price: 77000, discount: 35 }],
     minParticipants: 5, maxParticipants: 30, currentParticipants: 18, deadline: "2026-05-20",
     groupementId: "g3", artisanId: "a3", products: ["p3"], status: "active",
     highlights: ["Cuisson en fosse traditionnelle", "Argile locale de Tiébélé", "Pack mixte jarres + bols disponible", "Finition karité protectrice"],
-    deliveryInfo: "Emballage renforcé anti-casse — Livraison 10-18 jours — Assurance incluse",
+    deliveryInfo: "Emballage renforcé anti-casse - Livraison 10-18 jours - Assurance incluse",
   },
   {
-    id: "gb4", slug: "coffret-bijoux-dogon", title: "Coffret Bijoux Dogon — Perles Ancestrales",
+    id: "gb4", slug: "coffret-bijoux-dogon", title: "Coffret Bijoux Dogon - Perles Ancestrales",
     description: "Achat groupé de colliers et bracelets en perles anciennes du Mali. Perles Millefiori vénitiennes authentiques du XVIe siècle.",
     category: "Bijoux", image: IMAGES.beadwork, originalPrice: 95000,
     tiers: [{ minQty: 4, price: 81000, discount: 15 }, { minQty: 8, price: 71000, discount: 25 }, { minQty: 15, price: 62000, discount: 35 }],
     minParticipants: 4, maxParticipants: 25, currentParticipants: 3, deadline: "2026-06-10",
     groupementId: "g5", artisanId: "a6", products: ["p6"], status: "active",
     highlights: ["Perles vénitiennes authentiques XVI-XVIIe s.", "Pierres semi-précieuses du plateau Dogon", "Coffret écrin en cuir artisanal inclus", "Certificat de datation des perles"],
-    deliveryInfo: "Livraison express 3-7 jours — Monde entier — Écrin cadeau inclus",
+    deliveryInfo: "Livraison express 3-7 jours - Monde entier - Écrin cadeau inclus",
   },
   {
-    id: "gb5", slug: "pack-vannerie-diola", title: "Pack Vannerie Diola — Collection Intérieur",
+    id: "gb5", slug: "pack-vannerie-diola", title: "Pack Vannerie Diola - Collection Intérieur",
     description: "Paniers tressés en fibres de rônier et palmier par les Vannières de Casamance. Idéal pour décoration intérieure et cadeaux d'entreprise.",
     category: "Vannerie", image: IMAGES.wovenBasket, originalPrice: 55000,
     tiers: [{ minQty: 6, price: 46000, discount: 16 }, { minQty: 12, price: 41000, discount: 25 }, { minQty: 24, price: 36000, discount: 35 }],
     minParticipants: 6, maxParticipants: 40, currentParticipants: 22, deadline: "2026-04-25",
     groupementId: "g4", artisanId: "a4", products: ["p4"], status: "closing_soon",
     highlights: ["Fibres 100% naturelles de Casamance", "3 tailles disponibles (S/M/L)", "Teintures végétales écologiques", "Empilables pour stockage facile"],
-    deliveryInfo: "Livraison groupée 5-8 jours — Monde entier — Frais gratuits dès 12 pièces",
+    deliveryInfo: "Livraison groupée 5-8 jours - Monde entier - Frais gratuits dès 12 pièces",
   },
   {
-    id: "gb6", slug: "lot-djembes-malinke", title: "Lot Djembés Malinkés — Instruments & Ateliers",
+    id: "gb6", slug: "lot-djembes-malinke", title: "Lot Djembés Malinkés - Instruments & Ateliers",
     description: "Djembés sculptés dans un seul tronc de lenké, peau de chèvre montée traditionnellement. Parfait pour écoles de musique et centres culturels.",
     category: "Musique", image: IMAGES.djembe, originalPrice: 145000,
     tiers: [{ minQty: 3, price: 130000, discount: 10 }, { minQty: 6, price: 116000, discount: 20 }, { minQty: 10, price: 102000, discount: 30 }],
     minParticipants: 3, maxParticipants: 15, currentParticipants: 0, deadline: "2026-07-01",
     groupementId: "g1", artisanId: "a1", products: ["p7"], status: "upcoming",
     highlights: ["Bois de lenké massif d'une seule pièce", "Peau de chèvre tendue main", "3 tailles : solo / accompagnement / basse", "Housse de transport offerte dès 6 pièces"],
-    deliveryInfo: "Livraison spéciale instruments — 10-15 jours — Emballage mousse protecteur",
+    deliveryInfo: "Livraison spéciale instruments - 10-15 jours - Emballage mousse protecteur",
   },
 ];

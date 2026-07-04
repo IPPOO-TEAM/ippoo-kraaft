@@ -168,9 +168,7 @@ export function FormationDetailPage() {
                 <div className="space-y-3">
                   {["Introduction et fondamentaux", "Pratique guidée", "Exercices avancés", "Évaluation et certification"].map((step, i) => (
                     <div key={i} className="flex items-center gap-3 p-3 bg-[var(--ipk-surface)] rounded-xl">
-                      <div className="w-8 h-8 bg-[var(--ipk-green-dark)] text-white rounded-full flex items-center justify-center shrink-0" style={{ fontSize: "13px", fontWeight: 600 }}>
-                        {i + 1}
-                      </div>
+                      <span className="w-2.5 h-2.5 rounded-full bg-[var(--ipk-green-dark)] shrink-0" aria-hidden="true" />
                       <span style={{ fontSize: "14px", color: "var(--ipk-ink)" }}>{step}</span>
                     </div>
                   ))}
@@ -229,8 +227,8 @@ export function FormationDetailPage() {
             >
               Télécharger la brochure
             </Button>
-            <LeadModal open={signupOpen} onOpenChange={setSignupOpen} type="formation_signup" title={`Inscription — ${formation.title}`} description={`${formation.duration} · ${formation.mode} · prochaine session ${formation.nextDate}`} refId={formation.id} refLabel={formation.title} successToast="Inscription enregistrée — confirmation par email." />
-            <LeadModal open={brochureOpen} onOpenChange={setBrochureOpen} type="brochure" title={`Brochure — ${formation.title}`} description="Indiquez votre email pour recevoir le PDF." refId={formation.id} refLabel={formation.title} fields={{ phone: false, message: false }} successToast="Brochure envoyée à votre email." />
+            <LeadModal open={signupOpen} onOpenChange={setSignupOpen} type="formation_signup" title={`Inscription - ${formation.title}`} description={`${formation.duration} · ${formation.mode} · prochaine session ${formation.nextDate}`} refId={formation.id} refLabel={formation.title} successToast="Inscription enregistrée - confirmation par email." />
+            <LeadModal open={brochureOpen} onOpenChange={setBrochureOpen} type="brochure" title={`Brochure - ${formation.title}`} description="Indiquez votre email pour recevoir le PDF." refId={formation.id} refLabel={formation.title} fields={{ phone: false, message: false }} successToast="Brochure envoyée à votre email." />
 
             <div className="mt-4 p-3 bg-[var(--ipk-surface)] rounded-xl">
               <div className="flex items-center gap-2">

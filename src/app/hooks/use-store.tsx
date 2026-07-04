@@ -56,7 +56,7 @@ function safeWrite(key: string, value: unknown) {
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    // quota exceeded or disabled — silent
+    // quota exceeded or disabled - silent
   }
 }
 
