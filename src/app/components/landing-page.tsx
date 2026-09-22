@@ -10,7 +10,7 @@ import {
 import { IMAGES, formatPrice, groupBuyingOffers } from "../data/mock-data";
 import { LazyImage } from "./lazy-image";
 import { useSeo } from "../hooks/use-seo";
-import logoImg from "../../imports/kraaft_fav.jpg";
+import logoImg from "../../imports/kraaft_logo_trimmed.png";
 import headerBgImg from "../../imports/Sintesi_Joy_PARADISE_60_119_Quick_sample_48h__Italy___1_.jpg";
 import { AdCarousel, landingAdSlides } from "./ad-carousel";
 import { BackgroundMusicPlayer } from "./background-music-player";
@@ -150,11 +150,20 @@ export function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[72px] lg:h-[88px]">
             <div className="flex items-center min-w-0">
-              <img
-                src={logoImg}
-                alt="IPPOO KRAAFT"
-                className="h-[52px] sm:h-[64px] lg:h-[72px] w-auto max-w-[240px] sm:max-w-[340px] lg:max-w-none object-contain"
-              />
+              <span className="inline-flex flex-col items-center justify-center bg-white overflow-hidden rounded-lg px-2 py-1 shadow-sm">
+                <img
+                  src={logoImg}
+                  alt="IPPOO KRAAFT"
+                  className="h-8 md:h-9 w-auto object-contain"
+                  style={{ maxWidth: 180 }}
+                />
+                <span
+                  className="mt-0.5 leading-none text-black text-center whitespace-nowrap"
+                  style={{ fontFamily: "Poppins", fontWeight: 700, fontSize: 8.4, letterSpacing: ".01em" }}
+                >
+                  by APTDC-Z-UP.2 / TDO / LIMITED
+                </span>
+              </span>
             </div>
 
             <div className="hidden lg:flex items-center gap-8">

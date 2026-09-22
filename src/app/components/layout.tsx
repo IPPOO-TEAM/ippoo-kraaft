@@ -19,7 +19,7 @@ import { NewsletterForm } from "./newsletter-form";
 import { NotificationBell } from "./notification-bell";
 import { CurrencySwitcher } from "./currency-switcher";
 import { LoyaltyHeaderBadge } from "./loyalty-badge";
-import logoImg from "../../imports/kraaft_fav.jpg";
+import logoImg from "../../imports/kraaft_logo_trimmed.png";
 import headerBgImg from "../../imports/Sintesi_Joy_PARADISE_60_119_Quick_sample_48h__Italy___1_.jpg";
 import { BackgroundMusicPlayer } from "./background-music-player";
 
@@ -262,12 +262,21 @@ export function Layout() {
         <div style={{ height: 6, backgroundColor: "#ffffff" }} />
         <div className="max-w-7xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between gap-2">
           {/* Logo agrandi */}
-          <Link to="/accueil" className="flex items-center shrink-0 min-w-0">
-            <img
-              src={logoImg}
-              alt="IPPOO KRAAFT"
-              className="h-9 sm:h-11 w-auto max-w-[170px] sm:max-w-[260px] object-contain"
-            />
+          <Link to="/accueil" className="flex items-center shrink-0" aria-label="IPPOO KRAAFT, accueil">
+            <span className="inline-flex flex-col items-center justify-center bg-white overflow-hidden rounded-lg px-2 py-1 shadow-sm">
+              <img
+                src={logoImg}
+                alt="IPPOO KRAAFT"
+                className="h-8 md:h-9 w-auto object-contain"
+                style={{ maxWidth: 180 }}
+              />
+              <span
+                className="mt-0.5 leading-none text-black text-center whitespace-nowrap"
+                style={{ fontFamily: "Poppins", fontWeight: 700, fontSize: 8.4, letterSpacing: ".01em" }}
+              >
+                by APTDC-Z-UP.2 / TDO / LIMITED
+              </span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -407,7 +416,20 @@ export function Layout() {
               <SheetContent side="left" className="w-[280px] sm:w-[300px] p-0">
                 <SheetHeader className="p-4 border-b border-[var(--ipk-border)] bg-white">
                   <SheetTitle className="flex items-center">
-                    <img src={logoImg} alt="IPPOO KRAAFT" className="h-8 w-auto max-w-[200px] object-contain" />
+                    <span className="inline-flex flex-col items-center justify-center bg-white overflow-hidden rounded-lg px-2 py-1 shadow-sm">
+                      <img
+                        src={logoImg}
+                        alt="IPPOO KRAAFT"
+                        className="h-8 w-auto object-contain"
+                        style={{ maxWidth: 170 }}
+                      />
+                      <span
+                        className="mt-0.5 leading-none text-black text-center whitespace-nowrap"
+                        style={{ fontFamily: "Poppins", fontWeight: 700, fontSize: 8.4, letterSpacing: ".01em" }}
+                      >
+                        by APTDC-Z-UP.2 / TDO / LIMITED
+                      </span>
+                    </span>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col py-2 flex-1 min-h-0 overflow-y-auto overscroll-contain">

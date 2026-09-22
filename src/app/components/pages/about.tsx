@@ -125,6 +125,53 @@ export function AboutPage() {
           </div>
         </section>
 
+        <section>
+          <h2 className="flex items-center gap-2 mb-3" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 600, color: "var(--ipk-ink)" }}>
+            <Globe className="w-5 h-5 text-[var(--ipk-blue)]" /> Un projet édité par APTDC-Z-UP.2 / TDO / LIMITED
+          </h2>
+          <p className="text-[var(--ipk-text)]" style={{ fontSize: "15px", lineHeight: 1.8 }}>
+            IPPOO KRAAFT ART AND HANDMADE est une enseigne éditée par APTDC-Z-UP.2 / TDO / LIMITED
+            (African Production Trade Development and Councils), un ensemble d'environnements réunis au
+            sein d'une même architecture, consacrés au développement, à la production, à la
+            commercialisation, au conseil et à l'accompagnement des activités et entreprises africaines.
+            Chaque enseigne possède son propre univers tout en s'inscrivant dans l'environnement global
+            de la plateforme.
+          </p>
+          <div className="grid grid-cols-1 gap-4 mt-4">
+            <div className={`p-4 ${CARD_TINTS[0]} border rounded-xl`}>
+              <h4 style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)" }}>APTDC</h4>
+              <p style={{ fontSize: "13px", color: "var(--ipk-text)", lineHeight: 1.6, marginTop: "4px" }}>
+                Environnement dédié au développement, à la production, à la commercialisation, au conseil
+                et à l'accompagnement des activités. Il regroupe des compétences destinées à accompagner
+                les entreprises africaines, tous secteurs confondus, avec des configurations adaptées aux
+                réalités et au niveau de développement de chaque activité.
+              </p>
+            </div>
+            <div className={`p-4 ${CARD_TINTS[3]} border rounded-xl`}>
+              <h4 style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)" }}>Z-UP.2</h4>
+              <p style={{ fontSize: "13px", color: "var(--ipk-text)", lineHeight: 1.6, marginTop: "4px" }}>
+                Outil de développement social et de prospérité destiné à l'informel actif, aux TPE, TPI,
+                consultants, indépendants, auto-entrepreneurs, artisans, étudiants et freelances. Il
+                rassemble compétences, expériences et expertises dans un même environnement afin de
+                valoriser les contributions économiques et sociales peu reconnues.
+              </p>
+            </div>
+            <div className={`p-4 ${CARD_TINTS[4]} border rounded-xl`}>
+              <h4 style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)" }}>TDO — Tchaou Design Office</h4>
+              <p style={{ fontSize: "13px", color: "var(--ipk-text)", lineHeight: 1.6, marginTop: "4px" }}>
+                Centre consacré à l'aménagement, à la conception, au développement et à la réalisation de
+                biens d'équipements adaptés aux projets, dans une logique où l'ergonomie, la
+                fonctionnalité et l'adaptation aux usages réels occupent une place centrale.
+              </p>
+            </div>
+          </div>
+          <p className="text-[var(--ipk-text)] mt-4" style={{ fontSize: "13px", lineHeight: 1.7, fontStyle: "italic" }}>
+            Les conseils et configurations proposés peuvent être assistés par l'intelligence artificielle,
+            qui intervient comme un outil d'appui au travail des experts : l'expertise métier, les réalités
+            du terrain et les besoins du bénéficiaire restent au centre de la démarche.
+          </p>
+        </section>
+
         <section className="text-center">
           <h2 className="mb-3" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 600, color: "var(--ipk-ink)" }}>
             Zones d'intervention
