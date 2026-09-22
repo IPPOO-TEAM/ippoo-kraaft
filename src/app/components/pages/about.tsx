@@ -28,6 +28,11 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line
 } from "recharts";
+import { NicheFeature } from "../niche-feature";
+import nicheVanneriePatience from "../../../imports/photo_50_2026-09-07_10-50-52.jpg";
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 
 // ============= ABOUT PAGE =============
@@ -56,6 +61,17 @@ export function AboutPage() {
           </p>
         </section>
 
+        <NicheFeature
+          img={nicheVanneriePatience}
+          alt="Vannière assemblant brin à brin la carcasse d'un panier dans la pénombre d'un atelier"
+          kicker="Vannerie · Le geste patient"
+          title="Tresser, un art de la lenteur"
+          text="Dans la pénombre de l'atelier, la vannière assemble brin après brin la carcasse d'un panier. Un travail de patience et de précision, presque méditatif, où la fibre végétale prend forme entre des mains sûres — l'art de la lenteur assumée."
+          cta="Nos familles de métiers"
+          to="/metiers"
+          tint="ipk-card-plum"
+        />
+
         <section>
           <h2 className="flex items-center gap-2 mb-3" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 600, color: "var(--ipk-ink)" }}>
             <Eye className="w-5 h-5 text-[var(--ipk-blue)]" /> Notre Vision
@@ -69,14 +85,14 @@ export function AboutPage() {
           <h2 className="flex items-center gap-2 mb-3" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 600, color: "var(--ipk-ink)" }}>
             <Heart className="w-5 h-5 text-[var(--ipk-green-dark)]" /> Nos Valeurs
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-6">
             {[
               { title: "Authenticité", desc: "Chaque pièce est vérifiée et certifiée selon nos normes internes." },
               { title: "Éco-responsabilité", desc: "Matériaux naturels locaux et techniques ancestrales à faible impact." },
               { title: "Traçabilité", desc: "De l'atelier à votre porte, chaque étape est documentée." },
               { title: "Transmission", desc: "Formations et soutien pour préserver les savoir-faire." },
-            ].map((v, i) => (
-              <div key={i} className="p-4 bg-[var(--ipk-surface)] rounded-xl">
+            ].map((v, i, arr) => (
+              <div key={i} className={`p-4 ${CARD_TINTS[i % CARD_TINTS.length]} border rounded-xl`}>
                 <h4 style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)" }}>{v.title}</h4>
                 <p style={{ fontSize: "13px", color: "var(--ipk-text)", lineHeight: 1.6, marginTop: "4px" }}>{v.desc}</p>
               </div>

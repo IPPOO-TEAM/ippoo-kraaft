@@ -10,6 +10,9 @@ import { NotFoundDetail } from "./not-found-detail";
 import { toast } from "sonner";
 import { EmptyState } from "./empty-state";
 
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
+
 export function GalleriesPage() {
   useSeo({ title: "Galeries photo", description: "Découvrez 95+ photos d'oeuvres et d'artisans africains, organisées par thèmes culturels." });
   const [filter, setFilter] = useState("");
@@ -47,12 +50,12 @@ export function GalleriesPage() {
       </div>
 
       {/* Collections grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:gap-6">
         {filtered.length === 0 && (
           <EmptyState title="Aucune collection" message="Aucune galerie pour ce thème." actionLabel="Voir toutes" onAction={() => setFilter("")} />
         )}
-        {filtered.map((collection) => (
-          <Link key={collection.id} to={`/galeries/${collection.slug}`} className="group rounded-2xl overflow-hidden border border-[var(--ipk-border)]">
+        {filtered.map((collection, i, arr) => (
+          <Link key={collection.id} to={`/galeries/${collection.slug}`} className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
             <div className="relative aspect-[4/3] overflow-hidden">
               <LazyImage src={collection.coverImage} alt={collection.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

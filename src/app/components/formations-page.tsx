@@ -11,6 +11,11 @@ import { NotFoundDetail } from "./not-found-detail";
 import { toast } from "sonner";
 import { EmptyState } from "./empty-state";
 import { LeadModal } from "./lead-modal";
+import { NicheFeature } from "./niche-feature";
+import nicheVannerieAtelier from "../../imports/photo_82_2026-09-07_10-50-53.jpg";
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 export function FormationsPage() {
   useSeo({ title: "Formations artisanales", description: "Catalogue de formations en sculpture, textile, poterie, métallurgie et plus pour artisans et passionnés." });
@@ -26,13 +31,25 @@ export function FormationsPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 pb-20 lg:pb-6">
+    <div className="max-w-7xl mx-auto px-4 pt-10 sm:pt-14 pb-20 lg:pb-6">
       <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px, 5vw, 36px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
         Formations
       </h1>
       <p className="text-[var(--ipk-text)] mt-1 mb-6" style={{ fontSize: "15px" }}>
         Perfectionnez vos techniques et développez vos compétences avec nos formations certifiantes
       </p>
+
+      <NicheFeature
+        img={nicheVannerieAtelier}
+        alt="Artisan façonnant des éventails tressés aux couleurs vives sur un marché"
+        kicker="Vannerie · L'atelier"
+        title="La couleur entre dans la fibre"
+        text="Dans l'effervescence du marché, l'artisan tend et peint les éventails tressés de teintes éclatantes. Ici la vannerie n'est plus seulement utilitaire : elle devient objet graphique, jeu de motifs et de pigments hérités des traditions locales."
+        cta="Découvrir l'Académie"
+        to="/academie"
+        reverse
+        tint="ipk-card-indigo"
+      />
 
       {/* Filters */}
       <div className="space-y-3 mb-6">
@@ -56,20 +73,20 @@ export function FormationsPage() {
       </div>
 
       {/* Formation cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-6">
         {filtered.length === 0 && (
           <EmptyState title="Aucune formation" message="Aucune formation ne correspond à ces filtres." actionLabel="Réinitialiser" onAction={() => { setFilter(""); setModeFilter(""); }} />
         )}
-        {filtered.map((f) => (
-          <Link key={f.id} to={`/formations/${f.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] group hover:shadow-lg transition-shadow">
-            <div className="relative h-40 overflow-hidden">
-              <LazyImage src={f.image} alt={f.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        {filtered.map((f, i, arr) => (
+          <Link key={f.id} to={`/formations/${f.slug}`} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border group hover:shadow-lg transition-shadow grid md:grid-cols-2 items-center`}>
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <LazyImage src={f.image} alt={f.title} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute top-3 left-3 flex gap-1">
                 <Badge className="bg-[var(--ipk-blue)] text-white border-0" style={{ fontSize: "10px" }}>{f.category}</Badge>
                 <Badge className="bg-white text-[var(--ipk-ink)] border-0" style={{ fontSize: "10px" }}>{f.level}</Badge>
               </div>
             </div>
-            <div className="p-4">
+            <div className={`p-4 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)" }}>{f.title}</h3>
               <p className="text-[var(--ipk-text)] mt-1 line-clamp-2" style={{ fontSize: "13px", lineHeight: 1.5 }}>{f.description}</p>
               <div className="flex flex-wrap gap-3 mt-3" style={{ fontSize: "12px", color: "var(--ipk-text)" }}>

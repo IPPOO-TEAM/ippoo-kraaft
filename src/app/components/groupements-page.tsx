@@ -10,6 +10,10 @@ import { NotFoundDetail } from "./not-found-detail";
 import { toast } from "sonner";
 import { EmptyState } from "./empty-state";
 import { LeadModal } from "./lead-modal";
+import { NicheFeature } from "./niche-feature";
+import nicheMarcheTextile from "../../imports/photo_81_2026-09-07_10-50-53.jpg";
+
+const CARD_TINTS = ["ipk-card-lilac","ipk-card-peach","ipk-card-coral","ipk-card-indigo","ipk-card-plum","ipk-card-terracotta"];
 
 export function GroupementsPage() {
   useSeo({ title: "Groupements d'artisans", description: "Rencontrez les coopératives et groupements d'artisans certifiés IPPOO KRAAFT à travers l'Afrique." });
@@ -18,13 +22,23 @@ export function GroupementsPage() {
   const filtered = filter ? groupements.filter(g => g.country === filter) : groupements;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 pb-20 lg:pb-6">
+    <div className="max-w-7xl mx-auto px-4 pt-10 sm:pt-14 pb-20 lg:pb-6">
       <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px, 5vw, 36px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
         Groupements d'Artisans
       </h1>
       <p className="text-[var(--ipk-text)] mt-1 mb-6" style={{ fontSize: "15px" }}>
         Des communautés organisées qui préservent les savoir-faire et mutualisent les ressources
       </p>
+
+      <NicheFeature
+        img={nicheMarcheTextile}
+        alt="Femmes vendant des pagnes wax pliés sous les parasols d'un marché"
+        kicker="Tissage & textile · Commerce"
+        title="Chaque étoffe raconte une histoire"
+        text="Sous les parasols du marché, les femmes déploient les pagnes wax pliés avec soin. Le commerce du textile fait vivre des filières entières — des groupements que nous structurons pour garantir des revenus justes aux créatrices."
+        reverse
+        tint="ipk-card-peach"
+      />
 
       {/* Filters */}
       <div className="flex gap-2 mb-6 overflow-x-auto pb-1 scrollbar-hide">
@@ -48,14 +62,14 @@ export function GroupementsPage() {
       </div>
 
       {/* Groupements */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {filtered.length === 0 && (
           <EmptyState title="Aucun groupement" message="Aucun groupement ne correspond à ce pays." actionLabel="Voir tous les pays" onAction={() => setFilter("")} />
         )}
-        {filtered.map((g) => (
-          <Link key={g.id} to={`/groupements/${g.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] group hover:shadow-lg transition-shadow">
-            <div className="relative h-48 overflow-hidden">
-              <LazyImage src={g.image} alt={g.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        {filtered.map((g, i, arr) => (
+          <Link key={g.id} to={`/groupements/${g.slug}`} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border group hover:shadow-lg transition-shadow grid md:grid-cols-2 items-center`}>
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <LazyImage src={g.image} alt={g.name} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-4 py-2">
                 <div className="flex items-center gap-1 text-white">
                   <MapPin className="w-3.5 h-3.5" />
@@ -63,7 +77,7 @@ export function GroupementsPage() {
                 </div>
               </div>
             </div>
-            <div className="p-4 sm:p-5">
+            <div className={`p-4 sm:p-5 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)" }}>{g.name}</h3>
               <p className="text-[var(--ipk-text)] mt-2 line-clamp-2" style={{ fontSize: "14px", lineHeight: 1.6 }}>
                 {g.description}

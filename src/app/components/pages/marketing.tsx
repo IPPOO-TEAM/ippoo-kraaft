@@ -19,6 +19,8 @@ import {
   CONTEST_KIND_LABEL, CONTEST_RANKING_LABEL, type ContestKind,
 } from "../../data/marketing-data";
 import { formatPrice } from "../../data/mock-data";
+import { NicheFeature } from "../niche-feature";
+import nicheKenteMaitre from "../../../imports/photo_33_2026-09-07_10-50-52.jpg";
 
 // ============= Helpers =============
 function useCountdown(target: string) {
@@ -106,6 +108,17 @@ export function PromotionsPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 pb-20 lg:pb-8">
       <PageHero icon={Tag} eyebrow="Bons plans" title="Promotions du moment" subtitle="Codes valables sur la boutique en ligne et au showroom de Lomé." />
+      <NicheFeature
+        img={nicheKenteMaitre}
+        alt="Maître tisserand alignant des fils de soie colorés sur son métier à tisser kente"
+        kicker="Tissage · Le maître"
+        title="Le kente, fil de soie et de mémoire"
+        text="Torse penché sur son métier, le maître tisserand aligne les fils de soie éclatants du kente. Chaque bande étroite, patiemment nouée, encode un proverbe ou un lignage : le tissage devient écriture, et l'étoffe, mémoire portée."
+        cta="Découvrir les métiers"
+        to="/metiers"
+        reverse
+        tint="ipk-card-lilac"
+      />
 
       <div className="flex flex-wrap gap-2 mb-5">
         {([
@@ -124,8 +137,8 @@ export function PromotionsPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filtered.map(p => (
+      <div className="grid grid-cols-1 gap-6">
+        {filtered.map((p, i, arr) => (
           <Coupon
             key={p.id}
             theme={p.style.theme}
@@ -293,13 +306,14 @@ export function FlashPage() {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {flashDeals.map(d => {
+      <div className="grid grid-cols-2 gap-4 sm:gap-6">
+        {flashDeals.map((d, i, arr) => {
           const pct = Math.round((1 - d.flashPrice / d.basePrice) * 100);
           const sold = Math.round(((d.totalStock - d.stockLeft) / d.totalStock) * 100);
           return (
             <Coupon
               key={d.id}
+              className={i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}
               theme={d.style.theme}
               pattern={d.style.pattern}
               eyebrow="Flash"
@@ -436,8 +450,8 @@ export function ConcoursPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filtered.map(c => {
+      <div className="grid grid-cols-1 gap-6">
+        {filtered.map((c, i, arr) => {
           const KindIcon = KIND_ICON[c.kind];
           const ranking = rankingFor(c.id);
           const top = ranking.slice(0, 3);
@@ -986,9 +1000,9 @@ export function GiftCardPage() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-20 lg:pb-8">
       <PageHero icon={Gift} eyebrow="Cadeau" title="Cartes cadeaux IPK" subtitle="Offrez la liberté de choisir parmi nos pièces d'artisanat." />
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        {giftCardOffers.map(g => (
-          <button key={g.id} onClick={() => setAmount(g.amount)} className={`text-left rounded-2xl ring-2 transition ${amount === g.amount ? "ring-[var(--ipk-green-dark)]" : "ring-transparent"}`}>
+      <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6">
+        {giftCardOffers.map((g, i, arr) => (
+          <button key={g.id} onClick={() => setAmount(g.amount)} className={`text-left rounded-2xl ring-2 transition ${amount === g.amount ? "ring-[var(--ipk-green-dark)]" : "ring-transparent"} ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
             <Coupon
               theme={g.style.theme}
               pattern={g.style.pattern}
@@ -1103,8 +1117,8 @@ export function GiftTicketsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        {giftTickets.map(t => (
+      <div className="grid grid-cols-1 gap-6 mb-8">
+        {giftTickets.map((t, i, arr) => (
           <div key={t.id} className="flex flex-col items-center gap-2">
             <button
               type="button"
@@ -1131,14 +1145,14 @@ export function GiftTicketsPage() {
       {tickets.length === 0 ? (
         <div className="p-6 rounded-2xl bg-[var(--ipk-surface)] text-center text-sm text-[var(--ipk-text)]">Aucun ticket pour l'instant. Activez-en un ci-dessus ou tentez la <Link to="/roue" className="text-[var(--ipk-green-dark)] underline">roue de la fortune</Link>.</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {tickets.map(t => {
+        <div className="grid grid-cols-2 gap-4 sm:gap-6">
+          {tickets.map((t, i, arr) => {
             const expired = t.status === "expired";
             const used = t.status === "used";
             const dim = expired || used;
             const daysLeft = Math.max(0, Math.ceil((new Date(t.expiresAt).getTime() - Date.now()) / 86400000));
             return (
-              <div key={t.id} className={`flex items-center gap-3 p-3 rounded-xl border ${dim ? "border-[var(--ipk-border)] opacity-60" : "border-[var(--ipk-green-dark)]/30 bg-[var(--ipk-green-dark)]/5"}`}>
+              <div key={t.id} className={`flex items-center gap-3 p-3 rounded-xl border ${dim ? "border-[var(--ipk-border)] opacity-60" : "border-[var(--ipk-green-dark)]/30 bg-[var(--ipk-green-dark)]/5"} ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
                 <div className="shrink-0 p-1.5 bg-white rounded-md border border-[var(--ipk-border)]">
                   <QRCodeSVG value={`IPK-TKT:${t.code}`} size={56} level="M" />
                 </div>
@@ -1172,8 +1186,8 @@ export function MarketDayPage() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-20 lg:pb-8">
       <PageHero icon={Calendar} eyebrow="Programme" title="Jour de marché" subtitle="Chaque jour, un thème, des offres dédiées et la communauté en direct du showroom de Lomé." />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {marketDays.map(d => {
+      <div className="grid grid-cols-1 gap-6">
+        {marketDays.map((d, i, arr) => {
           const isToday = new Date(d.date).toDateString() === today.toDateString();
           return (
             <Coupon
@@ -1184,7 +1198,7 @@ export function MarketDayPage() {
               title={d.theme}
               subtitle={d.description}
               badge={<Calendar className="w-7 h-7" />}
-              className={isToday ? "ring-2 ring-[var(--ipk-green-dark)] rounded-2xl" : ""}
+              className={`${isToday ? "ring-2 ring-[var(--ipk-green-dark)] rounded-2xl" : ""}`}
               footer={
                 <>
                   <span className="inline-flex items-center gap-1"><Star className="w-3 h-3" /> {d.highlight}</span>

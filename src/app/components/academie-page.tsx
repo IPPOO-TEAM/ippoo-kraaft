@@ -29,6 +29,10 @@ import {
   ACAD_SECTIONS_NAV,
   type Cta,
 } from "../data/academie-kraaft";
+import { NicheFeature } from "./niche-feature";
+import nicheAtelierEcole from "../../imports/photo_38_2026-09-07_10-50-52.jpg";
+
+const CARD_TINTS = ["ipk-card-lilac","ipk-card-peach","ipk-card-coral","ipk-card-indigo","ipk-card-plum","ipk-card-terracotta"];
 
 function CtaRow({ ctas, tone = "ink" }: { ctas: Cta[]; tone?: "ink" | "light" }) {
   return (
@@ -123,6 +127,17 @@ export function AcademiePage() {
         </div>
       </section>
 
+      <NicheFeature
+        img={nicheAtelierEcole}
+        alt="Plusieurs métiers à tisser à bandes alignés sous un auvent en plein air"
+        kicker="Tissage · Transmission"
+        title="L'atelier-école, sous le même toit"
+        text="Sous l'auvent de terre battue, plusieurs métiers à tisser s'alignent et les longues chaînes de fil filent au soleil. C'est tout un atelier-école qui travaille côte à côte, où les anciens transmettent aux plus jeunes le rythme du tissage à bandes."
+        cta="Voir les formations"
+        to="/formations"
+        tint="ipk-card-peach"
+      />
+
       {/* ── ANCRES DE NAVIGATION ── */}
       <nav className="sticky top-14 z-30 bg-white/95 backdrop-blur border-b border-[var(--ipk-border)]" aria-label="Sections de l'Académie">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 overflow-x-auto">
@@ -173,9 +188,9 @@ export function AcademiePage() {
             <h3 className="text-[var(--ipk-ink)] mb-4" style={{ fontFamily: "'Playfair Display', serif", fontSize: "20px", fontWeight: 700 }}>
               {ACAD_ECOLE.groupTitle}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {ACAD_ECOLE.ecoles.map((name) => (
-                <div key={name} className="flex items-start gap-3 bg-white rounded-xl border border-[var(--ipk-border)] p-3.5 hover:border-[var(--ipk-green)] transition-colors">
+            <div className="grid grid-cols-1 gap-6">
+              {ACAD_ECOLE.ecoles.map((name, i, arr) => (
+                <div key={name} className={`flex items-start gap-3 ${CARD_TINTS[i % CARD_TINTS.length]} rounded-xl border p-3.5 hover:border-[var(--ipk-green)] transition-colors`}>
                   <span className="w-8 h-8 shrink-0 rounded-lg bg-[var(--ipk-green)]/10 text-[var(--ipk-green-dark)] flex items-center justify-center">
                     <School className="w-4 h-4" />
                   </span>
@@ -192,13 +207,13 @@ export function AcademiePage() {
           <p className="text-[var(--ipk-text)] mb-8" style={{ fontSize: "16px", lineHeight: 1.85 }}>
             {ACAD_PARCOURS.intro}
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {ACAD_PARCOURS.niveaux.map((n) => (
-              <article key={n.name} className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex flex-col">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <LazyImage src={n.image} alt={n.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div className="grid grid-cols-1 gap-6">
+            {ACAD_PARCOURS.niveaux.map((n, i, arr) => (
+              <article key={n.name} className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all grid md:grid-cols-2 items-center`}>
+                <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                  <LazyImage src={n.image} alt={n.name} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <div className="p-5 flex flex-col flex-1">
+                <div className={`p-5 flex flex-col flex-1 justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
                   <h3 className="text-[var(--ipk-ink)] mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>{n.name}</h3>
                   <p className="text-[var(--ipk-text)]" style={{ fontSize: "14px", lineHeight: 1.7 }}>{n.text}</p>
                 </div>

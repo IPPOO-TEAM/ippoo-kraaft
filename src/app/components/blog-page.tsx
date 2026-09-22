@@ -12,8 +12,12 @@ import { useSeo } from "../hooks/use-seo";
 import { NotFoundDetail } from "./not-found-detail";
 import { toast } from "sonner";
 import { useLeads } from "../hooks/use-leads";
+import { NicheFeature } from "./niche-feature";
+import nicheEtoffesRayees from "../../imports/photo_83_2026-09-07_10-50-53.jpg";
 
 const ALL_CATEGORIES = ["Tous", ...Array.from(new Set(blogArticles.map(a => a.category)))];
+
+const CARD_TINTS = ["ipk-card-lilac","ipk-card-peach","ipk-card-coral","ipk-card-indigo","ipk-card-plum","ipk-card-terracotta"];
 
 // ============= COMMENTS HOOK (localStorage) =============
 type BlogComment = { id: string; slug: string; author: string; text: string; createdAt: string };
@@ -95,7 +99,7 @@ export function BlogPage() {
   const featured = blogArticles[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 pb-20 lg:pb-6">
+    <div className="max-w-7xl mx-auto px-4 pt-10 sm:pt-14 pb-20 lg:pb-6">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-4 flex-wrap">
         <div>
@@ -142,6 +146,18 @@ export function BlogPage() {
           ))}
         </div>
       </section>
+
+      <NicheFeature
+        img={nicheEtoffesRayees}
+        alt="Homme adossé à des étoffes tissées rayées noires, blanches et polychromes"
+        kicker="Tissage & textile · Le métier"
+        title="Les bandes tissées, mémoire rayée"
+        text="Rayures blanches, noires et polychromes : ces étoffes tissées bande par bande encodent lignages et proverbes. Adossé à sa production, le tisserand veille sur un patrimoine textile aussi ancien que les royaumes qui l'ont vu naître."
+        cta="Métiers du textile"
+        to="/metiers"
+        reverse
+        tint="ipk-card-coral"
+      />
 
       {/* Search bar */}
       <div className="relative mb-5">
@@ -218,8 +234,8 @@ export function BlogPage() {
       {!hasFilters && featured && (
         <Link to={`/blog/${featured.slug}`} className="block rounded-2xl overflow-hidden border border-[var(--ipk-border)] mb-8 group hover:shadow-lg transition-shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
-              <LazyImage src={featured.image} alt={featured.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="overflow-hidden relative">
+              <LazyImage src={featured.image} alt={featured.title} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
             </div>
             <div className="p-6 flex flex-col justify-center">
               <Badge className="bg-[#0057FF]/10 text-[var(--ipk-blue)] border-0 w-fit mb-3">{featured.category}</Badge>
@@ -260,20 +276,20 @@ export function BlogPage() {
 
       {/* Articles grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {(!hasFilters ? filtered.slice(1) : filtered).map((article) => (
+        <div className="grid grid-cols-1 gap-6">
+          {(!hasFilters ? filtered.slice(1) : filtered).map((article, i, arr) => (
             <Link
               key={article.id}
               to={`/blog/${article.slug}`}
-              className="rounded-2xl overflow-hidden border border-[var(--ipk-border)] group hover:shadow-lg transition-all bg-white"
+              className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border group hover:shadow-lg transition-all grid md:grid-cols-2 items-center`}
             >
-              <div className="aspect-[16/10] overflow-hidden relative">
-                <LazyImage src={article.image} alt={article.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div className={`overflow-hidden relative ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                <LazyImage src={article.image} alt={article.title} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
                 <Badge className="absolute top-3 left-3 bg-white/90 text-[var(--ipk-blue)] border-0 backdrop-blur-sm" style={{ fontSize: "11px" }}>
                   {article.category}
                 </Badge>
               </div>
-              <div className="p-4">
+              <div className={`p-4 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
                 <h3 className="line-clamp-2" style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)", lineHeight: 1.4 }}>{article.title}</h3>
                 <p className="text-[var(--ipk-text)] mt-1.5 line-clamp-2" style={{ fontSize: "13px", lineHeight: 1.6 }}>{article.excerpt}</p>
                 {article.tags && (
@@ -396,7 +412,7 @@ export function BlogDetailPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 pb-20 lg:pb-6">
+    <div className="max-w-4xl mx-auto px-4 pt-10 sm:pt-14 pb-20 lg:pb-6">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 mb-6 flex-wrap" style={{ fontSize: "13px", color: "var(--ipk-text)" }}>
         <Link to="/accueil" className="hover:text-[var(--ipk-blue)] transition-colors">Accueil</Link>

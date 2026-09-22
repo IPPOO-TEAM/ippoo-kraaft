@@ -12,10 +12,15 @@ import { CRAFT_TAXONOMY, findBySlug, nicheLabel, effectiveNiches } from "../data
 import { LazyImage } from "./lazy-image";
 import { useSeo } from "../hooks/use-seo";
 import { EmptyState } from "./empty-state";
+import { NicheFeature } from "./niche-feature";
+import nicheVanneriePiece from "../../imports/photo_62_2026-09-07_10-50-52.jpg";
 
 const categoryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Hammer, Scissors, Coffee, ShoppingBasket, Gem, Wrench, Briefcase, Music,
 };
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 function tokens(q: string): string[] {
   return q.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/).filter(t => t.length >= 2);
@@ -205,6 +210,15 @@ export function BoutiquePage() {
           {filteredProducts.length} oeuvre{filteredProducts.length > 1 ? "s" : ""} artisanale{filteredProducts.length > 1 ? "s" : ""}
         </p>
       </div>
+
+      <NicheFeature
+        img={nicheVanneriePiece}
+        alt="Corbeille tressée noir et fibre naturelle aux courbes sculpturales"
+        kicker="Vannerie · La pièce"
+        title="Corbeille sculpturale en fibres nobles"
+        text="Noir profond et fibre naturelle s'entrelacent en une corbeille aux courbes architecturales. Chaque pièce finie porte la signature de son atelier et rejoint nos collections, prête à habiller un intérieur contemporain."
+        tint="ipk-card-terracotta"
+      />
 
       {/* Search & Filters bar */}
       <div className="flex gap-2 mb-4">
@@ -566,13 +580,13 @@ export function BoutiquePage() {
       </div>
 
       {/* Product grid */}
-      <div className={`grid gap-3 sm:gap-4 ${viewMode === "grid3" ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" : "grid-cols-2 lg:grid-cols-3"}`}>
-        {filteredProducts.map((product) => {
+      <div className="grid grid-cols-2 gap-4 sm:gap-6">
+        {filteredProducts.map((product, i, arr) => {
           const artisan = artisans.find(a => a.id === product.artisanId);
           const promo = (product as any).promo as { percent: number } | undefined;
           const original = (product as any).originalPrice as number | undefined;
           return (
-            <Link key={product.id} to={`/boutique/${product.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] group hover:shadow-lg transition-shadow">
+            <Link key={product.id} to={`/boutique/${product.slug}`} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border group hover:shadow-lg transition-shadow ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
               <div className="relative aspect-square overflow-hidden">
                 <LazyImage src={product.images[0]} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                 <div className="absolute top-2 left-2 flex flex-col gap-1">

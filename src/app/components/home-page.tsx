@@ -16,6 +16,8 @@ import { useStore } from "../hooks/use-store";
 import { useRecentlyViewed, recommendForUser } from "../hooks/use-recommendations";
 import { ProductRecommendations } from "./product-recommendations";
 import { Sparkles } from "lucide-react";
+import { NicheFeature } from "./niche-feature";
+import nicheJeunesTisserands from "../../imports/photo_45_2026-09-07_10-50-52.jpg";
 
 const categoryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Hammer, Scissors, Coffee, ShoppingBasket, Gem, Wrench, Briefcase, Music,
@@ -24,6 +26,9 @@ const categoryIconMap: Record<string, React.ComponentType<{ className?: string }
 const trustIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Shield, Award, Users, MapPin, Star, Tag, Flame, Trophy, Gift, Ticket, RotateCw, Calendar, Hammer,
 };
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 export function HomePage() {
   useSeo({
@@ -81,9 +86,23 @@ export function HomePage() {
       </section>
       )}
 
+      <div className="max-w-7xl mx-auto px-4 pt-10 sm:pt-14">
+        <NicheFeature
+          img={nicheJeunesTisserands}
+          alt="Jeunes tisserands travaillant avec énergie sur des métiers à tisser traditionnels"
+          kicker="Nouvelle génération"
+          title="La jeunesse au métier à tisser"
+          text="Mains levées, sourires et navettes qui volent : une nouvelle génération s'empare du métier à tisser. Dans l'énergie de l'atelier, le geste ancestral se réinvente et prouve que la relève des savoir-faire est bien vivante."
+          cta="Découvrir l'Académie"
+          to="/academie"
+          reverse
+          tint="ipk-card-coral"
+        />
+      </div>
+
       {/* Trust bar */}
       {cms.sections.trust && cms.trust.enabled && (
-      <section className="bg-white border-b border-[var(--ipk-border)]">
+      <section className="ipk-sec-rose border-b border-[var(--ipk-border)]">
         <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex overflow-x-auto gap-4 sm:gap-6 md:gap-12 sm:flex-wrap sm:justify-center scrollbar-hide" style={{ WebkitOverflowScrolling: "touch" }}>
             {cms.trust.items.map((item, i) => {
@@ -102,7 +121,8 @@ export function HomePage() {
 
       {/* Savoir-faire section */}
       {cms.sections.savoir && cms.savoir.enabled && (
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+      <section className="ipk-sec-mint py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-8">
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
             {cms.savoir.title}
@@ -111,9 +131,9 @@ export function HomePage() {
             {cms.savoir.subtitle}
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {cms.savoir.items.map((item, i) => (
-            <Link key={i} to={item.link} className="group relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[4/5]">
+        <div className="grid grid-cols-1 gap-6">
+          {cms.savoir.items.map((item, i, arr) => (
+            <Link key={i} to={item.link} className={`group relative rounded-2xl overflow-hidden aspect-[4/3] sm:aspect-[4/5]`}>
               <LazyImage src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-5">
                 <h3 className="text-white" style={{ fontSize: "20px", fontWeight: 600 }}>{item.title}</h3>
@@ -126,17 +146,21 @@ export function HomePage() {
             </Link>
           ))}
         </div>
+        </div>
       </section>
       )}
 
       {/* Carrousel publicitaire & partenaires */}
-      <section className="max-w-7xl mx-auto px-4 pt-6 sm:pt-8">
+      <section className="ipk-sec-gray pt-6 sm:pt-8">
+        <div className="max-w-7xl mx-auto px-4">
         <AdCarousel slides={homeAdSlides} />
+        </div>
       </section>
 
       {/* Promos & cadeaux */}
       {cms.sections.promos && (
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-10">
+      <section className="ipk-sec-lilac py-8 sm:py-10">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-end justify-between mb-4 sm:mb-5 gap-3 flex-wrap">
           <div>
             <div className="flex items-center gap-2 text-[var(--ipk-green-dark)] mb-1"><Tag className="w-4 h-4" /><span className="text-xs uppercase tracking-wide">Bons plans</span></div>
@@ -144,7 +168,7 @@ export function HomePage() {
           </div>
           <Link to="/promotions" className="text-sm text-[var(--ipk-green-dark)] hover:underline flex items-center gap-1">Tout voir <ArrowRight className="w-4 h-4" /></Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 gap-6">
           {[
             { to: "/flash", icon: Flame, label: "Ventes flash", desc: "Stocks limités", grad: "from-rose-500 to-rose-700" },
             { to: "/promotions", icon: Tag, label: "Promotions", desc: "Codes du moment", grad: "from-emerald-500 to-emerald-800" },
@@ -154,7 +178,7 @@ export function HomePage() {
             { to: "/tickets-cadeaux", icon: Ticket, label: "Tickets cadeaux", desc: "Avantages fidèles", grad: "from-indigo-500 to-indigo-800" },
             { to: "/jour-de-marche", icon: Calendar, label: "Jour de marché", desc: "Programme semaine", grad: "from-teal-500 to-emerald-700" },
             { to: "/achats-groupes", icon: Users, label: "Achats groupés", desc: "Plus on est…", grad: "from-slate-600 to-slate-800" },
-          ].map(t => {
+          ].map((t, i, arr) => {
             const Icon = t.icon;
             return (
               <Link key={t.to} to={t.to} className={`p-4 rounded-2xl text-white bg-gradient-to-br ${t.grad} hover:scale-[1.02] transition-transform`}>
@@ -165,12 +189,13 @@ export function HomePage() {
             );
           })}
         </div>
+        </div>
       </section>
       )}
 
       {/* Pièces uniques */}
       {cms.sections.exclusives && (
-      <section className="bg-[var(--ipk-surface)] py-8 sm:py-12">
+      <section className="ipk-sec-sky py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-5 sm:mb-6">
             <div>
@@ -183,11 +208,11 @@ export function HomePage() {
               Voir tout <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            {featuredProducts.map((product) => {
+          <div className="grid grid-cols-1 gap-6">
+            {featuredProducts.map((product, i, arr) => {
               const artisan = artisans.find(a => a.id === product.artisanId);
               return (
-                <Link key={product.id} to={`/boutique/${product.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] group">
+                <Link key={product.id} to={`/boutique/${product.slug}`} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border group`}>
                   <div className="relative aspect-square overflow-hidden">
                     <LazyImage src={product.images[0]} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div className="absolute top-2 left-2 flex flex-col gap-1">
@@ -216,7 +241,8 @@ export function HomePage() {
 
       {/* Categories */}
       {cms.sections.categories && (
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+      <section className="ipk-sec-gray py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-center mb-5 sm:mb-8" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
           Explorer par Catégorie
         </h2>
@@ -232,12 +258,14 @@ export function HomePage() {
             );
           })}
         </div>
+        </div>
       </section>
       )}
 
       {/* Explorer par domaine d'artisanat (taxonomie complète) */}
       {cms.sections.taxonomy && (
-      <section className="max-w-7xl mx-auto px-4 pb-8 sm:pb-12">
+      <section className="ipk-sec-rose pb-8 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-end justify-between mb-4">
           <div>
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
@@ -246,14 +274,14 @@ export function HomePage() {
             <p className="text-[var(--ipk-text)] mt-1" style={{ fontSize: "13px" }}>11 domaines, plus de 70 niches d'artisanat</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
-          {CRAFT_TAXONOMY.map((d) => {
+        <div className="grid grid-cols-1 gap-6">
+          {CRAFT_TAXONOMY.map((d, i, arr) => {
             const nicheCount = d.niches.length + d.niches.reduce((s, n) => s + (n.subNiches?.length || 0), 0);
             return (
               <Link
                 key={d.slug}
                 to={`/boutique?dom=${d.slug}`}
-                className="group p-3 sm:p-4 rounded-xl bg-white border border-[var(--ipk-border)] hover:border-[var(--ipk-green-dark)] hover:shadow-sm transition-all"
+                className={`group p-3 sm:p-4 rounded-xl ${CARD_TINTS[i % CARD_TINTS.length]} border hover:border-[var(--ipk-green-dark)] hover:shadow-sm transition-all`}
               >
                 <div className="flex items-start justify-between gap-2">
                   <h4 className="text-[var(--ipk-ink)] group-hover:text-[var(--ipk-green-dark)]" style={{ fontSize: "13px", fontWeight: 600 }}>{d.label}</h4>
@@ -273,12 +301,13 @@ export function HomePage() {
             );
           })}
         </div>
+        </div>
       </section>
       )}
 
       {/* Groupements */}
       {cms.sections.groupements && (
-      <section className="bg-[var(--ipk-surface)] py-8 sm:py-12">
+      <section className="ipk-sec-teal py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -291,16 +320,16 @@ export function HomePage() {
               Voir tout <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {groupements.slice(0, 3).map((g) => (
-              <Link key={g.id} to={`/groupements/${g.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] group">
-                <div className="relative h-40 overflow-hidden">
-                  <LazyImage src={g.image} alt={g.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <div className="grid grid-cols-1 gap-6">
+            {groupements.slice(0, 3).map((g, i, arr) => (
+              <Link key={g.id} to={`/groupements/${g.slug}`} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border group grid md:grid-cols-2 items-center`}>
+                <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                  <LazyImage src={g.image} alt={g.name} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute bottom-0 left-0 right-0 bg-black/50 px-4 py-2">
                     <span className="text-white" style={{ fontSize: "11px" }}>{g.region}, {g.country}</span>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className={`p-4 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
                   <h4 style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)" }}>{g.name}</h4>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {g.specialties.map((s, i) => (
@@ -362,7 +391,8 @@ export function HomePage() {
 
       {/* Achats Groupés */}
       {cms.sections.groupBuying && (
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+      <section className="ipk-sec-mint py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
             Achats Groupés
@@ -371,15 +401,15 @@ export function HomePage() {
             Toutes les offres <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-          {groupBuyingOffers.filter(o => o.status !== "completed").slice(0, 3).map((offer) => {
+        <div className="grid grid-cols-1 gap-6">
+          {groupBuyingOffers.filter(o => o.status !== "completed").slice(0, 3).map((offer, i, arr) => {
             const bestDiscount = offer.tiers[offer.tiers.length - 1].discount;
             const daysLeft = Math.max(0, Math.ceil((new Date(offer.deadline).getTime() - Date.now()) / 86400000));
             const pct = Math.min((offer.currentParticipants / offer.maxParticipants) * 100, 100);
             return (
-              <Link key={offer.id} to={`/achats-groupes/${offer.slug}`} className="group bg-white rounded-2xl border border-[var(--ipk-border)] overflow-hidden hover:shadow-md transition-all">
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <LazyImage src={offer.image} alt={offer.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <Link key={offer.id} to={`/achats-groupes/${offer.slug}`} className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl border overflow-hidden hover:shadow-md transition-all grid md:grid-cols-2 items-center`}>
+                <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                  <LazyImage src={offer.image} alt={offer.title} className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute top-3 left-3">
                     <span className={`px-2.5 py-1 rounded-full text-white ${offer.status === "closing_soon" ? "bg-[var(--ipk-amber)]" : offer.status === "upcoming" ? "bg-[var(--ipk-blue)]" : "bg-[var(--ipk-green)]"}`} style={{ fontSize: "11px", fontWeight: 600 }}>
                       {offer.status === "closing_soon" ? "Clôture imminente" : offer.status === "upcoming" ? "Bientôt" : "En cours"}
@@ -390,7 +420,7 @@ export function HomePage() {
                     <span className="text-[var(--ipk-green)]" style={{ fontSize: "12px", fontWeight: 700 }}>-{bestDiscount}%</span>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className={`p-4 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
                   <h3 className="text-[var(--ipk-ink)] mb-2 line-clamp-1" style={{ fontSize: "14px", fontWeight: 600 }}>{offer.title}</h3>
                   <div className="flex items-baseline gap-2 mb-3">
                     <span className="text-[var(--ipk-text)] line-through" style={{ fontSize: "12px" }}>{formatPrice(offer.originalPrice)}</span>
@@ -408,12 +438,14 @@ export function HomePage() {
             );
           })}
         </div>
+        </div>
       </section>
       )}
 
       {/* Événements */}
       {cms.sections.events && (
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+      <section className="ipk-sec-lilac py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
             Prochains Événements
@@ -422,9 +454,9 @@ export function HomePage() {
             Tout voir <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {events.slice(0, 2).map((event) => (
-            <Link key={event.id} to={`/evenements/${event.slug}`} className="flex gap-3 sm:gap-4 bg-white rounded-2xl border border-[var(--ipk-border)] p-3 sm:p-4 hover:shadow-md transition-shadow">
+        <div className="grid grid-cols-1 gap-6">
+          {events.slice(0, 2).map((event, i, arr) => (
+            <Link key={event.id} to={`/evenements/${event.slug}`} className={`flex gap-3 sm:gap-4 ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl border p-3 sm:p-4 hover:shadow-md transition-shadow`}>
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0">
                 <LazyImage src={event.image} alt={event.title} className="w-full h-full object-cover" />
               </div>
@@ -443,11 +475,13 @@ export function HomePage() {
             </Link>
           ))}
         </div>
+        </div>
       </section>
       )}
 
       {/* Dernières actualités */}
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+      <section className="ipk-sec-gray py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
           <div>
             <span className="inline-flex items-center gap-2 text-[var(--ipk-blue)]" style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>
@@ -461,13 +495,13 @@ export function HomePage() {
             Tout le blog <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[...blogArticles].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 3).map((art) => (
-            <Link key={art.id} to={`/blog/${art.slug}`} className="bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-shadow group">
-              <div className="aspect-[16/10] overflow-hidden">
-                <LazyImage src={art.image} alt={art.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        <div className="grid grid-cols-1 gap-6">
+          {[...blogArticles].sort((a, b) => (b.date || "").localeCompare(a.date || "")).slice(0, 3).map((art, i, arr) => (
+            <Link key={art.id} to={`/blog/${art.slug}`} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-shadow group grid md:grid-cols-2 items-center`}>
+              <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                <LazyImage src={art.image} alt={art.title} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
               </div>
-              <div className="p-4">
+              <div className={`p-4 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
                 <Badge className="bg-[#0057FF]/10 text-[var(--ipk-blue)] border-0 mb-2" style={{ fontSize: "10px" }}>{art.category}</Badge>
                 <h3 className="line-clamp-2" style={{ fontSize: "15px", fontWeight: 600, color: "var(--ipk-ink)", lineHeight: 1.35 }}>{art.title}</h3>
                 <div className="flex items-center gap-2 mt-2 text-[var(--ipk-text)]" style={{ fontSize: "12px" }}>
@@ -479,18 +513,19 @@ export function HomePage() {
             </Link>
           ))}
         </div>
+        </div>
       </section>
 
       {/* Testimonials */}
       {cms.sections.testimonials && (
-      <section className="bg-[var(--ipk-surface)] py-8 sm:py-12">
+      <section className="ipk-sec-yellow py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-center mb-6 sm:mb-8" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
             Ils nous font confiance
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-4 sm:p-6 border border-[var(--ipk-border)]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {testimonials.map((t, i, arr) => (
+              <div key={i} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl p-4 sm:p-6 border ${i === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}>
                 <Quote className="w-6 h-6 text-[#0B6B3A]/30 mb-3" />
                 <p style={{ fontSize: "14px", color: "var(--ipk-text)", lineHeight: 1.7, fontStyle: "italic" }}>"{t.text}"</p>
                 <div className="flex items-center gap-1 mt-4 mb-2">
@@ -509,23 +544,25 @@ export function HomePage() {
 
       {/* Impact stats */}
       {cms.sections.stats && (
-      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
+      <section className="ipk-sec-sky py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-center mb-5 sm:mb-8" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 600, color: "var(--ipk-ink)" }}>
           Notre Impact
         </h2>
-        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6">
           {[
             { num: statsData.artisans, label: "Artisans" },
             { num: statsData.groupements, label: "Groupements" },
             { num: statsData.uniquePieces, label: "Pièces uniques" },
             { num: statsData.countries, label: "Pays" },
             { num: statsData.partners, label: "Partenaires" },
-          ].map((s, i) => (
-            <div key={i} className="text-center p-3 sm:p-4 rounded-2xl bg-[var(--ipk-surface)]">
+          ].map((s, i, arr) => (
+            <div key={i} className={`text-center p-3 sm:p-4 rounded-2xl border ${CARD_TINTS[i % CARD_TINTS.length]} ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
               <div style={{ fontSize: "clamp(24px, 5vw, 36px)", fontWeight: 700, color: "var(--ipk-green-dark)" }}>{s.num}</div>
               <div style={{ fontSize: "13px", color: "var(--ipk-text)" }}>{s.label}</div>
             </div>
           ))}
+        </div>
         </div>
       </section>
       )}

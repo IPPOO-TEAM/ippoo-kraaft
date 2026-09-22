@@ -29,6 +29,9 @@ import {
   PieChart, Pie, Cell, LineChart, Line
 } from "recharts";
 
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
+
 
 // ============= EVENTS PAGE =============
 export function EventsPage() {
@@ -116,15 +119,15 @@ export function StatsPage() {
       </p>
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 mb-6 sm:mb-8">
+      <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {[
           { label: "Visites", value: statsData.visits.toLocaleString(), icon: Eye, color: "var(--ipk-blue)" },
           { label: "Abonnés", value: statsData.subscribers.toLocaleString(), icon: Users, color: "var(--ipk-green-dark)" },
           { label: "Ventes", value: statsData.sales.toLocaleString(), icon: ShoppingCart, color: "var(--ipk-amber)" },
           { label: "Artisans", value: statsData.artisans, icon: Users, color: "#8B5CF6" },
           { label: "Pays", value: statsData.countries, icon: Globe, color: "#EC4899" },
-        ].map((kpi, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-[var(--ipk-border)] p-3 sm:p-4">
+        ].map((kpi, i, arr) => (
+          <div key={i} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl border p-3 sm:p-4 ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
             <kpi.icon className="w-4 h-4 sm:w-5 sm:h-5 mb-1.5 sm:mb-2" style={{ color: kpi.color }} />
             <div style={{ fontSize: "clamp(18px, 4vw, 28px)", fontWeight: 700, color: "var(--ipk-ink)" }}>{kpi.value}</div>
             <div style={{ fontSize: "11px", color: "var(--ipk-text)" }}>{kpi.label}</div>

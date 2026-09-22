@@ -17,6 +17,9 @@ import { NotFoundDetail } from "./not-found-detail";
 import { toast } from "sonner";
 import { LeadModal } from "./lead-modal";
 
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
+
 function getStatusConfig(status: GroupBuyingOffer["status"]) {
   switch (status) {
     case "active": return { label: "En cours", color: "bg-[var(--ipk-green)]", textColor: "text-[var(--ipk-green)]", bgLight: "bg-[#0D8A3E]/10" };
@@ -60,7 +63,7 @@ function ProgressBar({ current, max, min }: { current: number; max: number; min:
 }
 
 // ── CARD COMPONENT ──
-function GroupBuyingCard({ offer }: { offer: GroupBuyingOffer }) {
+function GroupBuyingCard({ offer, tint = "bg-white", spanFull = false, index = 0 }: { offer: GroupBuyingOffer; tint?: string; spanFull?: boolean; index?: number }) {
   const statusCfg = getStatusConfig(offer.status);
   const daysLeft = getDaysLeft(offer.deadline);
   const bestDiscount = offer.tiers[offer.tiers.length - 1].discount;
@@ -69,14 +72,14 @@ function GroupBuyingCard({ offer }: { offer: GroupBuyingOffer }) {
   return (
     <Link
       to={`/achats-groupes/${offer.slug}`}
-      className="group bg-white rounded-2xl border border-[var(--ipk-border)] overflow-hidden hover:shadow-lg transition-all"
+      className={`group ${tint} rounded-2xl border overflow-hidden hover:shadow-lg transition-all grid md:grid-cols-2 items-center ${spanFull ? "col-span-2" : ""}`}
     >
       {/* Image */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className={`relative overflow-hidden ${index % 2 === 1 ? "md:order-2" : ""}`}>
         <LazyImage
           src={offer.image}
           alt={offer.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute top-3 left-3 flex gap-2">
           <span
@@ -103,7 +106,7 @@ function GroupBuyingCard({ offer }: { offer: GroupBuyingOffer }) {
       </div>
 
       {/* Content */}
-      <div className="p-4 sm:p-5">
+      <div className={`p-4 sm:p-5 flex flex-col justify-center ${index % 2 === 1 ? "md:order-1" : ""}`}>
         <div className="flex items-center gap-2 mb-2">
           <span
             className="px-2 py-0.5 rounded-md bg-[var(--ipk-surface)] text-[var(--ipk-text)]"
@@ -294,9 +297,15 @@ export function GroupBuyingPage() {
             </p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((offer) => (
-              <GroupBuyingCard key={offer.id} offer={offer} />
+          <div className="grid grid-cols-1 gap-6">
+            {filtered.map((offer, i, arr) => (
+              <GroupBuyingCard
+                key={offer.id}
+                offer={offer}
+                index={i}
+                tint={CARD_TINTS[i % CARD_TINTS.length]}
+                spanFull={i === arr.length - 1 && arr.length % 2 !== 0}
+              />
             ))}
           </div>
         )}
@@ -683,12 +692,18 @@ export function GroupBuyingDetailPage() {
         <h2 className="text-[var(--ipk-ink)] mb-6" style={{ fontSize: "20px", fontWeight: 600 }}>
           Autres achats groupés
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           {groupBuyingOffers
             .filter((o) => o.id !== offer.id)
             .slice(0, 3)
-            .map((o) => (
-              <GroupBuyingCard key={o.id} offer={o} />
+            .map((o, i, arr) => (
+              <GroupBuyingCard
+                key={o.id}
+                offer={o}
+                index={i}
+                tint={CARD_TINTS[i % CARD_TINTS.length]}
+                spanFull={i === arr.length - 1 && arr.length % 2 !== 0}
+              />
             ))}
         </div>
       </section>

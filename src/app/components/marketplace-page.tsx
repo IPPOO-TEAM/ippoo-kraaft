@@ -17,6 +17,10 @@ import {
 import { CrossLinksBlock, type CrossLink } from "./cross-links";
 import { products, artisans, formatPrice } from "../data/mock-data";
 import { AuctionHouse } from "./marketplace-auctions";
+import { NicheFeature } from "./niche-feature";
+import nicheConceptStore from "../../imports/photo_63_2026-09-07_10-50-52.jpg";
+
+const CARD_TINTS = ["ipk-card-lilac","ipk-card-peach","ipk-card-coral","ipk-card-indigo","ipk-card-plum","ipk-card-terracotta"];
 
 // Mapping des Collections KRAAFT vers un filtre boutique réel.
 const kraaftCollectionLinks: { label: string; to: string }[] = [
@@ -44,9 +48,9 @@ function LiveWidget({ slug }: { slug: string }) {
           <h2 className="text-[var(--ipk-ink)]" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 700 }}>Créations à découvrir</h2>
           <Link to="/boutique" className="text-[var(--ipk-green)] inline-flex items-center gap-1" style={{ fontSize: "14px", fontWeight: 600 }}>Voir tout <ArrowRight className="w-4 h-4" /></Link>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {featured.map((p) => (
-            <Link key={p.id} to={`/boutique/${p.slug}`} className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6">
+          {featured.map((p, i, arr) => (
+            <Link key={p.id} to={`/boutique/${p.slug}`} className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all ${i === arr.length - 1 && arr.length % 2 !== 0 ? "col-span-2" : ""}`}>
               <div className="aspect-square overflow-hidden">
                 <LazyImage src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
@@ -68,9 +72,9 @@ function LiveWidget({ slug }: { slug: string }) {
           <h2 className="text-[var(--ipk-ink)]" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 700 }}>Les boutiques de nos artisans</h2>
           <Link to="/repertoire" className="text-[var(--ipk-green)] inline-flex items-center gap-1" style={{ fontSize: "14px", fontWeight: 600 }}>Tout le répertoire <ArrowRight className="w-4 h-4" /></Link>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {artisans.map((a) => (
-            <Link key={a.id} to={`/artisan/${a.slug}`} className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          {artisans.map((a, i, arr) => (
+            <Link key={a.id} to={`/artisan/${a.slug}`} className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all flex ${i === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}>
               <div className="w-24 shrink-0 overflow-hidden">
                 <LazyImage src={a.image} alt={a.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
@@ -94,9 +98,9 @@ function LiveWidget({ slug }: { slug: string }) {
     return (
       <div className="mt-8">
         <h2 className="text-[var(--ipk-ink)] mb-4" style={{ fontFamily: "'Playfair Display', serif", fontSize: "22px", fontWeight: 700 }}>Explorer ces collections en boutique</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {kraaftCollectionLinks.map((c) => (
-            <Link key={c.label} to={c.to} className="group flex items-center justify-between gap-2 bg-white rounded-xl border border-[var(--ipk-border)] hover:border-[var(--ipk-green)] hover:shadow-sm transition-all px-4 py-3">
+        <div className="grid grid-cols-1 gap-6">
+          {kraaftCollectionLinks.map((c, i, arr) => (
+            <Link key={c.label} to={c.to} className={`group flex items-center justify-between gap-2 ${CARD_TINTS[i % CARD_TINTS.length]} rounded-xl border hover:border-[var(--ipk-green)] hover:shadow-sm transition-all px-4 py-3`}>
               <span className="text-[var(--ipk-ink)]" style={{ fontSize: "14px", fontWeight: 600 }}>{c.label}</span>
               <ArrowRight className="w-4 h-4 text-[var(--ipk-green)] group-hover:translate-x-0.5 transition-transform" />
             </Link>
@@ -176,7 +180,7 @@ export function MarketplacePage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-20 lg:pb-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-10">
       {/* Fil d'Ariane */}
       <nav className="flex items-center gap-1.5 text-[var(--ipk-text)] mb-5" style={{ fontSize: "13px" }} aria-label="Fil d'Ariane">
         <Link to="/accueil" className="hover:text-[var(--ipk-green)] transition-colors">Accueil</Link>
@@ -217,21 +221,32 @@ export function MarketplacePage() {
         </div>
       </section>
 
+      <NicheFeature
+        img={nicheConceptStore}
+        alt="Intérieur de concept store avec canopée de suspensions tressées et portraits rituels"
+        kicker="Décoration · Art de vivre"
+        title="Quand l'artisanat habite la maison"
+        text="Sous une canopée de suspensions tressées, portraits rituels et mobilier brut composent un véritable temple de l'artisanat. Ici chaque luminaire en fibre, chaque toile, raconte que les métiers d'art africains ont toute leur place dans l'intérieur contemporain."
+        cta="Voir la boutique"
+        to="/boutique"
+        tint="ipk-card-terracotta"
+      />
+
       {/* Grille */}
       <h2 className="text-[var(--ipk-ink)] mb-5" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 700 }}>
         Dix piliers pour faire vivre l'économie des métiers d'art
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {marketplaceSections.map((s) => (
+      <div className="grid grid-cols-1 gap-6">
+        {marketplaceSections.map((s, i, arr) => (
           <Link
             key={s.slug}
             to={`/marketplace/${s.slug}`}
-            className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex flex-col"
+            className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all grid md:grid-cols-2 items-center`}
           >
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <LazyImage src={s.cardImage} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <LazyImage src={s.cardImage} alt={s.title} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
             </div>
-            <div className="p-5 flex flex-col flex-1">
+            <div className={`p-5 flex flex-col flex-1 justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 className="text-[var(--ipk-ink)] mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>
                 {s.title}
               </h3>

@@ -2,6 +2,8 @@ import { Link, useParams, Navigate } from "react-router";
 import { ArrowRight, ArrowLeft, ChevronRight, Globe2, Compass } from "lucide-react";
 import { LazyImage } from "./lazy-image";
 import { PageHero } from "./page-hero";
+import { NicheFeature } from "./niche-feature";
+import nicheNasses from "../../imports/photo_80_2026-09-07_10-50-53.jpg";
 import { useSeo } from "../hooks/use-seo";
 import {
   DIALOGUES_INTRO,
@@ -9,6 +11,9 @@ import {
   getDialogueSection,
   type DialogueBlock,
 } from "../data/heritage-dialogues";
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 // ============= INDEX : DIALOGUES & INNOVATION =============
 export function DialoguesPage() {
@@ -19,7 +24,7 @@ export function DialoguesPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-20 lg:pb-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-10">
       {/* Fil d'Ariane */}
       <nav className="flex items-center gap-1.5 text-[var(--ipk-text)] mb-5" style={{ fontSize: "13px" }} aria-label="Fil d'Ariane">
         <Link to="/accueil" className="hover:text-[var(--ipk-green)] transition-colors">Accueil</Link>
@@ -60,21 +65,31 @@ export function DialoguesPage() {
         </div>
       </section>
 
+      <NicheFeature
+        img={nicheNasses}
+        alt="Mannequin entouré de nasses de pêche tressées suspendues comme des œuvres"
+        kicker="Dialogues & innovation"
+        title="La nasse devient sculpture portée"
+        text="Suspendues comme des œuvres, les nasses de pêche tressées dessinent un décor irréel autour de la silhouette. Nos laboratoires explorent ces passerelles entre techniques ancestrales, design et industries créatives de demain."
+        reverse
+        tint="ipk-card-indigo"
+      />
+
       {/* Grille des sections */}
       <h2 className="text-[var(--ipk-ink)] mb-5" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 700 }}>
         Dix horizons pour penser les patrimoines de demain
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {dialogueSections.map((s) => (
+      <div className="grid grid-cols-1 gap-6">
+        {dialogueSections.map((s, i, arr) => (
           <Link
             key={s.slug}
             to={`/dialogues/${s.slug}`}
-            className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex flex-col"
+            className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all grid md:grid-cols-2 items-center`}
           >
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <LazyImage src={s.cardImage} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <LazyImage src={s.cardImage} alt={s.title} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
             </div>
-            <div className="p-5 flex flex-col flex-1">
+            <div className={`p-5 flex flex-col flex-1 justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 className="text-[var(--ipk-ink)] mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>
                 {s.title}
               </h3>

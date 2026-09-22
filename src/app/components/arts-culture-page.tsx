@@ -2,12 +2,17 @@ import { Link, useParams, Navigate } from "react-router";
 import { ArrowRight, ArrowLeft, ChevronRight, Sparkles } from "lucide-react";
 import { LazyImage } from "./lazy-image";
 import { PageHero } from "./page-hero";
+import { NicheFeature } from "./niche-feature";
+import nicheEditoBolga from "../../imports/photo_67_2026-09-07_10-50-52.jpg";
 import { useSeo } from "../hooks/use-seo";
 import {
   ARTS_INTRO,
   artFamilies,
   getArtFamily,
 } from "../data/arts-culture";
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 // ============= INDEX : ARTS & CULTURE IDENTITAIRES =============
 export function ArtsCulturePage() {
@@ -18,7 +23,7 @@ export function ArtsCulturePage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-20 lg:pb-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-10">
       {/* Fil d'Ariane */}
       <nav className="flex items-center gap-1.5 text-[var(--ipk-text)] mb-5" style={{ fontSize: "13px" }} aria-label="Fil d'Ariane">
         <Link to="/accueil" className="hover:text-[var(--ipk-green)] transition-colors">Accueil</Link>
@@ -27,7 +32,7 @@ export function ArtsCulturePage() {
       </nav>
 
       {/* Intro générale - hero décoratif sans image */}
-      <section className="relative overflow-hidden rounded-3xl mb-10 border border-[var(--ipk-border)]" style={{ background: "linear-gradient(135deg, #ffffff 0%, #eef2ff 55%, #e0e8ff 130%)" }}>
+      <section className="relative overflow-hidden rounded-3xl mb-10 border border-[var(--ipk-border)]" style={{ background: "linear-gradient(135deg, #DCEEFF 0%, #E3F6E9 55%, #CFF5EC 130%)" }}>
         <div aria-hidden className="absolute -top-24 -right-16 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-[var(--ipk-blue)]/10 blur-3xl" />
         <div aria-hidden className="absolute -bottom-28 -left-20 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-[var(--ipk-green)]/10 blur-3xl" />
         <Sparkles aria-hidden className="absolute -right-6 sm:right-8 top-1/2 -translate-y-1/2 w-40 h-40 sm:w-64 sm:h-64 text-[var(--ipk-blue)]/10 pointer-events-none" strokeWidth={1} />
@@ -64,25 +69,36 @@ export function ArtsCulturePage() {
         </div>
       </section>
 
+      <NicheFeature
+        img={nicheEditoBolga}
+        alt="Femme en robe wax entourée de paniers Bolga dans une composition éditoriale"
+        kicker="Arts & culture · Éditorial"
+        title="Quand la vannerie rencontre la mode"
+        text="Robe en wax et forêt de paniers Bolga : cette image manifeste célèbre le dialogue entre textile, vannerie et création contemporaine. L'artisanat africain n'est pas figé — il inspire les podiums et les regards du monde entier."
+        cta="Voir les galeries"
+        to="/galeries"
+        tint="ipk-card-lilac"
+      />
+
       {/* Grille des 9 arts */}
       <h2 id="familles" className="text-[var(--ipk-ink)] mb-5 scroll-mt-24" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 700 }}>
         Les 9 univers de la culture vivante
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {artFamilies.map((art) => (
+      <div className="grid grid-cols-1 gap-6">
+        {artFamilies.map((art, i, arr) => (
           <Link
             key={art.slug}
             to={`/arts-culture/${art.slug}`}
-            className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex flex-col"
+            className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all grid md:grid-cols-2 items-center`}
           >
-            <div className="relative aspect-[16/10] overflow-hidden">
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
               <LazyImage
                 src={art.cardImage}
                 alt={art.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="p-5 flex flex-col flex-1">
+            <div className={`p-5 flex flex-col flex-1 justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 className="text-[var(--ipk-ink)] mb-1.5" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>
                 {art.title}
               </h3>
@@ -166,11 +182,11 @@ export function ArtDetailPage() {
         <div className="space-y-10">
           {art.sections.map((sec, i) => (
             <article key={sec.title} className="grid md:grid-cols-2 gap-6 items-center">
-              <div className={`rounded-2xl overflow-hidden aspect-[4/3] ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <div className={`rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
                 <LazyImage
                   src={sec.image}
                   alt={sec.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto object-contain"
                 />
               </div>
               <div className={i % 2 === 1 ? "md:order-1" : ""}>

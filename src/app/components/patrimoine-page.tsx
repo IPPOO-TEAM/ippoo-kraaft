@@ -10,6 +10,10 @@ import {
   type PatrimoineBlock,
 } from "../data/patrimoine";
 import { CrossLinksBlock, patrimoineCrossLinks } from "./cross-links";
+import { NicheFeature } from "./niche-feature";
+import nicheSculpteur from "../../imports/photo_77_2026-09-07_10-50-53.jpg";
+
+const CARD_TINTS = ["ipk-card-lilac","ipk-card-peach","ipk-card-coral","ipk-card-indigo","ipk-card-plum","ipk-card-terracotta"];
 
 // ============= INDEX : CENTRE DE RECHERCHE & PATRIMOINES =============
 export function PatrimoinePage() {
@@ -20,7 +24,7 @@ export function PatrimoinePage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-20 lg:pb-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-10">
       {/* Fil d'Ariane */}
       <nav className="flex items-center gap-1.5 text-[var(--ipk-text)] mb-5" style={{ fontSize: "13px" }} aria-label="Fil d'Ariane">
         <Link to="/accueil" className="hover:text-[var(--ipk-green)] transition-colors">Accueil</Link>
@@ -61,21 +65,32 @@ export function PatrimoinePage() {
         </div>
       </section>
 
+      <NicheFeature
+        img={nicheSculpteur}
+        alt="Maître sculpteur taillant une statue rituelle à l'herminette, entouré de masques"
+        kicker="Sculpture sur bois · Patrimoine"
+        title="Le maître et l'herminette"
+        text="À l'ombre de l'atelier, le sculpteur dégage à l'herminette la statue d'un panthéon Orisha. Masques et figures rituelles l'entourent : ce sont des siècles de spiritualité et de mémoire que la main du maître fait resurgir du bois."
+        cta="Familles de métiers"
+        to="/metiers"
+        tint="ipk-card-terracotta"
+      />
+
       {/* Grille des sections */}
       <h2 className="text-[var(--ipk-ink)] mb-5" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 700 }}>
         Les dix piliers de la sauvegarde
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {patrimoineSections.map((s) => (
+      <div className="grid grid-cols-1 gap-6">
+        {patrimoineSections.map((s, i, arr) => (
           <Link
             key={s.slug}
             to={`/patrimoines/${s.slug}`}
-            className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex flex-col"
+            className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all grid md:grid-cols-2 items-center`}
           >
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <LazyImage src={s.cardImage} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <LazyImage src={s.cardImage} alt={s.title} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
             </div>
-            <div className="p-5 flex flex-col flex-1">
+            <div className={`p-5 flex flex-col flex-1 justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 className="text-[var(--ipk-ink)] mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>
                 {s.title}
               </h3>

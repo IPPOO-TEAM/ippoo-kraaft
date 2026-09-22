@@ -8,6 +8,11 @@ import {
   eventCategories,
   getEventCategory,
 } from "../data/kraaft-events";
+import { NicheFeature } from "./niche-feature";
+import nicheMarcheVillages from "../../imports/photo_76_2026-09-07_10-50-52.jpg";
+
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
 
 // ============= INDEX : SALONS & RENCONTRES =============
 export function SalonsPage() {
@@ -18,7 +23,7 @@ export function SalonsPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-20 lg:pb-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-10">
       <nav className="flex items-center gap-1.5 text-[var(--ipk-text)] mb-5" style={{ fontSize: "13px" }} aria-label="Fil d'Ariane">
         <Link to="/accueil" className="hover:text-[var(--ipk-green)] transition-colors">Accueil</Link>
         <ChevronRight className="w-3.5 h-3.5" />
@@ -26,7 +31,7 @@ export function SalonsPage() {
       </nav>
 
       {/* Intro - hero décoratif sans image */}
-      <section className="relative overflow-hidden rounded-3xl mb-10 border border-[var(--ipk-border)]" style={{ background: "linear-gradient(135deg, #ffffff 0%, #eef7f0 55%, #dff0e6 130%)" }}>
+      <section className="relative overflow-hidden rounded-3xl mb-10 border border-[var(--ipk-border)]" style={{ background: "linear-gradient(135deg, #FBE3EF 0%, #E3F6E9 55%, #DCEEFF 130%)" }}>
         <div aria-hidden className="absolute -top-24 -right-16 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-[var(--ipk-green)]/10 blur-3xl" />
         <div aria-hidden className="absolute -bottom-28 -left-20 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-[var(--ipk-amber)]/10 blur-3xl" />
         <CalendarDays aria-hidden className="absolute -right-6 sm:right-8 top-1/2 -translate-y-1/2 w-40 h-40 sm:w-64 sm:h-64 text-[var(--ipk-green)]/10 pointer-events-none" strokeWidth={1} />
@@ -50,20 +55,32 @@ export function SalonsPage() {
         </div>
       </section>
 
+      <NicheFeature
+        img={nicheMarcheVillages}
+        alt="Étal de marché saturé de paniers, luminaires et nasses en vannerie"
+        kicker="Terroir · Villages artisanaux"
+        title="Le marché, cathédrale de la vannerie"
+        text="Paniers, luminaires, nasses et corbeilles s'empilent du sol au plafond. Ces étals foisonnants sont le cœur battant des villages artisanaux, où se négocient chaque jour des centaines de pièces façonnées à la main."
+        cta="Place de marché"
+        to="/marketplace"
+        reverse
+        tint="ipk-card-coral"
+      />
+
       <h2 className="text-[var(--ipk-ink)] mb-5" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 700 }}>
         Dix rendez-vous pour faire rayonner les métiers d'art
       </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {eventCategories.map((cat) => (
+      <div className="grid grid-cols-1 gap-6">
+        {eventCategories.map((cat, i, arr) => (
           <Link
             key={cat.slug}
             to={`/salons/${cat.slug}`}
-            className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-md transition-all flex flex-col"
+            className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-md transition-all grid md:grid-cols-2 items-center`}
           >
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <LazyImage src={cat.cardImage} alt={cat.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <LazyImage src={cat.cardImage} alt={cat.title} className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
             </div>
-            <div className="p-5 flex flex-col flex-1">
+            <div className={`p-5 flex flex-col flex-1 justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
               <h3 className="text-[var(--ipk-ink)] mb-2" style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", fontWeight: 700 }}>
                 {cat.title}
               </h3>
@@ -121,8 +138,8 @@ export function SalonDetailPage() {
           <div className="space-y-10">
             {cat.sections.map((sec, i) => (
               <article key={sec.title} className="grid md:grid-cols-2 gap-6 items-center">
-                <div className={`rounded-2xl overflow-hidden aspect-[4/3] ${i % 2 === 1 ? "md:order-2" : ""}`}>
-                  <LazyImage src={sec.image} alt={sec.title} className="w-full h-full object-cover" />
+                <div className={`rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                  <LazyImage src={sec.image} alt={sec.title} className="w-full h-auto object-contain" />
                 </div>
                 <div className={i % 2 === 1 ? "md:order-1" : ""}>
                   <h2 className="text-[var(--ipk-ink)] mb-3" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(19px, 3vw, 24px)", fontWeight: 700 }}>

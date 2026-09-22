@@ -238,97 +238,146 @@
 .ipk-amb {
   --ipk-title-1: var(--ipk-green-dark);
   --ipk-title-2: var(--ipk-blue);
-  /* Teintes douces translucides appliquées aux bandes de sections */
-  --ipk-amb-1: rgba(13,138,62,0.07);   /* bandes "surface" */
-  --ipk-amb-2: rgba(245,158,11,0.05);  /* bandes "blanches" */
+  /* Teintes PLEINES appliquées aux bandes de sections (plus de blanc). */
+  --ipk-amb-1: #E3F6E9;   /* bandes "surface" */
+  --ipk-amb-2: #FDEFD3;   /* bandes "blanches" */
+  --ipk-amb-base: #EFF3F0;/* fond de page (zones sans section) */
   --ipk-amb-wash: rgba(13,138,62,0.05);
-  background-color: #ffffff;
-  background-image:
-    radial-gradient(1200px 520px at 88% -6%, var(--ipk-amb-wash), transparent 60%),
-    radial-gradient(1000px 500px at -5% 4%, var(--ipk-amb-2), transparent 55%);
+  background-color: var(--ipk-amb-base);
   background-attachment: fixed;
 }
 
 /* Vert/ambre terreux — accueil, boutique, artisans (objets, bois, terre) */
 .ipk-amb--green {
   --ipk-title-1: #0B6B3A; --ipk-title-2: #B45309;
-  --ipk-amb-1: rgba(13,138,62,0.08);
-  --ipk-amb-2: rgba(245,158,11,0.06);
-  --ipk-amb-wash: rgba(13,138,62,0.06);
+  --ipk-amb-1: #E3F6E9;   /* menthe */
+  --ipk-amb-2: #FDEFD3;   /* sable chaud */
+  --ipk-amb-base: #EEF5EF;
 }
 
 /* Bleu/vert — institutionnel : à propos, contact, faq, statistiques */
 .ipk-amb--blue {
   --ipk-title-1: #0046CC; --ipk-title-2: #0D8A3E;
-  --ipk-amb-1: rgba(0,87,255,0.07);
-  --ipk-amb-2: rgba(13,138,62,0.05);
-  --ipk-amb-wash: rgba(0,87,255,0.06);
+  --ipk-amb-1: #DCEBFF;   /* bleu ciel */
+  --ipk-amb-2: #E3F6EF;   /* menthe claire */
+  --ipk-amb-base: #EDF2FA;
 }
 
 /* Ambre/rose — promotions, flash, roue, concours, marketing, cadeaux */
 .ipk-amb--amber {
   --ipk-title-1: #B45309; --ipk-title-2: #BE185D;
-  --ipk-amb-1: rgba(245,158,11,0.10);
-  --ipk-amb-2: rgba(236,72,153,0.05);
-  --ipk-amb-wash: rgba(245,158,11,0.08);
+  --ipk-amb-1: #FDE9C7;   /* ambre doux */
+  --ipk-amb-2: #FBE0EC;   /* rose */
+  --ipk-amb-base: #FBF2E4;
 }
 
 /* Violet/bleu — formations, galeries (couleur, création, savoir) */
 .ipk-amb--purple {
   --ipk-title-1: #6D28D9; --ipk-title-2: #0057FF;
-  --ipk-amb-1: rgba(139,92,246,0.08);
-  --ipk-amb-2: rgba(0,87,255,0.05);
-  --ipk-amb-wash: rgba(139,92,246,0.07);
+  --ipk-amb-1: #EAE1FB;   /* lilas */
+  --ipk-amb-2: #DDEBFF;   /* bleu ciel */
+  --ipk-amb-base: #F0ECFA;
 }
 
 /* Rose/violet — blog, événements (vie, récits, rassemblements) */
 .ipk-amb--rose {
   --ipk-title-1: #BE185D; --ipk-title-2: #7C3AED;
-  --ipk-amb-1: rgba(236,72,153,0.08);
-  --ipk-amb-2: rgba(124,58,237,0.05);
-  --ipk-amb-wash: rgba(236,72,153,0.07);
+  --ipk-amb-1: #FBE0EC;   /* rose */
+  --ipk-amb-2: #EDE2FB;   /* lilas */
+  --ipk-amb-base: #FAECF2;
 }
 
 /* Sarcelle/vert — groupements, achats groupés (communauté, collectif) */
 .ipk-amb--teal {
   --ipk-title-1: #0F766E; --ipk-title-2: #0D8A3E;
-  --ipk-amb-1: rgba(20,184,166,0.09);
-  --ipk-amb-2: rgba(13,138,62,0.05);
-  --ipk-amb-wash: rgba(20,184,166,0.07);
+  --ipk-amb-1: #CFF3EA;   /* turquoise */
+  --ipk-amb-2: #E3F6E9;   /* menthe */
+  --ipk-amb-base: #E7F5F1;
 }
 
 /* Neutre doux — compte, panier, connexion, légal, etc. */
 .ipk-amb--neutral {
   --ipk-title-1: #0B6B3A; --ipk-title-2: #0046CC;
-  --ipk-amb-1: rgba(13,138,62,0.06);
-  --ipk-amb-2: rgba(0,87,255,0.04);
-  --ipk-amb-wash: rgba(13,138,62,0.04);
+  --ipk-amb-1: #EDF0F4;   /* gris clair */
+  --ipk-amb-2: #E7EFF7;   /* gris bleuté */
+  --ipk-amb-base: #F0F2F5;
 }
 
 /* Fond renforcé pour les nouvelles sections éditoriales : une teinte douce et
    translucide couvre toute la page (jamais de blanc pur), assortie à l'ambiance
    de la route. Les couleurs sont héritées via --ipk-amb-1/2/wash. */
 .ipk-amb-strong {
-  background-color: var(--ipk-amb-1) !important;
+  background-color: var(--ipk-amb-base) !important;
   background-image:
-    radial-gradient(1100px 560px at 92% -4%, var(--ipk-amb-wash), transparent 55%),
-    radial-gradient(950px 560px at -6% 6%, var(--ipk-amb-2), transparent 52%),
-    linear-gradient(180deg, var(--ipk-amb-1), rgba(255, 255, 255, 0) 55%) !important;
+    linear-gradient(180deg, var(--ipk-amb-1) 0%, var(--ipk-amb-2) 100%) !important;
   background-attachment: fixed !important;
 }
 /* Les bandes de sections opaques (bg-white / bg-surface) deviennent des
    teintes douces de l'ambiance, pour révéler des couleurs assorties aux
    images. Les cartes (div/a) gardent leur fond blanc et restent lisibles.
    Les sections sombres (bg ink) ne sont pas ciblées. */
-.ipk-amb section[class*="ipk-surface"] {
-  background-color: var(--ipk-amb-1) !important;
+/* Rotation multicolore des sections claires (gris, rose, bleu ciel, jaune,
+   turquoise, menthe) — même esprit que la landing, appliquée à toutes les
+   pages internes. Les sections sombres (ink) et images ne sont pas ciblées. */
+.ipk-amb section[class*="ipk-surface"]:nth-of-type(6n+1),
+.ipk-amb section[class*="bg-white"]:nth-of-type(6n+1) {
+  background-color: #EDF0F4 !important;
 }
-.ipk-amb section[class*="bg-white"] {
-  background-color: var(--ipk-amb-2) !important;
+.ipk-amb section[class*="ipk-surface"]:nth-of-type(6n+2),
+.ipk-amb section[class*="bg-white"]:nth-of-type(6n+2) {
+  background-color: #FBE3EF !important;
+}
+.ipk-amb section[class*="ipk-surface"]:nth-of-type(6n+3),
+.ipk-amb section[class*="bg-white"]:nth-of-type(6n+3) {
+  background-color: #DCEEFF !important;
+}
+.ipk-amb section[class*="ipk-surface"]:nth-of-type(6n+4),
+.ipk-amb section[class*="bg-white"]:nth-of-type(6n+4) {
+  background-color: #FCF6B8 !important;
+}
+.ipk-amb section[class*="ipk-surface"]:nth-of-type(6n+5),
+.ipk-amb section[class*="bg-white"]:nth-of-type(6n+5) {
+  background-color: #CFF5EC !important;
+}
+.ipk-amb section[class*="ipk-surface"]:nth-of-type(6n+6),
+.ipk-amb section[class*="bg-white"]:nth-of-type(6n+6) {
+  background-color: #E3F6E9 !important;
 }
 
 /* La variation de couleurs des titres noirs est gérée en JavaScript
    (voir le Layout) afin d'attribuer une couleur différente à chaque titre. */
+
+/* =====================================================================
+   Fonds de sections COLORÉS (pleins, saturés) — remplacent le tout-blanc.
+   Palette demandée : rose, vert bouteille, bleu turquoise, bleu ciel,
+   jaune (#FCEF4B) et gris clair. Les cartes internes restent claires
+   pour préserver la lisibilité.
+   ===================================================================== */
+.ipk-sec-rose     { background-color: #FBE3EF !important; }
+.ipk-sec-sky      { background-color: #DCEEFF !important; }
+.ipk-sec-teal     { background-color: #CFF5EC !important; }
+.ipk-sec-yellow   { background-color: #FCEF4B !important; }
+.ipk-sec-gray     { background-color: #EDF0F4 !important; }
+.ipk-sec-mint     { background-color: #E3F6E9 !important; }
+.ipk-sec-lilac    { background-color: #EDE7FB !important; }
+/* Vert bouteille profond — fond sombre, texte clair */
+.ipk-sec-bottle   { background-color: #0B3D2E !important; }
+
+/* Sur le jaune signature, le texte doit rester noir pour le contraste. */
+.ipk-sec-yellow, .ipk-sec-yellow p, .ipk-sec-yellow span:not([style*="color"]) {
+  color: #1A1A1A;
+}
+
+/* =====================================================================
+   Cartes / blocs texte-image COLORÉS — remplacent le blanc. Teintes
+   franches avec bordure assortie, appliquées en rotation par index.
+   ===================================================================== */
+.ipk-card-lilac      { background-color: #E1D2F6 !important; border-color: #C6ABEF !important; }
+.ipk-card-peach      { background-color: #FBD8B4 !important; border-color: #F4B981 !important; }
+.ipk-card-coral      { background-color: #F9C6C0 !important; border-color: #F19C93 !important; }
+.ipk-card-indigo     { background-color: #D2D8F7 !important; border-color: #A9B4F0 !important; }
+.ipk-card-plum       { background-color: #EAC9E4 !important; border-color: #D89ECC !important; }
+.ipk-card-terracotta { background-color: #EBC6AC !important; border-color: #DBA079 !important; }
 
 /* ===== Texte noir sur fonds orange =====
    Consigne : tout écrit posé sur un fond orange (amber) s'affiche en NOIR.

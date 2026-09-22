@@ -165,7 +165,7 @@ export function Layout() {
   useEffect(() => {
     const root = mainRef.current;
     if (!root) return;
-    const palette = ["#0B6B3A", "#0046CC", "#B45309", "#6D28D9", "#BE185D", "#0F766E", "#C2410C", "#1D4ED8"];
+    const palette = ["#059669", "#2563EB", "#EA580C", "#7C3AED", "#DB2777", "#0D9488", "#D97706", "#DC2626"];
     let idx = 0;
     const colorize = () => {
       root.querySelectorAll<HTMLElement>("h1, h2, h3").forEach((h) => {

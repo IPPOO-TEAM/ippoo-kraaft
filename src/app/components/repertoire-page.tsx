@@ -7,6 +7,9 @@ import {
   directorySections,
   type DirBlock,
 } from "../data/african-artisans-directory";
+import { NicheFeature } from "./niche-feature";
+import nicheBoutiqueArtisan from "../../imports/photo_75_2026-09-07_10-50-52.jpg";
+import nicheBolgaMonumentale from "../../imports/photo_56_2026-09-07_10-50-52.jpg";
 
 function BlockView({ block }: { block: DirBlock }) {
   if (block.type === "p") {
@@ -95,6 +98,25 @@ export function RepertoirePage() {
           </p>
         </div>
       </section>
+
+      <NicheFeature
+        img={nicheBoutiqueArtisan}
+        alt="Artisane souriante présentant un éventail tressé dans sa boutique"
+        kicker="Boutique d'artisan"
+        title="Derrière chaque objet, une créatrice"
+        text="Dans sa boutique tapissée de vannerie, l'artisane présente un éventail tressé avec fierté. Le répertoire IPPOO KRAAFT met en lumière ces femmes et ces hommes qui vivent de leur art, avec profils vérifiés et traçabilité complète."
+        tint="ipk-card-plum"
+      />
+
+      <NicheFeature
+        img={nicheBolgaMonumentale}
+        alt="Artisane souriante posant fièrement à côté d'une corbeille Bolga monumentale aux torsades spectaculaires"
+        kicker="Portrait · Vannière d'exception"
+        title="L'œuvre monumentale d'une créatrice"
+        text="Assise fièrement auprès de son œuvre, l'artisane pose avec une corbeille Bolga monumentale aux torsades spectaculaires. Derrière chaque pièce d'exception se tient une créatrice : le répertoire IPPOO KRAAFT leur donne un nom, un visage et un marché."
+        reverse
+        tint="ipk-card-coral"
+      />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Intro */}

@@ -30,6 +30,9 @@ import {
   PieChart, Pie, Cell, LineChart, Line
 } from "recharts";
 
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = ["ipk-card-lilac", "ipk-card-peach", "ipk-card-coral", "ipk-card-indigo", "ipk-card-plum", "ipk-card-terracotta"];
+
 
 // ============= CONTACT PAGE =============
 function ContactLeadModal({ state, setState }: { state: { open: boolean; type: import("../../hooks/use-leads").LeadType; title: string; desc: string }; setState: (v: typeof state) => void }) {
@@ -77,13 +80,13 @@ export function ContactPage() {
         Nous sommes à votre écoute pour toute question
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8">
         {[
           { icon: Phone, title: "Téléphone", info: "+228 90 12 34 56", sub: "Lun-Ven 8h-18h" },
           { icon: Mail, title: "Email", info: "contact@ipookraaft.com", sub: "Réponse sous 24h" },
           { icon: MessageCircle, title: "WhatsApp", info: "+228 90 12 34 56", sub: "Chat en direct" },
-        ].map((item, i) => (
-          <div key={i} className="text-center p-5 bg-[var(--ipk-surface)] rounded-2xl">
+        ].map((item, i, arr) => (
+          <div key={i} className={`text-center p-5 ${CARD_TINTS[i % CARD_TINTS.length]} border rounded-2xl ${i === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}>
             <item.icon className="w-6 h-6 text-[var(--ipk-green-dark)] mx-auto mb-2" />
             <h4 style={{ fontSize: "14px", fontWeight: 600, color: "var(--ipk-ink)" }}>{item.title}</h4>
             <p style={{ fontSize: "14px", color: "var(--ipk-blue)", fontWeight: 500 }}>{item.info}</p>
@@ -178,17 +181,17 @@ export function ContactPage() {
 
       <div className="mt-8 p-6 bg-[var(--ipk-surface)] rounded-2xl">
         <h3 className="mb-3" style={{ fontSize: "16px", fontWeight: 600, color: "var(--ipk-ink)" }}>Prendre rendez-vous</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {([
             { title: "Visite showroom", desc: "Découvrez nos oeuvres en personne", type: "showroom_visit" as const },
             { title: "Appel partenariat", desc: "Discutons de votre projet professionnel", type: "partner" as const },
             { title: "Inscription formation", desc: "Planifiez votre session", type: "formation_signup" as const },
-          ]).map((item, i) => (
+          ]).map((item, i, arr) => (
             <button
               key={i}
               type="button"
               onClick={() => setAppt({ open: true, type: item.type, title: item.title, desc: item.desc })}
-              className="p-4 bg-white border border-[var(--ipk-border)] rounded-xl text-left hover:border-[var(--ipk-green-dark)] transition-colors"
+              className={`p-4 ${CARD_TINTS[i % CARD_TINTS.length]} border rounded-xl text-left hover:border-[var(--ipk-green-dark)] transition-colors ${i === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}
             >
               <h4 style={{ fontSize: "14px", fontWeight: 600, color: "var(--ipk-ink)" }}>{item.title}</h4>
               <p style={{ fontSize: "12px", color: "var(--ipk-text)" }}>{item.desc}</p>

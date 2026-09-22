@@ -22,6 +22,16 @@ const LANDING_IMAGES = {
   coop: "https://images.unsplash.com/photo-1757085242652-f8cd4d3de889?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBZnJpY2FuJTIwY3JhZnQlMjBjb29wZXJhdGl2ZSUyMHdvcmtzaG9wJTIwZ3JvdXB8ZW58MXx8fHwxNzc1MTIxMDk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
 };
 
+// Teintes de cartes appliquées en rotation pour éviter les blocs blancs.
+const CARD_TINTS = [
+  "ipk-card-lilac",
+  "ipk-card-peach",
+  "ipk-card-coral",
+  "ipk-card-indigo",
+  "ipk-card-plum",
+  "ipk-card-terracotta",
+];
+
 function useCountUp(end: number, duration: number = 2000, start: boolean = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -79,7 +89,7 @@ export function LandingPage() {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const palette = ["#0B6B3A", "#0046CC", "#B45309", "#6D28D9", "#BE185D", "#0F766E", "#C2410C", "#1D4ED8"];
+    const palette = ["#059669", "#2563EB", "#EA580C", "#7C3AED", "#DB2777", "#0D9488", "#D97706", "#DC2626"];
     let idx = 0;
     const colorize = () => {
       root.querySelectorAll<HTMLElement>("h1, h2, h3").forEach((h) => {
@@ -112,7 +122,7 @@ export function LandingPage() {
   ];
 
   return (
-    <div ref={rootRef} className="min-h-screen ipk-amb ipk-amb--green" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div ref={rootRef} className="min-h-screen" style={{ fontFamily: "'Inter', sans-serif" }}>
       {/* ── NAVBAR ── */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "shadow-sm" : "shadow-none"}`}
@@ -301,14 +311,14 @@ export function LandingPage() {
       </section>
 
       {/* ── CARROUSEL PUBLICITAIRE & PARTENAIRES ── */}
-      <section className="py-10 sm:py-14 bg-white">
+      <section className="py-10 sm:py-14 ipk-sec-gray">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AdCarousel slides={landingAdSlides} />
         </div>
       </section>
 
       {/* ── MISSION ── */}
-      <section id="mission" className="py-14 sm:py-20 md:py-28 bg-white">
+      <section id="mission" className="py-14 sm:py-20 md:py-28 ipk-sec-rose">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
@@ -382,7 +392,7 @@ export function LandingPage() {
       </section>
 
       {/* ── ARTISANAT SECTIONS ── */}
-      <section id="artisanat" className="py-14 sm:py-20 md:py-28 bg-[var(--ipk-surface)]">
+      <section id="artisanat" className="py-14 sm:py-20 md:py-28 ipk-sec-sky">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             
@@ -404,7 +414,7 @@ export function LandingPage() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {[
               { title: "Sculpture sur Bois", img: IMAGES.sculpture, desc: "Des masques rituels aux statues protectrices, chaque pièce est taillée dans des bois nobles comme l'ébène, l'iroko et le baobab, selon des codes symboliques transmis depuis des générations.", count: "240+ pièces" },
               { title: "Tissage & Textile", img: IMAGES.kente, desc: "Kente ghanéen, Bogolan malien, indigo Yoruba : ces textiles ne sont pas de simples étoffes. Chaque motif encode des proverbes, des lignages familiaux et des récits historiques.", count: "380+ pièces" },
@@ -415,13 +425,13 @@ export function LandingPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="group bg-white rounded-2xl overflow-hidden border border-[var(--ipk-border)] hover:shadow-lg transition-shadow"
+                className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl overflow-hidden border hover:shadow-lg transition-shadow grid md:grid-cols-2 items-center`}
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className={`relative overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
                   <LazyImage
                     src={item.img}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
                     <span className="text-[var(--ipk-green)]" style={{ fontSize: "12px", fontWeight: 600 }}>
@@ -429,11 +439,11 @@ export function LandingPage() {
                     </span>
                   </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-[var(--ipk-ink)] mb-2" style={{ fontSize: "18px", fontWeight: 600 }}>
+                <div className={`p-6 sm:p-8 flex flex-col justify-center ${i % 2 === 1 ? "md:order-1" : ""}`}>
+                  <h3 className="text-[var(--ipk-ink)] mb-3" style={{ fontSize: "22px", fontWeight: 600 }}>
                     {item.title}
                   </h3>
-                  <p className="text-[var(--ipk-text)]" style={{ fontSize: "14px", lineHeight: 1.7 }}>
+                  <p className="text-[var(--ipk-text)]" style={{ fontSize: "15px", lineHeight: 1.7 }}>
                     {item.desc}
                   </p>
                   <Link
@@ -509,7 +519,7 @@ export function LandingPage() {
       </section>
 
       {/* ── NORMES & CERTIFICATION ── */}
-      <section id="normes" className="py-14 sm:py-20 md:py-28 bg-white">
+      <section id="normes" className="py-14 sm:py-20 md:py-28 ipk-sec-yellow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="order-2 lg:order-1">
@@ -562,10 +572,10 @@ export function LandingPage() {
                     name: "Norme Patrimoine Artisanal & Ancestral Garanti",
                     desc: "Valide l'ancrage culturel et territorial de la pièce : son origine géographique exacte, l'histoire de la technique employée, la chaîne de transmission intergénérationnelle et la signification symbolique des motifs.",
                   },
-                ].map((norm) => (
+                ].map((norm, ni) => (
                   <div
                     key={norm.code}
-                    className="bg-[var(--ipk-surface)] rounded-2xl p-5 border border-[var(--ipk-border)]"
+                    className={`${ni % 2 === 0 ? "ipk-card-lilac" : "ipk-card-indigo"} rounded-2xl p-5 border`}
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <div className="px-3 py-1 rounded-lg bg-[var(--ipk-green)] text-white" style={{ fontSize: "12px", fontWeight: 700 }}>
@@ -680,7 +690,7 @@ export function LandingPage() {
       </section>
 
       {/* ── TÉMOIGNAGES ── */}
-      <section id="temoignages" className="py-14 sm:py-20 md:py-28 bg-[var(--ipk-surface)]">
+      <section id="temoignages" className="py-14 sm:py-20 md:py-28 ipk-sec-teal">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             
@@ -696,7 +706,7 @@ export function LandingPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {[
               {
                 name: "Aminata Diallo",
@@ -716,8 +726,8 @@ export function LandingPage() {
                 text: "Avec la certification N001KHAM, notre savoir-faire est enfin reconnu à sa juste valeur. La norme protège notre art et garantit la qualité aux acheteurs.",
                 rating: 5,
               },
-            ].map((t, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-[var(--ipk-border)]">
+            ].map((t, i, arr) => (
+              <div key={i} className={`${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl p-6 border ${i === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}>
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: t.rating }).map((_, j) => (
                     <Star key={j} className="w-4 h-4 text-[var(--ipk-amber)] fill-[var(--ipk-amber)]" />
@@ -748,7 +758,7 @@ export function LandingPage() {
       </section>
 
       {/* ── ACHATS GROUPÉS ── */}
-      <section id="achats-groupes" className="py-14 sm:py-20 md:py-28 bg-white">
+      <section id="achats-groupes" className="py-14 sm:py-20 md:py-28 ipk-sec-mint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             
@@ -789,8 +799,8 @@ export function LandingPage() {
           </div>
 
           {/* Featured offers */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {groupBuyingOffers.filter(o => o.status !== "completed").slice(0, 3).map((offer) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10">
+            {groupBuyingOffers.filter(o => o.status !== "completed").slice(0, 3).map((offer, oi, arr) => {
               const bestDiscount = offer.tiers[offer.tiers.length - 1].discount;
               const daysLeft = Math.max(0, Math.ceil((new Date(offer.deadline).getTime() - Date.now()) / 86400000));
               const pct = Math.min((offer.currentParticipants / offer.maxParticipants) * 100, 100);
@@ -798,7 +808,7 @@ export function LandingPage() {
                 <Link
                   key={offer.id}
                   to={`/achats-groupes/${offer.slug}`}
-                  className="group bg-[var(--ipk-surface)] rounded-2xl border border-[var(--ipk-border)] overflow-hidden hover:shadow-lg transition-all"
+                  className={`group ${CARD_TINTS[oi % CARD_TINTS.length]} rounded-2xl border overflow-hidden hover:shadow-lg transition-all ${oi === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <LazyImage
@@ -862,7 +872,7 @@ export function LandingPage() {
       </section>
 
       {/* ── ECOSYSTEM / WHAT WE OFFER ── */}
-      <section className="py-14 sm:py-20 md:py-28 bg-white">
+      <section className="py-14 sm:py-20 md:py-28 ipk-sec-gray">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             
@@ -883,7 +893,7 @@ export function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {[
               { icon: ShoppingBag, title: "Boutique", desc: "Plus de 3 200 pièces artisanales avec fiches détaillées : histoire, matériaux, normes de certification et traçabilité QR code.", link: "/boutique", color: "var(--ipk-green)" },
               { icon: Camera, title: "Galeries", desc: "10 galeries photographiques thématiques pour découvrir visuellement la diversité des techniques et des régions d'Afrique.", link: "/galeries", color: "var(--ipk-blue)" },
@@ -898,11 +908,11 @@ export function LandingPage() {
               { icon: Award, title: "Centre Patrimoines", desc: "Recherche, conservation et sauvegarde : documentation, inventaire des patrimoines vivants, collections, grands maîtres, langues, savoirs oraux, laboratoire, cartes interactives et Fonds KRAAFT.", link: "/patrimoines", color: "var(--ipk-green-darker)" },
               { icon: Package, title: "Place de Marché KRAAFT", desc: "Galeries d'œuvres, boutiques d'artisans, commandes personnalisées, appels à création, ventes aux enchères, labels d'authenticité, collections thématiques et services numériques.", link: "/marketplace", color: "var(--ipk-amber)" },
               { icon: Globe, title: "Dialogues & Innovation", desc: "Influence mondiale des patrimoines africains, diasporas, industries créatives, laboratoires KRAAFT, matériaux du futur, numérique, observatoires, partenariats et prospective.", link: "/dialogues", color: "var(--ipk-blue)" },
-            ].map((item, i) => (
+            ].map((item, i, arr) => (
               <Link
                 key={i}
                 to={item.link}
-                className="group bg-[var(--ipk-surface)] rounded-2xl p-5 border border-[var(--ipk-border)] hover:shadow-md hover:border-[#0D8A3E]/30 transition-all"
+                className={`group ${CARD_TINTS[i % CARD_TINTS.length]} rounded-2xl p-5 border hover:shadow-md transition-all ${i === arr.length - 1 && arr.length % 2 !== 0 ? "sm:col-span-2" : ""}`}
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
